@@ -63,8 +63,12 @@ GameEngine.prototype.startInput = function () {
         console.log(e);
         console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         debugger;
-        if ((e.clientX >= 610 || e.clientX <= 765) && (e.clientY >= 502 || e.clientY <= 555)){
+        if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555)){
             that.menu = {clicked: true, level : 1};
+        } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629)){
+            that.menu = {clicked: true, level : 2};
+        } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699)){
+            that.menu = {clicked: true, level : 3};
         }
     }, false);
 

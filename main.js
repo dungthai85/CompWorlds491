@@ -55,9 +55,13 @@ Background.prototype.draw = function () {
 };
 
 Background.prototype.update = function () {
-    if(this.game.menu.clicked)
+    if(this.game.menu.clicked && this.game.menu.level == 1) {
         gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
-
+    } else if (this.game.menu.clicked && this.game.menu.level == 2) {
+        gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 2/NoDamage.png")));
+    } else if (this.game.menu.clicked && this.game.menu.level == 3) {
+        gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 3/NoDamage.png")));
+    }
 };
 
 function MushroomDude(game, spritesheet) {
@@ -131,6 +135,8 @@ Guy.prototype.draw = function () {
 //AM.queueDownload("./img/runningcat.png");
 AM.queueDownload("./img/Background/start.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
+AM.queueDownload("./img/Background/Map 2/NoDamage.png");
+AM.queueDownload("./img/Background/Map 3/NoDamage.png");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
