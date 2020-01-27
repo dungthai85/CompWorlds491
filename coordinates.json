@@ -1,0 +1,31 @@
+{
+    "lane 1":{
+        "top_left" : {"x": 305, "y" : 385},
+        "bottom_right" : {"x": 1135, "y" : 467}
+    },
+    "lane 2":{
+        "top_left" : {"x": 305, "y" : 468},
+        "bottom_right" : {"x": 1135, "y" : 550}
+    },
+    "lane 3":{
+        "top_left" : {"x": 305, "y" : 551},
+        "bottom_right" : {"x": 1135, "y" : 620}
+    },
+    "fireball_profile": {
+        "top_left" : {"x": 904, "y" : 647},
+        "bottom_right" : {"x": 1010, "y" : 747}
+    },
+    "easy_level": {
+        "top_left" : {"x": 610, "y" : 502},
+        "bottom_right" : {"x": 765, "y" : 555}
+    },
+    "medium_level": {
+        "top_left" : {"x": 602, "y" : 579},
+        "bottom_right" : {"x": 863, "y" : 629}
+    },
+    "hard_level": {
+        "top_left" : {"x": 603, "y" : 649},
+        "bottom_right" : {"x": 777, "y" : 699}
+    }
+
+}
