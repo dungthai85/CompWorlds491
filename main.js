@@ -55,13 +55,17 @@ Background.prototype.draw = function () {
 };
 
 Background.prototype.update = function () {
-    if(this.game.menu.clicked && this.game.menu.level == 1) {
+    if(this.game.menu.clicked && this.game.menu.id === "easy") {
         gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
-    } else if (this.game.menu.clicked && this.game.menu.level == 2) {
+    } else if (this.game.menu.clicked && this.game.menu.id === "medium") {
         gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 2/NoDamage.png")));
-    } else if (this.game.menu.clicked && this.game.menu.level == 3) {
+    } else if (this.game.menu.clicked && this.game.menu.id === "hard") {
         gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 3/NoDamage.png")));
     }
+
+    if(this.game.menu.clicked && this.game.menu.id === "Fireball") {
+        gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png")));
+    } 
 };
 
 function MushroomDude(game, spritesheet) {
@@ -107,32 +111,35 @@ Cheetah.prototype.draw = function () {
 }
 
 // inheritance 
-function Guy(game, spritesheet) {
-    this.animation = new Animation(spritesheet, 154, 215, 4, 0.15, 8, true, 0.5);
+function Fireball(game, spritesheet, X, Y) {
+    this.animation = new Animation(spritesheet, 160, 160, 5, 0.15, 12, true, 0.5);
     this.speed = 100;
     this.ctx = game.ctx;
-    Entity.call(this, game, 0, 450);
+    Entity.call(this, game, 305, 385);
 }
 
-Guy.prototype = new Entity();
-Guy.prototype.constructor = Guy;
+Fireball.prototype = new Entity();
+Fireball.prototype.constructor = Fireball;
 
-Guy.prototype.update = function () {
-    this.x += this.game.clockTick * this.speed;
-    if (this.x > 800) this.x = -230;
-    Entity.prototype.update.call(this);
+Fireball.prototype.update = function () {
+    if (this.x < 1000){
+        this.x += this.game.clockTick * this.speed;
+        Entity.prototype.update.call(this);
+    } 
 }
 
-Guy.prototype.draw = function () {
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    Entity.prototype.draw.call(this);
+Fireball.prototype.draw = function () {
+    if (this.x < 1000){
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        Entity.prototype.draw.call(this);
+    }
 }
 
 
 //AM.queueDownload("./img/RobotUnicorn.png");
-//AM.queueDownload("./img/guy.jpg");
 //AM.queueDownload("./img/mushroomdude.png");
 //AM.queueDownload("./img/runningcat.png");
+AM.queueDownload("./img/Fireball.png");
 AM.queueDownload("./img/Background/start.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
 AM.queueDownload("./img/Background/Map 2/NoDamage.png");
@@ -146,10 +153,11 @@ AM.downloadAll(function () {
     gameEngine.start();
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/start.png")));
+    //gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png")));
     //gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
     //gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
     //gameEngine.addEntity(new Cheetah(gameEngine, AM.getAsset("./img/runningcat.png")));
-    //gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/guy.jpg")));
+
 
     console.log("All Done!");
 });

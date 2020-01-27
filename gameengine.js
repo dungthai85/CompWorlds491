@@ -64,11 +64,13 @@ GameEngine.prototype.startInput = function () {
         console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         debugger;
         if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555)){
-            that.menu = {clicked: true, level : 1};
+            that.menu = {clicked: true, id : "easy"};
         } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629)){
-            that.menu = {clicked: true, level : 2};
+            that.menu = {clicked: true, id : "medium"};
         } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699)){
-            that.menu = {clicked: true, level : 3};
+            that.menu = {clicked: true, id : "hard"};
+        } else if ((e.clientX >= 904 && e.clientX <= 1010) && (e.clientY >= 647 && e.clientY <= 747)){
+            that.menu = {clicked: true, id : "Fireball"};
         }
     }, false);
 
@@ -90,10 +92,10 @@ GameEngine.prototype.startInput = function () {
         console.log("Click Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
     }, false);
 
-    // this.ctx.canvas.addEventListener("keydown", function (e) {
-    //     console.log(e);
-    //     console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
-    // }, false);
+    this.ctx.canvas.addEventListener("keydown", function (e) {
+        console.log(e);
+        console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
+    }, false);
 
     this.ctx.canvas.addEventListener("keypress", function (e) {
         if (e.code === "KeyD") that.d = true;
@@ -138,7 +140,7 @@ GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
     this.update();
     this.draw();
-    this.menu = {clicked: false, level: null};
+    this.menu = {clicked: false, id: null};
 }
 
 function Timer() {
