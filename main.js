@@ -140,7 +140,7 @@ Fireball.prototype.draw = function () {
 //AM.queueDownload("./img/mushroomdude.png");
 //AM.queueDownload("./img/runningcat.png");
 AM.queueDownload("./img/Fireball.png");
-AM.queueDownload("./img/Background/start.png");
+AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
 AM.queueDownload("./img/Background/Map 2/NoDamage.png");
 AM.queueDownload("./img/Background/Map 3/NoDamage.png");
@@ -152,7 +152,7 @@ AM.downloadAll(function () {
     gameEngine.init(ctx);
     gameEngine.start();
 
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/start.png")));
+    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Start.png")));
     //gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png")));
     //gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
     //gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
