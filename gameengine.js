@@ -1,3 +1,4 @@
+var mainMenu = true;
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -41,7 +42,7 @@ GameEngine.prototype.startInput = function () {
         var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
         var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
 
-        if (x < 1024) {
+        if (x < 1440) {
             x = Math.floor(x / 32);
             y = Math.floor(y / 32);
         }
@@ -52,64 +53,52 @@ GameEngine.prototype.startInput = function () {
     var that = this;
 
     // event listeners are added here
-    this.ctx.canvas.addEventListener("keydown", function (e) {
-        if (String.fromCharCode(e.which) === ' ') that.space = true;
-        console.log(e);
-        e.preventDefault();
-    }, false);
 
     this.ctx.canvas.addEventListener("click", function (e) {
         that.click = getXandY(e);
         console.log(e);
         console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         debugger;
-        if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555)){
-            that.menu = {clicked: true, id : "easy"};
-        } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629)){
-            that.menu = {clicked: true, id : "medium"};
-        } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699)){
-            that.menu = {clicked: true, id : "hard"};
-        } else if ((e.clientX >= 904 && e.clientX <= 1010) && (e.clientY >= 647 && e.clientY <= 747)){
-            that.menu = {clicked: true, id : "Fireball"};
-        }
-    }, false);
 
-    this.ctx.canvas.addEventListener("contextmenu", function (e) {
-        that.click = getXandY(e);
-        console.log(e);
-        console.log("Right Click Event - X,Y " + e.clientX + ", " + e.clientY);
-        e.preventDefault();
-    }, false);
-
-    this.ctx.canvas.addEventListener("mousemove", function (e) {
-        //console.log(e);
-        that.mouse = getXandY(e);
-    }, false);
-
-    this.ctx.canvas.addEventListener("mousewheel", function (e) {
-        console.log(e);
-        that.wheel = e;
-        console.log("Click Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
-    }, false);
-
-    this.ctx.canvas.addEventListener("keydown", function (e) {
-        console.log(e);
-        console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
-    }, false);
-
-    this.ctx.canvas.addEventListener("keypress", function (e) {
-        if (e.code === "KeyD") that.d = true;
-        that.chars[e.code] = true;
-        console.log(e);
-        console.log("Key Pressed Event - Char " + e.charCode + " Code " + e.keyCode);
-    }, false);
-
-    this.ctx.canvas.addEventListener("keyup", function (e) {
-        console.log(e);
-        console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
+        that.menu = getSelectedThing(e, that);
+        //that.lane = getSelectedLane(e, that);
+        console.log("first " + that.menu.id);
+        //console.log(that.lane);
     }, false);
 
     console.log('Input started');
+}
+function getSelectedThing(e, that){
+    if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555) && mainMenu){
+        that.menu = {clicked: true, id : "easy"};
+        mainMenu = false;
+    } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629) && mainMenu){
+        that.menu = {clicked: true, id : "medium"};
+        mainMenu = false;
+    } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699) & mainMenu){
+        that.menu = {clicked: true, id : "hard"};
+        mainMenu = false;
+    } else if ((e.clientX >= 614 && e.clientX <= 881) && (e.clientY >= 711 && e.clientY <= 771) & mainMenu){
+        that.menu = {clicked: true, id : "tutorial"};
+        mainMenu = false;
+    } else if ((e.clientX >= 904 && e.clientX <= 1010) && (e.clientY >= 647 && e.clientY <= 747)){
+        that.menu = {clicked: true, id : "Fireball"};
+    } else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)){
+        that.menu = {clicked: true, id : "back"};
+        mainMenu = true;
+    }
+    return that.menu;
+}
+
+function getSelectedLane(e, that){
+    if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 385 && e.clientY <= 467)){
+        that.lane = 1;
+    } else if((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 468 && e.clientY <= 550)){
+        that.lane = 2;
+    } else if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 1135 && e.clientY <= 620)){
+        that.lane = 3;
+    }
+    return that.lane;
 }
 
 GameEngine.prototype.addEntity = function (entity) {
@@ -140,7 +129,9 @@ GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
     this.update();
     this.draw();
+    
     this.menu = {clicked: false, id: null};
+    this.lane = 0;
 }
 
 function Timer() {

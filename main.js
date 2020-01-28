@@ -66,6 +66,12 @@ Background.prototype.update = function () {
     if(this.game.menu.clicked && this.game.menu.id === "Fireball") {
         gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png")));
     } 
+    if(this.game.menu.clicked && this.game.menu.id === "back") {
+        gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/start.png")));
+    } 
+    if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
+        gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Tutorial.png")));
+    } 
 };
 
 function MushroomDude(game, spritesheet) {
@@ -141,6 +147,7 @@ Fireball.prototype.draw = function () {
 //AM.queueDownload("./img/runningcat.png");
 AM.queueDownload("./img/Fireball.png");
 AM.queueDownload("./img/Background/start.png");
+AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
 AM.queueDownload("./img/Background/Map 2/NoDamage.png");
 AM.queueDownload("./img/Background/Map 3/NoDamage.png");
