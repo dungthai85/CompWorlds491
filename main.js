@@ -216,6 +216,137 @@ Goblin.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
+// Enemy side
+function Orge(game, spritesheet, X, Y) {
+    this.walk_animation = new MyAnimation(spritesheet, 0, 0, 920, 900, 0.4, 11, true, false);
+    this.attack_animation = new MyAnimation(spritesheet, 0, 1000, 920, 900, 0.05, 12, true, false);
+    this.attacking = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
+
+Orge.prototype = new Entity();
+Orge.prototype.constructor = Orge;
+
+Orge.prototype.update = function () {
+    
+    if (this.x  > 250) {
+        this.x -= this.game.clockTick * this.speed;
+
+    }
+    if (this.x < 250) {
+        this.attacking = true;
+    }
+
+    if (this.attacking) {
+        // this.x -= this.game.clockTick;
+        if (this.attack_animation.isDone()) {
+            this.attack_animation.elapsedTime = 0;
+            this.attacking = false;
+        }      
+    }
+    // this.x += this.game.clockTick * this.speed;
+    // if (this.x > 800) this.x = -230;
+    Entity.prototype.update.call(this);
+}
+
+Orge.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+    }
+    Entity.prototype.draw.call(this);
+}
+
+function FallenAngel(game, spritesheet, X, Y) {
+    this.walk_animation = new MyAnimation(spritesheet, 30, 0, 920, 900, 0.4, 11, true, false);
+    this.attack_animation = new MyAnimation(spritesheet, 5, 1000, 920, 900, 0.05, 12, true, false);
+    this.attacking = false;
+    this.speed = 150;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
+
+FallenAngel.prototype = new Entity();
+FallenAngel.prototype.constructor = FallenAngel;
+
+FallenAngel.prototype.update = function () {
+    
+    if (this.x  > 270) {
+        this.x -= this.game.clockTick * this.speed;
+
+    }
+    if (this.x < 270) {
+        this.attacking = true;
+    }
+
+    if (this.attacking) {
+        // this.x -= this.game.clockTick;
+        if (this.attack_animation.isDone()) {
+            this.attack_animation.elapsedTime = 0;
+            this.attacking = false;
+        }      
+    }
+    // this.x += this.game.clockTick * this.speed;
+    // if (this.x > 800) this.x = -230;
+    Entity.prototype.update.call(this);
+}
+
+FallenAngel.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y,0.1);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y,0.1); 
+    }
+    Entity.prototype.draw.call(this);
+}
+
+
+function ReaperMan(game, spritesheet, X, Y) {
+    this.walk_animation = new Animation(spritesheet, 30, 0, 920, 900, 10, 0.4, 9, true, 0.15);
+    this.attack_animation = new Animation(spritesheet, 30, 900, 920, 900, 30, 0.05, 12, true, 0.15);
+    this.attacking = false;
+    this.speed = 200;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
+
+ReaperMan.prototype = new Entity();
+ReaperMan.prototype.constructor = ReaperMan;
+
+ReaperMan.prototype.update = function () {
+    
+    if (this.x  > 200) {
+        this.x -= this.game.clockTick * this.speed;
+
+    }
+    if (this.x < 200) {
+        this.attacking = true;
+    }
+
+    if (this.attacking) {
+        // this.x -= this.game.clockTick;
+        if (this.attack_animation.isDone()) {
+            this.attack_animation.elapsedTime = 0;
+            this.attacking = false;
+        }      
+    }
+    Entity.prototype.update.call(this);
+}
+
+ReaperMan.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); 
+    }
+    Entity.prototype.draw.call(this);
+}
 
 
 function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
@@ -277,6 +408,10 @@ Background.prototype.draw = function () {
     if(this.game.menu.clicked && this.game.menu.id === "easy") {
         this.spritesheet = this.level1;
         this.start = false;
+        this.game.addEntity(new Orge(this.game, AM.getAsset("./img/enemy_team/orge_flipped.png"), 1100, 425));
+
+        this.game.addEntity(new FallenAngel(this.game, AM.getAsset("./img/enemy_team/fallen_angel_flipped.png"), 1100, 350));
+
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.spritesheet = this.level2;
         this.start = false;
@@ -476,6 +611,10 @@ AM.queueDownload("./img/Knight.png");
 AM.queueDownload("./img/Samurai.png");
 AM.queueDownload("./img/Goblin.png");
 AM.queueDownload("./img/Bandit.png");
+AM.queueDownload("./img/enemy_team/reaper_man_flipped.png");
+AM.queueDownload("./img/enemy_team/fallen_angel_flipped.png");
+AM.queueDownload("./img/enemy_team/orge_flipped.png");
+
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
@@ -495,7 +634,10 @@ AM.downloadAll(function () {
     //gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
     //gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
     //gameEngine.addEntity(new Cheetah(gameEngine, AM.getAsset("./img/runningcat.png")));
-
+    // gameEngine.addEntity(new ReaperMan(gameEngine, AM.getAsset("./img/enemy_team/reaper_man_flipped.png"), 1100, 500));
+    
+    // gameEngine.addEntity(new FallenAngel(gameEngine, AM.getAsset("./img/enemy_team/fallen_angel_flipped.png"), 1100, 350));
+    // gameEngine.addEntity(new Orge(gameEngine, AM.getAsset("./img/enemy_team/orge_flipped.png"), 1100, 425));
 
     console.log("All Done!");
 });
