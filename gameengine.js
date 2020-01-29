@@ -1,4 +1,5 @@
 var mainMenu = true;
+
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -59,11 +60,9 @@ GameEngine.prototype.startInput = function () {
         console.log(e);
         console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         debugger;
-
         that.menu = getSelectedThing(e, that);
-        //that.lane = getSelectedLane(e, that);
-        console.log("first " + that.menu.id);
-        //console.log(that.lane);
+        console.log(that.menu.id);
+        that.lane = getSelectedLane(e, that);
     }, false);
 
     console.log('Input started');
@@ -95,7 +94,7 @@ function getSelectedLane(e, that){
         that.lane = 1;
     } else if((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 468 && e.clientY <= 550)){
         that.lane = 2;
-    } else if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 1135 && e.clientY <= 620)){
+    } else if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 551 && e.clientY <= 620)){
         that.lane = 3;
     }
     return that.lane;
