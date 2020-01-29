@@ -47,25 +47,38 @@ function Background(game, spritesheet) {
     this.spritesheet = spritesheet;
     this.game = game;
     this.ctx = game.ctx;
+    this.start = true;
+    this.startBackground = AM.getAsset("./img/Background/Start.png");
+    this.level1 = AM.getAsset("./img/Background/Map 1/NoDamage.png");
+    this.level2 =  AM.getAsset("./img/Background/Map 2/NoDamage.png");
+    this.level3 =  AM.getAsset("./img/Background/Map 3/NoDamage.png");
+    this.tutorial = AM.getAsset("./img/Background/Tutorial.png");
 };
 
 Background.prototype.draw = function () {
-    this.ctx.drawImage(this.spritesheet,
-                   this.x, this.y);
+    if(this.game.menu.clicked && this.game.menu.id === "easy") {
+        this.spritesheet = this.level1;
+        this.start = false;
+    } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
+        this.spritesheet = this.level2;
+        this.start = false;
+    } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
+        this.spritesheet = this.level3;
+        this.start = false;
+    } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
+        this.spritesheet = this.tutorial;
+        this.start = false;
+    } else if(this.game.menu.clicked && this.game.menu.id === "back") {
+        this.start = true;
+    } 
+    if (this.start) {
+        this.spritesheet = this.startBackground;
+        this.start = true;
+    }
+    this.ctx.drawImage(this.spritesheet,this.x, this.y);
 };
 
 Background.prototype.update = function () {
-    if(this.game.menu.clicked && this.game.menu.id === "easy") {
-        gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
-    } else if (this.game.menu.clicked && this.game.menu.id === "medium") {
-        gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 2/NoDamage.png")));
-    } else if (this.game.menu.clicked && this.game.menu.id === "hard") {
-        gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 3/NoDamage.png")));
-    }
-
-    if(this.game.menu.clicked && this.game.menu.id === "Fireball") {
-        gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png")));
-    } 
 };
 
 function MushroomDude(game, spritesheet) {
@@ -115,7 +128,8 @@ function Fireball(game, spritesheet, X, Y) {
     this.animation = new Animation(spritesheet, 160, 160, 5, 0.15, 12, true, 0.5);
     this.speed = 100;
     this.ctx = game.ctx;
-    Entity.call(this, game, 305, 385);
+    //Entity.call(this, game, 305, 385);
+    Entity.call(this, game, X, Y);
 }
 
 Fireball.prototype = new Entity();
@@ -135,12 +149,52 @@ Fireball.prototype.draw = function () {
     }
 }
 
+function UnitsControl (game){
+    this.game = game;
+    this.unitName = null;
+    this.lane = null;
+}
+
+UnitsControl.prototype = new Entity();
+UnitsControl.prototype.constructor = UnitsControl;
+
+UnitsControl.prototype.update = function () {
+    
+}
+
+UnitsControl.prototype.draw = function () {
+    if(this.game.menu.clicked && this.game.menu.id === "Fireball") {
+        this.unitName = "Fireball";
+    } 
+    if (this.game.lane != null){
+        this.lane = this.game.lane;
+    }
+    if (this.unitName != null && this.lane != null){
+        if (this.unitName === "Fireball" && this.lane === 1){
+            gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png"), 305, 385));
+            this.unitName = null;
+            this.lane = null;
+        } else if (this.unitName === "Fireball" && this.lane === 2){
+            gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png"), 305, 468));
+            this.unitName = null;
+            this.lane = null;
+        } else if (this.unitName === "Fireball" && this.lane === 3){
+            gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png"), 305, 551));
+            this.unitName = null;
+            this.lane = null;
+        }
+    }
+}
+
+
+
 
 //AM.queueDownload("./img/RobotUnicorn.png");
 //AM.queueDownload("./img/mushroomdude.png");
 //AM.queueDownload("./img/runningcat.png");
 AM.queueDownload("./img/Fireball.png");
 AM.queueDownload("./img/Background/Start.png");
+AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
 AM.queueDownload("./img/Background/Map 2/NoDamage.png");
 AM.queueDownload("./img/Background/Map 3/NoDamage.png");
@@ -153,6 +207,7 @@ AM.downloadAll(function () {
     gameEngine.start();
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Start.png")));
+    gameEngine.addEntity(new UnitsControl(gameEngine));
     //gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png")));
     //gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
     //gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));

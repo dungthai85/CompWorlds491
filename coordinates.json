@@ -26,6 +26,33 @@
     "hard_level": {
         "top_left" : {"x": 603, "y" : 649},
         "bottom_right" : {"x": 777, "y" : 699}
+    },
+    "tutorial" :{
+        "top_left" : {"x" : 614, "y" : 711},
+        "bottom_right" : {"x": 881, "y" : 771}
+    },
+    "back" :{
+        "top_left" : {"x" : 20, "y" : 12},
+        "bottom_right" : {"x": 182, "y" : 64}
+    },
+    "knight" :{
+        "top_left" : {"x" : 421, "y" : 650},
+        "bottom_right" : {"x": 526, "y" : 751}
+    },
+    "ni" :{
+        "top_left" : {"x" : 539, "y" : 648},
+        "bottom_right" : {"x": 644, "y" : 749}
+    },    
+    "samurai" :{
+        "top_left" : {"x" : 660, "y" : 647},
+        "bottom_right" : {"x": 764, "y" : 748}
+    },
+    "goblin" :{
+        "top_left" : {"x" : 782, "y" : 646},
+        "bottom_right" : {"x": 884, "y" : 747}
+    },
+    "sound" :{
+        "top_left" : {"x" : 1280, "y" : 751},
+        "bottom_right" : {"x": 1406, "y" : 780}
     }
-
 }
