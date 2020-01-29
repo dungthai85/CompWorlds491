@@ -1,4 +1,6 @@
 var mainMenu = true;
+// var MOUSE_X = null;
+// var MOUSE_Y = null;
 
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
@@ -57,49 +59,98 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("click", function (e) {
         that.click = getXandY(e);
-        console.log(e);
-        console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
+        //console.log(e);
+        //console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         debugger;
-        that.menu = getSelectedThing(e, that);
-        console.log(that.menu.id);
+        that.menu = getSelectedThing(e, that, true);
+        //console.log(that.menu.id);
         that.lane = getSelectedLane(e, that);
     }, false);
 
     this.ctx.canvas.addEventListener("mousemove", function (e) {
-        that.mouse = {x : e.clientX, y : e.clientY};
-        console.log("X,Y " + e.clientX, e.clientY);
+        //that.mouse = {x : e.clientX, y : e.clientY};
+        that.mouseXY = {x : e.clientX, y : e.clientY};
+        that.menu = getSelectedThing(e, that, false);
+        //console.log("X,Y " + e.clientX, e.clientY);
     }, false);
 
+    // this.ctx.canvas.addEventListener("mouseover", function (e) {
+    //     //that.menu = getSelectedThing(e, that, false);
+    //     //console.log("mouse over " + that.mouseOver.id);
+    //     //console.log("X,Y " + e.clientX, e.clientY);
+    // }, false);
 
 
     console.log('Input started');
 }
-function getSelectedThing(e, that){
+function getSelectedThing(e, that, click){
     if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555) && mainMenu) {
-        that.menu = { clicked: true, id: "easy" };
-        mainMenu = false;
+        if (click){
+            that.menu = { clicked: true, id: "easy", mousemove: false };
+            mainMenu = false;
+        } else {
+            that.menu = { clicked: false, id: "easy", mousemove: true };
+        }
     } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629) && mainMenu) {
-        that.menu = { clicked: true, id: "medium" };
-        mainMenu = false;
+        if (click){
+            that.menu = { clicked: true, id: "medium", mousemove: false };
+            mainMenu = false;
+        } else {
+            that.menu = { clicked: false, id: "medium", mousemove: true };
+        }
     } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699) & mainMenu) {
-        that.menu = { clicked: true, id: "hard" };
-        mainMenu = false;
+        if (click){
+            that.menu = { clicked: true, id: "hard", mousemove: false };
+            mainMenu = false;
+        } else {
+            that.menu = { clicked: false, id: "hard", mousemove: true };
+        }
     } else if ((e.clientX >= 614 && e.clientX <= 881) && (e.clientY >= 711 && e.clientY <= 771) & mainMenu) {
-        that.menu = { clicked: true, id: "tutorial" };
-        mainMenu = false;
+        if (click){
+            that.menu = { clicked: true, id: "tutorial", mousemove: false };
+            mainMenu = false;
+        } else {
+            that.menu = { clicked: false, id: "tutorial", mousemove: true };
+        }
     } else if ((e.clientX >= 904 && e.clientX <= 1010) && (e.clientY >= 647 && e.clientY <= 747)) {
-        that.menu = { clicked: true, id: "Fireball" };
+        if (click){
+            that.menu = { clicked: true, id: "Fireball", mousemove: false };
+    
+        } else {
+            that.menu = { clicked: false, id: "Fireball", mousemove: true };
+        }
     } else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)) {
-        that.menu = { clicked: true, id: "back" };
-        mainMenu = true;
+        if (click){
+            that.menu = { clicked: true, id: "back", mousemove: false };
+            mainMenu = true;
+        } else {
+            that.menu = { clicked: false, id: "back", mousemove: true };
+        }
     } else if ((e.clientX >= 421 && e.clientX <= 526) && (e.clientY >= 650 && e.clientY <= 751)) {
-        that.menu = { clicked: true, id: "Knight" };
+        if (click){
+            that.menu = { clicked: true, id: "Knight", mousemove: false };
+        } else {
+            that.menu = { clicked: false, id: "knight", mousemove: true };
+        }
     } else if ((e.clientX >= 539 && e.clientX <= 644) && (e.clientY >= 648 && e.clientY <= 749)) {
-        that.menu = { clicked: true, id: "Bandit" };
+        if (click){
+            that.menu = { clicked: true, id: "Bandit", mousemove: false };
+        } else {
+            that.menu = { clicked: false, id: "Bandit", mousemove: true };
+        }
     } else if ((e.clientX >= 660 && e.clientX <= 764) && (e.clientY >= 647 && e.clientY <= 748)) {
-        that.menu = { clicked: true, id: "Samurai" };
+        if (click){
+            that.menu = { clicked: true, id: "Samurai", mousemove: false };
+        } else {
+            that.menu = { clicked: false, id: "Samurai", mousemove: true };
+        }
     } else if ((e.clientX >= 782 && e.clientX <= 884) && (e.clientY >= 646 && e.clientY <= 747)) {
-        that.menu = { clicked: true, id: "Goblin" };
+        if (click){
+            that.menu = { clicked: true, id: "Goblin", mousemove: false };
+            mainMenu = false;
+        } else {
+            that.menu = { clicked: false, id: "Goblin", mousemove: true };
+        }
     }
     return that.menu;
 }
@@ -149,7 +200,9 @@ GameEngine.prototype.loop = function () {
     
     this.menu = {clicked: false, id: null};
     this.lane = 0;
-    this.mouse = null;
+    //this.mouse = null;
+    // this.mouseOver = null;
+    //this.mouseXY;
 }
 
 function Timer() {
