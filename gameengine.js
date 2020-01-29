@@ -65,6 +65,13 @@ GameEngine.prototype.startInput = function () {
         that.lane = getSelectedLane(e, that);
     }, false);
 
+    this.ctx.canvas.addEventListener("mousemove", function (e) {
+        that.mouse = {x : e.clientX, y : e.clientY};
+        console.log("X,Y " + e.clientX, e.clientY);
+    }, false);
+
+
+
     console.log('Input started');
 }
 function getSelectedThing(e, that){
@@ -119,7 +126,6 @@ GameEngine.prototype.update = function () {
 
     for (var i = 0; i < entitiesCount; i++) {
         var entity = this.entities[i];
-
         entity.update();
     }
 }
@@ -131,6 +137,7 @@ GameEngine.prototype.loop = function () {
     
     this.menu = {clicked: false, id: null};
     this.lane = 0;
+    this.mouse = null;
 }
 
 function Timer() {
