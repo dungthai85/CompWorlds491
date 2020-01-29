@@ -218,7 +218,7 @@ Goblin.prototype.draw = function () {
 
 // Enemy side
 function Orge(game, spritesheet, X, Y) {
-    this.walk_animation = new MyAnimation(spritesheet, 0, 0, 920, 900, 0.4, 11, true, false);
+    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/Orc_Walk_by_Justin.png"), 0, 0, 900, 900, 0.15, 24, true, false);
     this.attack_animation = new MyAnimation(spritesheet, 0, 1000, 920, 900, 0.05, 12, true, false);
     this.attacking = false;
     this.speed = 100;
@@ -614,6 +614,8 @@ AM.queueDownload("./img/Bandit.png");
 AM.queueDownload("./img/enemy_team/reaper_man_flipped.png");
 AM.queueDownload("./img/enemy_team/fallen_angel_flipped.png");
 AM.queueDownload("./img/enemy_team/orge_flipped.png");
+AM.queueDownload("./img/enemy_team/Orc_Walk_by_Justin.png");
+// Orc_Walk_by_Justin.png
 
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
