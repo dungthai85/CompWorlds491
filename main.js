@@ -58,6 +58,23 @@ class MyAnimation {
 
     }
 
+    
+
+    
+
+}
+
+
+function getLaneEnd(yValue) {
+    if (yValue === 385) { // lane 1
+        return 1080;
+    } else if (yValue === 468) { // lane 2
+        return 1109;
+    } else if (yValue === 551) { // lane 3
+        return 1200;
+    }
+
+
 }
 
 // Player controlled unit bandit
@@ -69,7 +86,7 @@ function Bandit(game, spritesheet, X, Y) {
     this.attacking = false;
     this.speed = 100;
     this.ctx = game.ctx;
-
+    this.laneEnd = getLaneEnd(Y);
     // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);
 }
@@ -80,7 +97,7 @@ Bandit.prototype.constructor = Bandit;
 Bandit.prototype.update = function () {
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x > 1075) {
+        if (this.x > this.laneEnd) {
             this.moving = false;
             this.attacking = true;
         }
@@ -108,6 +125,7 @@ function Knight(game, spritesheet, X, Y) {
     this.attacking = false;
     this.speed = 100;
     this.ctx = game.ctx;
+    this.laneEnd = getLaneEnd(Y);
 
     // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);
@@ -119,7 +137,7 @@ Knight.prototype.constructor = Knight;
 Knight.prototype.update = function () {
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x > 1075) {
+        if (this.x > this.laneEnd + 10) {
             this.moving = false;
             this.attacking = true;
         }
@@ -147,6 +165,7 @@ function Samurai(game, spritesheet, X, Y) {
     this.attacking = false;
     this.speed = 100;
     this.ctx = game.ctx;
+    this.laneEnd = getLaneEnd(Y);
 
     // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);
@@ -158,7 +177,7 @@ Samurai.prototype.constructor = Samurai;
 Samurai.prototype.update = function () {
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x > 1075) {
+        if (this.x > this.laneEnd) {
             this.moving = false;
             this.attacking = true;
         }
@@ -186,6 +205,7 @@ function Goblin(game, spritesheet, X, Y) {
     this.attacking = false;
     this.speed = 100;
     this.ctx = game.ctx;
+    this.laneEnd = getLaneEnd(Y);
 
     // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);
@@ -197,7 +217,7 @@ Goblin.prototype.constructor = Goblin;
 Goblin.prototype.update = function () {
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x > 1075) {
+        if (this.x > this.laneEnd) {
             this.moving = false;
             this.attacking = true;
         }
