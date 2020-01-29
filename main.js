@@ -128,7 +128,6 @@ function Fireball(game, spritesheet, X, Y) {
     this.animation = new Animation(spritesheet, 160, 160, 5, 0.15, 12, true, 0.5);
     this.speed = 100;
     this.ctx = game.ctx;
-    //Entity.call(this, game, 305, 385);
     Entity.call(this, game, X, Y);
 }
 
@@ -136,14 +135,14 @@ Fireball.prototype = new Entity();
 Fireball.prototype.constructor = Fireball;
 
 Fireball.prototype.update = function () {
-    if (this.x < 1000){
+    if (this.x < 1135){
         this.x += this.game.clockTick * this.speed;
         Entity.prototype.update.call(this);
     } 
 }
 
 Fireball.prototype.draw = function () {
-    if (this.x < 1000){
+    if (this.x < 1135){
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         Entity.prototype.draw.call(this);
     }
@@ -153,6 +152,8 @@ function UnitsControl (game){
     this.game = game;
     this.unitName = null;
     this.lane = null;
+    this.ctx = game.ctx;
+    this.shadow = false;
 }
 
 UnitsControl.prototype = new Entity();
@@ -165,7 +166,13 @@ UnitsControl.prototype.update = function () {
 UnitsControl.prototype.draw = function () {
     if(this.game.menu.clicked && this.game.menu.id === "Fireball") {
         this.unitName = "Fireball";
+        this.shadow = true;
     } 
+    if (this.unitName === "Fireball" && this.shadow && this.game.mouse){
+        this.ctx.globalAlpha = 0.5;
+        //console.log(this.game.mouse.x);
+        this.ctx.drawImage(AM.getAsset("./img/Fireball_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
+    }
     if (this.game.lane != null){
         this.lane = this.game.lane;
     }
@@ -193,6 +200,7 @@ UnitsControl.prototype.draw = function () {
 //AM.queueDownload("./img/mushroomdude.png");
 //AM.queueDownload("./img/runningcat.png");
 AM.queueDownload("./img/Fireball.png");
+AM.queueDownload("./img/Fireball_icon.png");
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
