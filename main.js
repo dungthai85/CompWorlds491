@@ -1,5 +1,5 @@
 var AM = new AssetManager();
-var gameEngine = new GameEngine();
+
 function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
     this.spriteSheet = spriteSheet;
     this.frameWidth = frameWidth;
@@ -70,6 +70,7 @@ Background.prototype.draw = function () {
         this.start = false;
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
         this.start = true;
+        this.game.reset();
     } 
     if (this.start) {
         this.spritesheet = this.startBackground;
@@ -178,15 +179,15 @@ UnitsControl.prototype.draw = function () {
     }
     if (this.unitName != null && this.lane != null){
         if (this.unitName === "Fireball" && this.lane === 1){
-            gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png"), 305, 385));
+            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball.png"), 305, 385));
             this.unitName = null;
             this.lane = null;
         } else if (this.unitName === "Fireball" && this.lane === 2){
-            gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png"), 305, 468));
+            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball.png"), 305, 468));
             this.unitName = null;
             this.lane = null;
         } else if (this.unitName === "Fireball" && this.lane === 3){
-            gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png"), 305, 551));
+            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball.png"), 305, 551));
             this.unitName = null;
             this.lane = null;
         }
@@ -210,7 +211,7 @@ AM.queueDownload("./img/Background/Map 3/NoDamage.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
-
+    var gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();
 
