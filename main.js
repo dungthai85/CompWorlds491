@@ -277,12 +277,18 @@ Background.prototype.draw = function () {
     if(this.game.menu.clicked && this.game.menu.id === "easy") {
         this.spritesheet = this.level1;
         this.start = false;
+        this.game.addEntity(new RedHP(this.game));
+        this.game.addEntity(new BlueHP(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.spritesheet = this.level2;
         this.start = false;
+        this.game.addEntity(new RedHP(this.game));
+        this.game.addEntity(new BlueHP(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.spritesheet = this.level3;
         this.start = false;
+        this.game.addEntity(new RedHP(this.game));
+        this.game.addEntity(new BlueHP(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.spritesheet = this.tutorial;
         this.start = false;
@@ -294,7 +300,14 @@ Background.prototype.draw = function () {
         this.spritesheet = this.startBackground;
         this.start = true;
     }
+
     this.ctx.drawImage(this.spritesheet,this.x, this.y);
+    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
+        debugger;
+        // this.ctx.fillStyle = "rgb(255, 0, 0)";
+        // this.ctx.fillRect(610, 502, 155, 53);
+        this.ctx.drawImage(AM.getAsset("./img/Background/EasyText.png"), 590, 475, 200, 100);
+    }
 };
 
 Background.prototype.update = function () {
@@ -399,22 +412,31 @@ UnitsControl.prototype.draw = function () {
         this.unitName = "Goblin";
         this.shadow = true;
     }
-    if (this.unitName === "Fireball" && this.shadow && this.game.mouse){
+    if (this.unitName === "Fireball" && this.shadow){
+        this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        //console.log(this.game.mouse.x);
-        this.ctx.drawImage(AM.getAsset("./img/Fireball_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
-    } else if (this.unitName === "Knight" && this.shadow && this.game.mouse){
+        this.ctx.drawImage(AM.getAsset("./img/Fireball_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.restore();
+    } else if (this.unitName === "Knight" && this.shadow){
+        this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Knight_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
-    } else if (this.unitName === "Bandit" && this.shadow && this.game.mouse){
+        this.ctx.drawImage(AM.getAsset("./img/Knight_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.restore();
+    } else if (this.unitName === "Bandit" && this.shadow){
+        this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Bandit_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
-    } else if (this.unitName === "Samurai" && this.shadow && this.game.mouse){
+        this.ctx.drawImage(AM.getAsset("./img/Bandit_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.restore();
+    } else if (this.unitName === "Samurai" && this.shadow){
+        this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Samurai_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
-    } else if (this.unitName === "Goblin" && this.shadow && this.game.mouse){
+        this.ctx.drawImage(AM.getAsset("./img/Samurai_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.restore();
+    } else if (this.unitName === "Goblin" && this.shadow){
+        this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Goblin_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
+        this.ctx.drawImage(AM.getAsset("./img/Goblin_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.restore();
     }
     if (this.game.lane != null){
         this.lane = this.game.lane;
@@ -454,13 +476,64 @@ UnitsControl.prototype.draw = function () {
             this.lane = null;
 
         }
+        //this.shadow = false;
 
 
 
     }
 }
 
+function RedHP(game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.full = true;
+    this.half = false;
+    this.quarter = false;
 
+}
+
+RedHP.prototype = new Entity();
+RedHP.prototype.constructor = RedHP;
+
+RedHP.prototype.update = function () {
+    
+}
+
+RedHP.prototype.draw = function () {
+    if (this.full){
+        this.ctx.fillStyle = "rgb(58, 174, 89)";
+    } 
+    if (this.quarter){
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+    }
+    this.ctx.fillRect(288, 137, 296, 34);
+}
+
+function BlueHP(game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.full = true;
+    this.half = false;
+    this.quarter = false;
+
+}
+
+BlueHP.prototype = new Entity();
+BlueHP.prototype.constructor = BlueHP;
+
+BlueHP.prototype.update = function () {
+    
+}
+
+BlueHP.prototype.draw = function () {
+    if (this.full){
+        this.ctx.fillStyle = "rgb(58, 174, 89)";
+    } 
+    if (this.quarter){
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+    }
+    this.ctx.fillRect(856, 137, 296, 34);
+}
 
 
 //AM.queueDownload("./img/RobotUnicorn.png");
@@ -481,7 +554,7 @@ AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
 AM.queueDownload("./img/Background/Map 2/NoDamage.png");
 AM.queueDownload("./img/Background/Map 3/NoDamage.png");
-
+AM.queueDownload("./img/Background/EasyText.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");

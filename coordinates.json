@@ -54,5 +54,13 @@
     "sound" :{
         "top_left" : {"x" : 1280, "y" : 751},
         "bottom_right" : {"x": 1406, "y" : 780}
+    },
+    "Red_HP":{
+        "top_left" : {"x" : 288, "y" : 137},
+        "bottom_right" : {"x": 584, "y" : 171}
+    },
+    "Blue_HP":{
+        "top_left" : {"x" : 856, "y" : 137},
+        "bottom_right" : {"x": 1152, "y" : 171}
     }
 }
