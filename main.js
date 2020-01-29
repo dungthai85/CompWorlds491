@@ -388,17 +388,33 @@ UnitsControl.prototype.draw = function () {
         this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === "Knight") {
         this.unitName = "Knight";
+        this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === "Bandit") {
         this.unitName = "Bandit";
+        this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === "Samurai") {
         this.unitName = "Samurai";
+        this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === "Goblin") {
         this.unitName = "Goblin";
+        this.shadow = true;
     }
     if (this.unitName === "Fireball" && this.shadow && this.game.mouse){
         this.ctx.globalAlpha = 0.5;
         //console.log(this.game.mouse.x);
         this.ctx.drawImage(AM.getAsset("./img/Fireball_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
+    } else if (this.unitName === "Knight" && this.shadow && this.game.mouse){
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.drawImage(AM.getAsset("./img/Knight_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
+    } else if (this.unitName === "Bandit" && this.shadow && this.game.mouse){
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.drawImage(AM.getAsset("./img/Bandit_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
+    } else if (this.unitName === "Samurai" && this.shadow && this.game.mouse){
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.drawImage(AM.getAsset("./img/Samurai_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
+    } else if (this.unitName === "Goblin" && this.shadow && this.game.mouse){
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.drawImage(AM.getAsset("./img/Goblin_icon.png"), this.game.mouse.x - 50, this.game.mouse.y - 50, 85.5, 80);
     }
     if (this.game.lane != null){
         this.lane = this.game.lane;
@@ -452,6 +468,10 @@ UnitsControl.prototype.draw = function () {
 //AM.queueDownload("./img/runningcat.png");
 AM.queueDownload("./img/Fireball.png");
 AM.queueDownload("./img/Fireball_icon.png");
+AM.queueDownload("./img/Knight_icon.png");
+AM.queueDownload("./img/Samurai_icon.png");
+AM.queueDownload("./img/Goblin_icon.png");
+AM.queueDownload("./img/Bandit_icon.png");
 AM.queueDownload("./img/Knight.png");
 AM.queueDownload("./img/Samurai.png");
 AM.queueDownload("./img/Goblin.png");
