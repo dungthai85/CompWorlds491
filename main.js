@@ -1,5 +1,223 @@
 var AM = new AssetManager();
 
+// Copy of Animation class from Lecture 5 for player controlled units
+class MyAnimation {
+    constructor(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
+        this.spriteSheet = spriteSheet;
+        this.startX = startX;
+        this.startY = startY;
+        this.frameWidth = frameWidth;
+        this.frameDuration = frameDuration;
+        this.frameHeight = frameHeight;
+        this.frames = frames;
+        this.totalTime = frameDuration * frames;
+        this.elapsedTime = 0;
+        this.loop = loop;
+        this.reverse = reverse;
+    }
+
+    drawFrame(tick, ctx, x, y, scaleBy) {
+        var scaleBy = scaleBy || 1;
+        this.elapsedTime += tick;
+        if (this.loop) {
+            if (this.isDone()) {
+                this.elapsedTime = 0;
+            }
+        } else if (this.isDone()) {
+            return;
+        }
+        var index = this.reverse ? this.frames - this.currentFrame() - 1 : this.currentFrame();
+        var vindex = 0;
+        if ((index + 1) * this.frameWidth + this.startX > this.spriteSheet.width) {
+            index -= Math.floor((this.spriteSheet.width - this.startX) / this.frameWidth);
+            vindex++;
+        }
+        while ((index + 1) * this.frameWidth > this.spriteSheet.width) {
+            index -= Math.floor(this.spriteSheet.width / this.frameWidth);
+            vindex++;
+        }
+
+        var locX = x;
+        var locY = y;
+        var offset = vindex === 0 ? this.startX : 0;
+        ctx.drawImage(this.spriteSheet,
+            index * this.frameWidth + offset, vindex * this.frameHeight + this.startY,  // source from sheet
+            this.frameWidth, this.frameHeight,
+            locX, locY,
+            this.frameWidth * scaleBy,
+            this.frameHeight * scaleBy);
+
+    }
+
+    currentFrame() {
+        return Math.floor(this.elapsedTime / this.frameDuration);
+    }
+
+    isDone() {
+        return (this.elapsedTime >= this.totalTime);
+
+    }
+
+}
+
+// Player controlled unit bandit
+function Bandit(game, spritesheet, X, Y) {
+    // scale 0.125
+    this.animation = new MyAnimation(spritesheet, 0, 0, 621, 569, 0.4, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 625, 621, 569, 0.2, 8, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+
+    // Entity.call(this, game, 248, 469);
+    Entity.call(this, game, X, Y);
+}
+
+Bandit.prototype = new Entity();
+Bandit.prototype.constructor = Bandit;
+
+Bandit.prototype.update = function () {
+    if (this.moving) {
+        this.x += this.game.clockTick * this.speed;
+        if (this.x > 1075) {
+            this.moving = false;
+            this.attacking = true;
+        }
+
+    }
+
+    Entity.prototype.update.call(this);
+}
+
+Bandit.prototype.draw = function () {
+    if (this.moving) {
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+    } else {
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+    }
+    Entity.prototype.draw.call(this);
+}
+
+// Player controlled unit bandit
+function Knight(game, spritesheet, X, Y) {
+    // scale 0.125
+    this.animation = new MyAnimation(spritesheet, 0, 0, 550, 598, 0.4, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 600, 550, 598, 0.2, 8, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+
+    // Entity.call(this, game, 248, 469);
+    Entity.call(this, game, X, Y);
+}
+
+Knight.prototype = new Entity();
+Knight.prototype.constructor = Knight;
+
+Knight.prototype.update = function () {
+    if (this.moving) {
+        this.x += this.game.clockTick * this.speed;
+        if (this.x > 1075) {
+            this.moving = false;
+            this.attacking = true;
+        }
+
+    }
+
+    Entity.prototype.update.call(this);
+}
+
+Knight.prototype.draw = function () {
+    if (this.moving) {
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+    } else {
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+    }
+    Entity.prototype.draw.call(this);
+}
+
+// Player controlled unit bandit
+function Samurai(game, spritesheet, X, Y) {
+    // scale 0.125
+    this.animation = new MyAnimation(spritesheet, 0, 0, 738, 611, 0.4, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 738, 738, 611, 0.2, 8, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+
+    // Entity.call(this, game, 248, 469);
+    Entity.call(this, game, X, Y);
+}
+
+Samurai.prototype = new Entity();
+Samurai.prototype.constructor = Samurai;
+
+Samurai.prototype.update = function () {
+    if (this.moving) {
+        this.x += this.game.clockTick * this.speed;
+        if (this.x > 1075) {
+            this.moving = false;
+            this.attacking = true;
+        }
+
+    }
+
+    Entity.prototype.update.call(this);
+}
+
+Samurai.prototype.draw = function () {
+    if (this.moving) {
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+    } else {
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+    }
+    Entity.prototype.draw.call(this);
+}
+
+// Player controlled unit goblin
+function Goblin(game, spritesheet, X, Y) {
+    // scale 0.125
+    this.animation = new MyAnimation(spritesheet, 0, 0, 524, 591, 0.4, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 600, 524, 591, 0.2, 8, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+
+    // Entity.call(this, game, 248, 469);
+    Entity.call(this, game, X, Y);
+}
+
+Goblin.prototype = new Entity();
+Goblin.prototype.constructor = Goblin;
+
+Goblin.prototype.update = function () {
+    if (this.moving) {
+        this.x += this.game.clockTick * this.speed;
+        if (this.x > 1075) {
+            this.moving = false;
+            this.attacking = true;
+        }
+
+    }
+
+    Entity.prototype.update.call(this);
+}
+
+Goblin.prototype.draw = function () {
+    if (this.moving) {
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+    } else {
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+    }
+    Entity.prototype.draw.call(this);
+}
+
+
+
 function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
     this.spriteSheet = spriteSheet;
     this.frameWidth = frameWidth;
@@ -165,10 +383,18 @@ UnitsControl.prototype.update = function () {
 }
 
 UnitsControl.prototype.draw = function () {
-    if(this.game.menu.clicked && this.game.menu.id === "Fireball") {
+    if (this.game.menu.clicked && this.game.menu.id === "Fireball") {
         this.unitName = "Fireball";
         this.shadow = true;
-    } 
+    } else if (this.game.menu.clicked && this.game.menu.id === "Knight") {
+        this.unitName = "Knight";
+    } else if (this.game.menu.clicked && this.game.menu.id === "Bandit") {
+        this.unitName = "Bandit";
+    } else if (this.game.menu.clicked && this.game.menu.id === "Samurai") {
+        this.unitName = "Samurai";
+    } else if (this.game.menu.clicked && this.game.menu.id === "Goblin") {
+        this.unitName = "Goblin";
+    }
     if (this.unitName === "Fireball" && this.shadow && this.game.mouse){
         this.ctx.globalAlpha = 0.5;
         //console.log(this.game.mouse.x);
@@ -177,20 +403,44 @@ UnitsControl.prototype.draw = function () {
     if (this.game.lane != null){
         this.lane = this.game.lane;
     }
-    if (this.unitName != null && this.lane != null){
-        if (this.unitName === "Fireball" && this.lane === 1){
-            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball.png"), 305, 385));
-            this.unitName = null;
-            this.lane = null;
-        } else if (this.unitName === "Fireball" && this.lane === 2){
-            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball.png"), 305, 468));
-            this.unitName = null;
-            this.lane = null;
-        } else if (this.unitName === "Fireball" && this.lane === 3){
-            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball.png"), 305, 551));
-            this.unitName = null;
-            this.lane = null;
+    if (this.unitName != null && this.lane != null) {
+        var laneY;
+        if (this.lane === 1) {
+            laneY = 385;
+        } else if (this.lane === 2) {
+            laneY = 468
+        } else if (this.lane === 3) {
+            laneY = 551;
         }
+
+
+        if (laneY && this.unitName === "Fireball") {
+            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball.png"), 305, laneY));
+            this.unitName = null;
+            this.lane = null;
+        } else if (laneY && this.unitName === "Knight") {
+            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight.png"), 305, laneY));
+            this.unitName = null;
+            this.lane = null;
+        } else if (laneY && this.unitName === "Bandit") {
+            this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit.png"), 305, laneY));
+            this.unitName = null;
+            this.lane = null;
+
+        } else if (laneY && this.unitName === "Samurai") {
+            this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai.png"), 305, laneY));
+            this.unitName = null;
+            this.lane = null;
+
+        } else if (laneY && this.unitName === "Goblin") {
+            this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin.png"), 305, laneY));
+            this.unitName = null;
+            this.lane = null;
+
+        }
+
+
+
     }
 }
 
@@ -202,6 +452,10 @@ UnitsControl.prototype.draw = function () {
 //AM.queueDownload("./img/runningcat.png");
 AM.queueDownload("./img/Fireball.png");
 AM.queueDownload("./img/Fireball_icon.png");
+AM.queueDownload("./img/Knight.png");
+AM.queueDownload("./img/Samurai.png");
+AM.queueDownload("./img/Goblin.png");
+AM.queueDownload("./img/Bandit.png");
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");

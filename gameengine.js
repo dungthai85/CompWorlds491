@@ -75,23 +75,31 @@ GameEngine.prototype.startInput = function () {
     console.log('Input started');
 }
 function getSelectedThing(e, that){
-    if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555) && mainMenu){
-        that.menu = {clicked: true, id : "easy"};
+    if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555) && mainMenu) {
+        that.menu = { clicked: true, id: "easy" };
         mainMenu = false;
-    } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629) && mainMenu){
-        that.menu = {clicked: true, id : "medium"};
+    } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629) && mainMenu) {
+        that.menu = { clicked: true, id: "medium" };
         mainMenu = false;
-    } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699) & mainMenu){
-        that.menu = {clicked: true, id : "hard"};
+    } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699) & mainMenu) {
+        that.menu = { clicked: true, id: "hard" };
         mainMenu = false;
-    } else if ((e.clientX >= 614 && e.clientX <= 881) && (e.clientY >= 711 && e.clientY <= 771) & mainMenu){
-        that.menu = {clicked: true, id : "tutorial"};
+    } else if ((e.clientX >= 614 && e.clientX <= 881) && (e.clientY >= 711 && e.clientY <= 771) & mainMenu) {
+        that.menu = { clicked: true, id: "tutorial" };
         mainMenu = false;
-    } else if ((e.clientX >= 904 && e.clientX <= 1010) && (e.clientY >= 647 && e.clientY <= 747)){
-        that.menu = {clicked: true, id : "Fireball"};
-    } else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)){
-        that.menu = {clicked: true, id : "back"};
+    } else if ((e.clientX >= 904 && e.clientX <= 1010) && (e.clientY >= 647 && e.clientY <= 747)) {
+        that.menu = { clicked: true, id: "Fireball" };
+    } else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)) {
+        that.menu = { clicked: true, id: "back" };
         mainMenu = true;
+    } else if ((e.clientX >= 421 && e.clientX <= 526) && (e.clientY >= 650 && e.clientY <= 751)) {
+        that.menu = { clicked: true, id: "Knight" };
+    } else if ((e.clientX >= 539 && e.clientX <= 644) && (e.clientY >= 648 && e.clientY <= 749)) {
+        that.menu = { clicked: true, id: "Bandit" };
+    } else if ((e.clientX >= 660 && e.clientX <= 764) && (e.clientY >= 647 && e.clientY <= 748)) {
+        that.menu = { clicked: true, id: "Samurai" };
+    } else if ((e.clientX >= 782 && e.clientX <= 884) && (e.clientY >= 646 && e.clientY <= 747)) {
+        that.menu = { clicked: true, id: "Goblin" };
     }
     return that.menu;
 }
