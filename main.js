@@ -304,10 +304,17 @@ Background.prototype.draw = function () {
     this.ctx.drawImage(this.spritesheet,this.x, this.y);
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
         debugger;
-        // this.ctx.fillStyle = "rgb(255, 0, 0)";
-        // this.ctx.fillRect(610, 502, 155, 53);
         this.ctx.drawImage(AM.getAsset("./img/Background/EasyText.png"), 590, 475, 200, 100);
     }
+    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 602 && this.game.mouseXY.x <= 863) && (this.game.mouseXY.y >= 579 && this.game.mouseXY.y <= 629)) {
+        debugger;
+        this.ctx.drawImage(AM.getAsset("./img/Background/MediumText.png"), 590, 556, 300, 100);
+    }
+    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 603 && this.game.mouseXY.x <= 777) && (this.game.mouseXY.y >= 649 && this.game.mouseXY.y <= 699)) {
+        debugger;
+        this.ctx.drawImage(AM.getAsset("./img/Background/HardText.png"), 590, 620, 200, 100);
+    }
+
 };
 
 Background.prototype.update = function () {
@@ -513,6 +520,8 @@ AM.queueDownload("./img/Background/Map 1/NoDamage.png");
 AM.queueDownload("./img/Background/Map 2/NoDamage.png");
 AM.queueDownload("./img/Background/Map 3/NoDamage.png");
 AM.queueDownload("./img/Background/EasyText.png");
+AM.queueDownload("./img/Background/MediumText.png");
+AM.queueDownload("./img/Background/HardText.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
