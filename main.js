@@ -404,7 +404,7 @@ UnitsControl.prototype.draw = function () {
     if (this.unitName === "Fireball" && this.shadow){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Knight/Fireball_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.drawImage(AM.getAsset("./img/Fireball/Fireball_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
     } else if (this.unitName === "Knight" && this.shadow){
         this.ctx.save();
