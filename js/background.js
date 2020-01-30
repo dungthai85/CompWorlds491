@@ -1,18 +1,3 @@
-// no inheritance
-function Background(game, spritesheet) {
-    this.x = 0;
-    this.y = 0;
-    this.spritesheet = spritesheet;
-    this.game = game;
-    this.ctx = game.ctx;
-    this.start = true;
-    this.startBackground = AM.getAsset("./img/Background/Start.png");
-    this.level1 = AM.getAsset("./img/Background/Map 1/NoDamage.png");
-    this.level2 =  AM.getAsset("./img/Background/Map 2/NoDamage.png");
-    this.level3 =  AM.getAsset("./img/Background/Map 3/NoDamage.png");
-    this.tutorial = AM.getAsset("./img/Background/Tutorial.png");
-};
-
 Background.prototype.draw = function () {
     if(this.game.menu.clicked && this.game.menu.id === "easy") {
         this.spritesheet = this.level1;
@@ -57,6 +42,10 @@ Background.prototype.draw = function () {
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 614 && this.game.mouseXY.x <= 881) && (this.game.mouseXY.y >= 711 && this.game.mouseXY.y <= 771)) {
         debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/TutorialText.png"), 601, 690, 300, 100);
+    }
+    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 1280 && this.game.mouseXY.x <= 1406) && (this.game.mouseXY.y >= 751 && this.game.mouseXY.y <= 780)) {
+        debugger;
+        this.ctx.drawImage(AM.getAsset("./img/Background/SoundText.png"), 1272, 739, 140, 50);
     }
 
 };

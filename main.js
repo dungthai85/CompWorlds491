@@ -338,6 +338,10 @@ Background.prototype.draw = function () {
         debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/TutorialText.png"), 601, 690, 300, 100);
     }
+    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 1280 && this.game.mouseXY.x <= 1406) && (this.game.mouseXY.y >= 751 && this.game.mouseXY.y <= 780)) {
+        debugger;
+        this.ctx.drawImage(AM.getAsset("./img/Background/SoundText.png"), 1272, 739, 140, 50);
+    }
 
 };
 
@@ -547,6 +551,7 @@ AM.queueDownload("./img/Background/EasyText.png");
 AM.queueDownload("./img/Background/MediumText.png");
 AM.queueDownload("./img/Background/HardText.png");
 AM.queueDownload("./img/Background/TutorialText.png");
+AM.queueDownload("./img/Background/SoundText.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
