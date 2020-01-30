@@ -324,15 +324,19 @@ Background.prototype.draw = function () {
     this.ctx.drawImage(this.spritesheet,this.x, this.y);
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
         debugger;
-        this.ctx.drawImage(AM.getAsset("./img/Background/EasyText.png"), 590, 475, 200, 100);
+        this.ctx.drawImage(AM.getAsset("./img/Background/EasyText.png"), 584, 481, 200, 100);
     }
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 602 && this.game.mouseXY.x <= 863) && (this.game.mouseXY.y >= 579 && this.game.mouseXY.y <= 629)) {
         debugger;
-        this.ctx.drawImage(AM.getAsset("./img/Background/MediumText.png"), 590, 556, 300, 100);
+        this.ctx.drawImage(AM.getAsset("./img/Background/MediumText.png"), 583, 551, 300, 100);
     }
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 603 && this.game.mouseXY.x <= 777) && (this.game.mouseXY.y >= 649 && this.game.mouseXY.y <= 699)) {
         debugger;
-        this.ctx.drawImage(AM.getAsset("./img/Background/HardText.png"), 590, 620, 200, 100);
+        this.ctx.drawImage(AM.getAsset("./img/Background/HardText.png"), 591, 620, 200, 100);
+    }
+    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 614 && this.game.mouseXY.x <= 881) && (this.game.mouseXY.y >= 711 && this.game.mouseXY.y <= 771)) {
+        debugger;
+        this.ctx.drawImage(AM.getAsset("./img/Background/TutorialText.png"), 601, 690, 300, 100);
     }
 
 };
@@ -400,27 +404,27 @@ UnitsControl.prototype.draw = function () {
     if (this.unitName === "Fireball" && this.shadow){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Fireball_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.drawImage(AM.getAsset("./img/Knight/Fireball_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
     } else if (this.unitName === "Knight" && this.shadow){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Knight_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.drawImage(AM.getAsset("./img/Knight/Knight_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
     } else if (this.unitName === "Bandit" && this.shadow){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Bandit_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.drawImage(AM.getAsset("./img/Bandit/Bandit_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
     } else if (this.unitName === "Samurai" && this.shadow){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Samurai_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.drawImage(AM.getAsset("./img/Samurai/Samurai_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
     } else if (this.unitName === "Goblin" && this.shadow){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Goblin_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.drawImage(AM.getAsset("./img/Goblin/Goblin_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
     }
     if (this.game.lane != null){
@@ -438,25 +442,25 @@ UnitsControl.prototype.draw = function () {
 
 
         if (laneY && this.unitName === "Fireball") {
-            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball.png"), 305, laneY));
+            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Knight") {
-            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight.png"), 305, laneY));
+            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Bandit") {
-            this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit.png"), 305, laneY));
+            this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
 
         } else if (laneY && this.unitName === "Samurai") {
-            this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai.png"), 305, laneY));
+            this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
 
         } else if (laneY && this.unitName === "Goblin") {
-            this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin.png"), 305, laneY));
+            this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
 
@@ -524,16 +528,16 @@ BlueHP.prototype.draw = function () {
 //AM.queueDownload("./img/RobotUnicorn.png");
 //AM.queueDownload("./img/mushroomdude.png");
 //AM.queueDownload("./img/runningcat.png");
-AM.queueDownload("./img/Fireball.png");
-AM.queueDownload("./img/Fireball_icon.png");
-AM.queueDownload("./img/Knight_icon.png");
-AM.queueDownload("./img/Samurai_icon.png");
-AM.queueDownload("./img/Goblin_icon.png");
-AM.queueDownload("./img/Bandit_icon.png");
-AM.queueDownload("./img/Knight.png");
-AM.queueDownload("./img/Samurai.png");
-AM.queueDownload("./img/Goblin.png");
-AM.queueDownload("./img/Bandit.png");
+AM.queueDownload("./img/Fireball/Fireball.png");
+AM.queueDownload("./img/Fireball/Fireball_icon.png");
+AM.queueDownload("./img/Knight/Knight_icon.png");
+AM.queueDownload("./img/Samurai/Samurai_icon.png");
+AM.queueDownload("./img/Goblin/Goblin_icon.png");
+AM.queueDownload("./img/Bandit/Bandit_icon.png");
+AM.queueDownload("./img/Knight/Knight.png");
+AM.queueDownload("./img/Samurai/Samurai.png");
+AM.queueDownload("./img/Goblin/Goblin.png");
+AM.queueDownload("./img/Bandit/Bandit.png");
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
@@ -542,6 +546,7 @@ AM.queueDownload("./img/Background/Map 3/NoDamage.png");
 AM.queueDownload("./img/Background/EasyText.png");
 AM.queueDownload("./img/Background/MediumText.png");
 AM.queueDownload("./img/Background/HardText.png");
+AM.queueDownload("./img/Background/TutorialText.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
