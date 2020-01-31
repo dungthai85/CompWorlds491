@@ -1,5 +1,5 @@
 var AM = new AssetManager();
-
+is_enemy_spawn = false;
 // Copy of Animation class from Lecture 5 for player controlled units
 class MyAnimation {
     constructor(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
@@ -236,7 +236,135 @@ Goblin.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
+// Enemy side
+function Orc(game, X, Y) {
+    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions.png"), 0, 1800, 900, 900, 0.05, 12, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.dead = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
 
+Orc.prototype = new Entity();
+Orc.prototype.constructor = Orc;
+
+Orc.prototype.update = function () {
+    
+    if (this.moving) {
+        this.x -= this.game.clockTick * this.speed;
+        if (this.x < 250) {
+            this.moving = false;
+            this.attacking = true;
+        }
+    }
+    // if (this.attacking) {
+    //     if (this.attack_animation.isDone()) {
+    //         this.attack_animation.elapsedTime = 0;
+    //         this.attacking = false;
+    //     }      
+    // }
+    Entity.prototype.update.call(this);
+}
+
+Orc.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+    }
+    Entity.prototype.draw.call(this);
+}
+
+function ReaperMan(game, X, Y) {
+    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_actions.png"), 0, 1800, 900, 900, 0.05, 12, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.dead = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
+
+ReaperMan.prototype = new Entity();
+ReaperMan.prototype.constructor = ReaperMan;
+
+ReaperMan.prototype.update = function () {
+    
+    if (this.moving) {
+        this.x -= this.game.clockTick * this.speed;
+        if (this.x < 250) {
+            this.moving = false;
+            this.attacking = true;
+        }
+    }
+    // if (this.attacking) {
+    //     if (this.attack_animation.isDone()) {
+    //         this.attack_animation.elapsedTime = 0;
+    //         this.attacking = false;
+    //     }      
+    // }
+    Entity.prototype.update.call(this);
+}
+
+ReaperMan.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+    }
+    Entity.prototype.draw.call(this);
+}
+
+function FallenAngel(game, X, Y) {
+    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_actions.png"), 0, 1800, 900, 900, 0.05, 12, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.dead = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
+
+FallenAngel.prototype = new Entity();
+FallenAngel.prototype.constructor = FallenAngel;
+
+FallenAngel.prototype.update = function () {
+    
+    if (this.moving) {
+        this.x -= this.game.clockTick * this.speed;
+        if (this.x < 250) {
+            this.moving = false;
+            this.attacking = true;
+        }
+    }
+    // if (this.attacking) {
+    //     if (this.attack_animation.isDone()) {
+    //         this.attack_animation.elapsedTime = 0;
+    //         this.attacking = false;
+    //     }      
+    // }
+    Entity.prototype.update.call(this);
+}
+
+FallenAngel.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+    }
+    Entity.prototype.draw.call(this);
+}
 
 // function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
 //     this.spriteSheet = spriteSheet;
@@ -300,18 +428,22 @@ Background.prototype.draw = function () {
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new ElixirBar(this.game));
+        this.game.addEntity(new SuperBar(this.game));
+
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.spritesheet = this.level2;
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new ElixirBar(this.game));
+        this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.spritesheet = this.level3;
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new ElixirBar(this.game));
+        this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.spritesheet = this.tutorial;
         this.start = false;
@@ -341,6 +473,10 @@ Background.prototype.draw = function () {
         debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/TutorialText.png"), 601, 690, 300, 100);
     }
+    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 1280 && this.game.mouseXY.x <= 1406) && (this.game.mouseXY.y >= 751 && this.game.mouseXY.y <= 780)) {
+        debugger;
+        this.ctx.drawImage(AM.getAsset("./img/Background/SoundText.png"), 1272, 739, 140, 50);
+    }
 
 };
 
@@ -349,7 +485,6 @@ Background.prototype.update = function () {
 
 // inheritance 
 function Fireball(game, spritesheet, X, Y) {
-    // spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse
     this.animation = new MyAnimation(spritesheet, 0, 0, 160, 160, 0.15, 12, true, false);
     this.speed = 100;
     this.ctx = game.ctx;
@@ -451,29 +586,46 @@ UnitsControl.prototype.draw = function () {
             this.lane = null;
         } else if (laneY && this.unitName === "Knight") {
             this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
 
         } else if (laneY && this.unitName === "Samurai") {
             this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
 
         } else if (laneY && this.unitName === "Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
 
         }
         //this.shadow = false;
-
+        if (is_enemy_spawn) {
+            is_enemy_spawn = false; 
+            switch (Math.floor(Math.random() * Math.floor(2))) {
+                case 0:
+                    this.game.addEntity(new Orc(this.game, 1000, laneY));
+                case 1:
+                    this.game.addEntity(new FallenAngel(this.game, 980, laneY));
+                // case 2: 
+                //     this.game.addEntity(new FallenAngel(this.game, 1000, laneY));
+            }
+                   
+        }
 
 
     }
+
+
 }
 
 function RedHP(game){
@@ -533,7 +685,16 @@ function ElixirBar(game){
     this.ctx = game.ctx;
     this.timemeter = 0;
     this.maxelixir = 338;
-    this.speed = 100;
+    this.speed = 1;
+}
+
+function ElixirBar(game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.timemeter = 0;
+    this.maxelixir = 338;
+    this.speed = 50;
+    this.oneElixir = 338/10;
     Entity.call(this, game, 0, 0);
 }
 
@@ -541,23 +702,74 @@ ElixirBar.prototype = new Entity();
 ElixirBar.prototype.constructor = ElixirBar;
 
 ElixirBar.prototype.update = function () {
-    this.x += this.game.clockTick * this.speed;
-    if (this.x > this.maxelixir){
-        this.x = 0;
+    if (this.x < this.maxelixir){
+        this.x += this.game.clockTick * this.speed;
     }
     Entity.prototype.update.call(this);
 }
 
 ElixirBar.prototype.draw = function () {
+    if (this.game.menu.clicked && this.game.menu.id === "Knight") {
+        if (this.x - this.oneElixir*4 < 0){
+            this.x = 43
+        } else {
+            this.x = this.x - this.oneElixir*4;
+        }
+    } else if (this.game.menu.clicked && this.game.menu.id === "Bandit") {
+        if (this.x - this.oneElixir*3 < 0){
+            this.x = 43
+        } else {
+            this.x = this.x - this.oneElixir*3;
+        }
+    } else if (this.game.menu.clicked && this.game.menu.id === "Samurai") {
+        if (this.x - this.oneElixir*3 < 0){
+            this.x = 43
+        } else {
+            this.x = this.x - this.oneElixir*3;
+        }
+    } else if (this.game.menu.clicked && this.game.menu.id === "Goblin") {
+        if (this.x - this.oneElixir*2 < 0){
+            this.x = 43
+        } else {
+            this.x = this.x - this.oneElixir*2;
+        }
+    }
     this.ctx.fillStyle = "rgb(255, 0, 89)";
     this.ctx.fillRect(43, 687, this.x, 34);
     Entity.prototype.draw.call(this);
 }
 
+function SuperBar(game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.timemeter = 0;
+    this.maxelixir = 338;
+    this.speed = 25;
+    Entity.call(this, game, 0, 0);
+}
 
-//AM.queueDownload("./img/RobotUnicorn.png");
-//AM.queueDownload("./img/mushroomdude.png");
-//AM.queueDownload("./img/runningcat.png");
+SuperBar.prototype = new Entity();
+SuperBar.prototype.constructor = SuperBar;
+
+SuperBar.prototype.update = function () {   
+    if (this.x < this.maxelixir){
+        this.x += this.game.clockTick * this.speed;
+    }
+    Entity.prototype.update.call(this);
+}
+
+SuperBar.prototype.draw = function () {
+    if (this.game.menu.clicked && this.game.menu.id === "Fireball") {
+        if(this.x > this.maxelixir - 2){
+            this.x = 0;
+        }
+    }
+    this.ctx.fillStyle = "rgb(220, 0, 0)";
+    this.ctx.fillRect(1052, 687, this.x, 34);
+    Entity.prototype.draw.call(this);
+}
+
+
 AM.queueDownload("./img/Fireball/Fireball.png");
 AM.queueDownload("./img/Fireball/Fireball_icon.png");
 AM.queueDownload("./img/Knight/Knight_icon.png");
@@ -568,6 +780,26 @@ AM.queueDownload("./img/Knight/Knight.png");
 AM.queueDownload("./img/Samurai/Samurai.png");
 AM.queueDownload("./img/Goblin/Goblin.png");
 AM.queueDownload("./img/Bandit/Bandit.png");
+// AM.queueDownload("./img/Fireball.png");
+// AM.queueDownload("./img/Fireball_icon.png");
+// AM.queueDownload("./img/Knight_icon.png");
+// AM.queueDownload("./img/Samurai_icon.png");
+// AM.queueDownload("./img/Goblin_icon.png");
+// AM.queueDownload("./img/Bandit_icon.png");
+// AM.queueDownload("./img/Knight.png");
+// AM.queueDownload("./img/Samurai.png");
+// AM.queueDownload("./img/Goblin.png");
+// AM.queueDownload("./img/Bandit.png");
+
+AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_walk.png");
+AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_actions.png");
+AM.queueDownload("./img/enemy_team/orc/orc_walk.png");
+AM.queueDownload("./img/enemy_team/orc/orc_actions.png");
+AM.queueDownload("./img/enemy_team/fallen_angel/fallen_walk.png");
+AM.queueDownload("./img/enemy_team/fallen_angel/fallen_actions.png");
+
+
+
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
@@ -577,6 +809,7 @@ AM.queueDownload("./img/Background/EasyText.png");
 AM.queueDownload("./img/Background/MediumText.png");
 AM.queueDownload("./img/Background/HardText.png");
 AM.queueDownload("./img/Background/TutorialText.png");
+AM.queueDownload("./img/Background/SoundText.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
@@ -586,11 +819,5 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Start.png")));
     gameEngine.addEntity(new UnitsControl(gameEngine));
-    //gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png")));
-    //gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
-    //gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
-    //gameEngine.addEntity(new Cheetah(gameEngine, AM.getAsset("./img/runningcat.png")));
-
-
     console.log("All Done!");
 });
