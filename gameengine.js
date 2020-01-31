@@ -61,7 +61,7 @@ GameEngine.prototype.startInput = function () {
         that.click = getXandY(e);
         //console.log(e);
         //console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
-        debugger;
+        // debugger;
         that.menu = getSelectedThing(e, that, true);
         //console.log(that.menu.id);
         that.lane = getSelectedLane(e, that);
