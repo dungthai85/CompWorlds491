@@ -1,5 +1,6 @@
 var AM = new AssetManager();
-is_enemy_spawn = false;
+var is_enemy_spawn = false;
+var count = 0;
 // Copy of Animation class from Lecture 5 for player controlled units
 class MyAnimation {
     constructor(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
@@ -608,11 +609,17 @@ UnitsControl.prototype.draw = function () {
             this.lane = null;
 
         }
+        if (count > 3) {
+            is_enemy_spawn = false;
+        }
         //this.shadow = false;
         if (is_enemy_spawn) {
+            if (count > 3) {
+                is_enemy_spawn = false;
+            }
+            count += 1;
             is_enemy_spawn = false; 
             var random_num = Math.floor(Math.random() * Math.floor(2));
-            console.log(random_num);
             if (random_num === 0) this.game.addEntity(new Orc(this.game, 1000, laneY))
             else this.game.addEntity(new FallenAngel(this.game, 980, laneY));
                     
