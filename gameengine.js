@@ -59,7 +59,7 @@ GameEngine.prototype.startInput = function () {
         that.click = getXandY(e);
         console.log(e);
         console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
-        debugger;
+        // debugger;
         that.menu = getSelectedThing(e, that);
         console.log(that.menu.id);
         that.lane = getSelectedLane(e, that);
@@ -67,7 +67,7 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("mousemove", function (e) {
         that.mouse = {x : e.clientX, y : e.clientY};
-        console.log("X,Y " + e.clientX, e.clientY);
+        // console.log("X,Y " + e.clientX, e.clientY);
     }, false);
 
 
