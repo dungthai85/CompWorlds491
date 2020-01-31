@@ -1,5 +1,5 @@
 var AM = new AssetManager();
-
+is_enemy_spawn = false;
 // Copy of Animation class from Lecture 5 for player controlled units
 class MyAnimation {
     constructor(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
@@ -236,7 +236,135 @@ Goblin.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
+// Enemy side
+function Orc(game, X, Y) {
+    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions.png"), 0, 1800, 900, 900, 0.05, 12, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.dead = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
 
+Orc.prototype = new Entity();
+Orc.prototype.constructor = Orc;
+
+Orc.prototype.update = function () {
+    
+    if (this.moving) {
+        this.x -= this.game.clockTick * this.speed;
+        if (this.x < 250) {
+            this.moving = false;
+            this.attacking = true;
+        }
+    }
+    // if (this.attacking) {
+    //     if (this.attack_animation.isDone()) {
+    //         this.attack_animation.elapsedTime = 0;
+    //         this.attacking = false;
+    //     }      
+    // }
+    Entity.prototype.update.call(this);
+}
+
+Orc.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+    }
+    Entity.prototype.draw.call(this);
+}
+
+function ReaperMan(game, X, Y) {
+    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_actions.png"), 0, 1800, 900, 900, 0.05, 12, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.dead = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
+
+ReaperMan.prototype = new Entity();
+ReaperMan.prototype.constructor = ReaperMan;
+
+ReaperMan.prototype.update = function () {
+    
+    if (this.moving) {
+        this.x -= this.game.clockTick * this.speed;
+        if (this.x < 250) {
+            this.moving = false;
+            this.attacking = true;
+        }
+    }
+    // if (this.attacking) {
+    //     if (this.attack_animation.isDone()) {
+    //         this.attack_animation.elapsedTime = 0;
+    //         this.attacking = false;
+    //     }      
+    // }
+    Entity.prototype.update.call(this);
+}
+
+ReaperMan.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+    }
+    Entity.prototype.draw.call(this);
+}
+
+function FallenAngel(game, X, Y) {
+    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_actions.png"), 0, 1800, 900, 900, 0.05, 12, true, false);
+    this.moving = true;
+    this.attacking = false;
+    this.dead = false;
+    this.speed = 100;
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
+
+FallenAngel.prototype = new Entity();
+FallenAngel.prototype.constructor = FallenAngel;
+
+FallenAngel.prototype.update = function () {
+    
+    if (this.moving) {
+        this.x -= this.game.clockTick * this.speed;
+        if (this.x < 250) {
+            this.moving = false;
+            this.attacking = true;
+        }
+    }
+    // if (this.attacking) {
+    //     if (this.attack_animation.isDone()) {
+    //         this.attack_animation.elapsedTime = 0;
+    //         this.attacking = false;
+    //     }      
+    // }
+    Entity.prototype.update.call(this);
+}
+
+FallenAngel.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+    }
+    else {
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+    }
+    Entity.prototype.draw.call(this);
+}
 
 function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
     this.spriteSheet = spriteSheet;
@@ -299,6 +427,7 @@ Background.prototype.draw = function () {
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
+
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.spritesheet = this.level2;
         this.start = false;
@@ -450,7 +579,8 @@ UnitsControl.prototype.draw = function () {
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Knight") {
-            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), 305, laneY));
+            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Bandit") {
@@ -470,11 +600,21 @@ UnitsControl.prototype.draw = function () {
 
         }
         //this.shadow = false;
-
+        if (is_enemy_spawn) {
+            is_enemy_spawn = false; 
+            switch (Math.floor(Math.random() * Math.floor(3))) {
+                case 0:
+                    this.game.addEntity(new Orc(this.game, 1100, 425));
+                case 1:
+                    this.game.addEntity(new ReaperMan(this.game, 1100, 325));
+                case 2: 
+                    this.game.addEntity(new FallenAngel(this.game, 1100, 525));
+            }
+                   
+        }
 
 
     }
-}
 
 function RedHP(game){
     this.game = game;
@@ -528,7 +668,6 @@ BlueHP.prototype.draw = function () {
     this.ctx.fillRect(856, 137, 296, 34);
 }
 
-
 //AM.queueDownload("./img/RobotUnicorn.png");
 //AM.queueDownload("./img/mushroomdude.png");
 //AM.queueDownload("./img/runningcat.png");
@@ -542,6 +681,26 @@ AM.queueDownload("./img/Knight/Knight.png");
 AM.queueDownload("./img/Samurai/Samurai.png");
 AM.queueDownload("./img/Goblin/Goblin.png");
 AM.queueDownload("./img/Bandit/Bandit.png");
+AM.queueDownload("./img/Fireball.png");
+AM.queueDownload("./img/Fireball_icon.png");
+AM.queueDownload("./img/Knight_icon.png");
+AM.queueDownload("./img/Samurai_icon.png");
+AM.queueDownload("./img/Goblin_icon.png");
+AM.queueDownload("./img/Bandit_icon.png");
+AM.queueDownload("./img/Knight.png");
+AM.queueDownload("./img/Samurai.png");
+AM.queueDownload("./img/Goblin.png");
+AM.queueDownload("./img/Bandit.png");
+
+AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_walk.png");
+AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_actions.png");
+AM.queueDownload("./img/enemy_team/orc/orc_walk.png");
+AM.queueDownload("./img/enemy_team/orc/orc_actions.png");
+AM.queueDownload("./img/enemy_team/fallen_angel/fallen_walk.png");
+AM.queueDownload("./img/enemy_team/fallen_angel/fallen_actions.png");
+
+
+
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
@@ -565,7 +724,6 @@ AM.downloadAll(function () {
     //gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
     //gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
     //gameEngine.addEntity(new Cheetah(gameEngine, AM.getAsset("./img/runningcat.png")));
-
 
     console.log("All Done!");
 });
