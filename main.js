@@ -299,16 +299,22 @@ Background.prototype.draw = function () {
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new ElixirBar(this.game));
+        this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.spritesheet = this.level2;
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new ElixirBar(this.game));
+        this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.spritesheet = this.level3;
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new ElixirBar(this.game));
+        this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.spritesheet = this.tutorial;
         this.start = false;
@@ -528,10 +534,96 @@ BlueHP.prototype.draw = function () {
     this.ctx.fillRect(856, 137, 296, 34);
 }
 
+function ElixirBar(game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.timemeter = 0;
+    this.maxelixir = 338;
+    this.speed = 1;
+}
 
-//AM.queueDownload("./img/RobotUnicorn.png");
-//AM.queueDownload("./img/mushroomdude.png");
-//AM.queueDownload("./img/runningcat.png");
+function ElixirBar(game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.timemeter = 0;
+    this.maxelixir = 338;
+    this.speed = 50;
+    this.oneElixir = 338/10;
+    Entity.call(this, game, 0, 0);
+}
+
+ElixirBar.prototype = new Entity();
+ElixirBar.prototype.constructor = ElixirBar;
+
+ElixirBar.prototype.update = function () {
+    if (this.x < this.maxelixir){
+        this.x += this.game.clockTick * this.speed;
+    }
+    Entity.prototype.update.call(this);
+}
+
+ElixirBar.prototype.draw = function () {
+    if (this.game.menu.clicked && this.game.menu.id === "Knight") {
+        if (this.x - this.oneElixir*4 < 0){
+            this.x = 43
+        } else {
+            this.x = this.x - this.oneElixir*4;
+        }
+    } else if (this.game.menu.clicked && this.game.menu.id === "Bandit") {
+        if (this.x - this.oneElixir*3 < 0){
+            this.x = 43
+        } else {
+            this.x = this.x - this.oneElixir*3;
+        }
+    } else if (this.game.menu.clicked && this.game.menu.id === "Samurai") {
+        if (this.x - this.oneElixir*3 < 0){
+            this.x = 43
+        } else {
+            this.x = this.x - this.oneElixir*3;
+        }
+    } else if (this.game.menu.clicked && this.game.menu.id === "Goblin") {
+        if (this.x - this.oneElixir*2 < 0){
+            this.x = 43
+        } else {
+            this.x = this.x - this.oneElixir*2;
+        }
+    }
+    this.ctx.fillStyle = "rgb(255, 0, 89)";
+    this.ctx.fillRect(43, 687, this.x, 34);
+    Entity.prototype.draw.call(this);
+}
+
+function SuperBar(game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.timemeter = 0;
+    this.maxelixir = 338;
+    this.speed = 25;
+    Entity.call(this, game, 0, 0);
+}
+
+SuperBar.prototype = new Entity();
+SuperBar.prototype.constructor = SuperBar;
+
+SuperBar.prototype.update = function () {   
+    if (this.x < this.maxelixir){
+        this.x += this.game.clockTick * this.speed;
+    }
+    Entity.prototype.update.call(this);
+}
+
+SuperBar.prototype.draw = function () {
+    if (this.game.menu.clicked && this.game.menu.id === "Fireball") {
+        if(this.x > this.maxelixir - 2){
+            this.x = 0;
+        }
+    }
+    this.ctx.fillStyle = "rgb(220, 0, 0)";
+    this.ctx.fillRect(1052, 687, this.x, 34);
+    Entity.prototype.draw.call(this);
+}
+
+
 AM.queueDownload("./img/Fireball/Fireball.png");
 AM.queueDownload("./img/Fireball/Fireball_icon.png");
 AM.queueDownload("./img/Knight/Knight_icon.png");
@@ -561,11 +653,6 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Start.png")));
     gameEngine.addEntity(new UnitsControl(gameEngine));
-    //gameEngine.addEntity(new Fireball(gameEngine, AM.getAsset("./img/Fireball.png")));
-    //gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Map 1/NoDamage.png")));
-    //gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
-    //gameEngine.addEntity(new Cheetah(gameEngine, AM.getAsset("./img/runningcat.png")));
-
 
     console.log("All Done!");
 });
