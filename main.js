@@ -619,7 +619,7 @@ UnitsControl.prototype.draw = function () {
             }
             count += 1;
             is_enemy_spawn = false; 
-            var random_num = Math.floor(Math.random() * Math.floor(3));
+            var random_num = Math.floor(Math.random() * Math.floor(4));
             if (random_num === 0) this.game.addEntity(new Orc(this.game, 1000, laneY))
             else if (random_num === 1) this.game.addEntity(new FallenAngel(this.game, 980, laneY))
                     
