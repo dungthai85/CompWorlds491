@@ -580,7 +580,6 @@ UnitsControl.prototype.draw = function () {
             this.lane = null;
         } else if (laneY && this.unitName === "Knight") {
             this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight.png"), 305, laneY));
-            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Bandit") {
@@ -590,6 +589,7 @@ UnitsControl.prototype.draw = function () {
 
         } else if (laneY && this.unitName === "Samurai") {
             this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
 
@@ -615,6 +615,7 @@ UnitsControl.prototype.draw = function () {
 
 
     }
+}
 
 function RedHP(game){
     this.game = game;
