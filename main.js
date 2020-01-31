@@ -633,6 +633,7 @@ UnitsControl.prototype.draw = function () {
     }
 
 
+
 }
 
 function RedHP(game){
