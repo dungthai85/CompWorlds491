@@ -585,7 +585,7 @@ UnitsControl.prototype.draw = function () {
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Knight") {
-            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight.png"), 305, laneY));
+            this.game.addEntity(new Knight(this.game, AM.getAsset("./img//Knight/Knight.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Bandit") {
@@ -775,16 +775,16 @@ AM.queueDownload("./img/Knight/Knight.png");
 AM.queueDownload("./img/Samurai/Samurai.png");
 AM.queueDownload("./img/Goblin/Goblin.png");
 AM.queueDownload("./img/Bandit/Bandit.png");
-AM.queueDownload("./img/Fireball.png");
-AM.queueDownload("./img/Fireball_icon.png");
-AM.queueDownload("./img/Knight_icon.png");
-AM.queueDownload("./img/Samurai_icon.png");
-AM.queueDownload("./img/Goblin_icon.png");
-AM.queueDownload("./img/Bandit_icon.png");
-AM.queueDownload("./img/Knight.png");
-AM.queueDownload("./img/Samurai.png");
-AM.queueDownload("./img/Goblin.png");
-AM.queueDownload("./img/Bandit.png");
+// AM.queueDownload("./img/Fireball.png");
+// AM.queueDownload("./img/Fireball_icon.png");
+// AM.queueDownload("./img/Knight_icon.png");
+// AM.queueDownload("./img/Samurai_icon.png");
+// AM.queueDownload("./img/Goblin_icon.png");
+// AM.queueDownload("./img/Bandit_icon.png");
+// AM.queueDownload("./img/Knight.png");
+// AM.queueDownload("./img/Samurai.png");
+// AM.queueDownload("./img/Goblin.png");
+// AM.queueDownload("./img/Bandit.png");
 
 AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_walk.png");
 AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_actions.png");
