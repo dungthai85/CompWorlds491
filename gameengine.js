@@ -184,7 +184,7 @@ GameEngine.prototype.removal = function () {
 }
 
 GameEngine.prototype.reset = function(){
-    this.entities.splice(2);
+    this.entities.splice(1);
 }
 
 GameEngine.prototype.draw = function () {
