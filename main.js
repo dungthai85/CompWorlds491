@@ -238,45 +238,45 @@ Goblin.prototype.draw = function () {
 
 
 
-function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
-    this.spriteSheet = spriteSheet;
-    this.frameWidth = frameWidth;
-    this.frameDuration = frameDuration;
-    this.frameHeight = frameHeight;
-    this.sheetWidth = sheetWidth;
-    this.frames = frames;
-    this.totalTime = frameDuration * frames;
-    this.elapsedTime = 0;
-    this.loop = loop;
-    this.scale = scale;
-}
+// function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
+//     this.spriteSheet = spriteSheet;
+//     this.frameWidth = frameWidth;
+//     this.frameDuration = frameDuration;
+//     this.frameHeight = frameHeight;
+//     this.sheetWidth = sheetWidth;
+//     this.frames = frames;
+//     this.totalTime = frameDuration * frames;
+//     this.elapsedTime = 0;
+//     this.loop = loop;
+//     this.scale = scale;
+// }
 
-Animation.prototype.drawFrame = function (tick, ctx, x, y) {
-    this.elapsedTime += tick;
-    if (this.isDone()) {
-        if (this.loop) this.elapsedTime = 0;
-    }
-    var frame = this.currentFrame();
-    var xindex = 0;
-    var yindex = 0;
-    xindex = frame % this.sheetWidth;
-    yindex = Math.floor(frame / this.sheetWidth);
+// Animation.prototype.drawFrame = function (tick, ctx, x, y) {
+//     this.elapsedTime += tick;
+//     if (this.isDone()) {
+//         if (this.loop) this.elapsedTime = 0;
+//     }
+//     var frame = this.currentFrame();
+//     var xindex = 0;
+//     var yindex = 0;
+//     xindex = frame % this.sheetWidth;
+//     yindex = Math.floor(frame / this.sheetWidth);
 
-    ctx.drawImage(this.spriteSheet,
-                 xindex * this.frameWidth, yindex * this.frameHeight,  // source from sheet
-                 this.frameWidth, this.frameHeight,
-                 x, y,
-                 this.frameWidth * this.scale,
-                 this.frameHeight * this.scale);
-}
+//     ctx.drawImage(this.spriteSheet,
+//                  xindex * this.frameWidth, yindex * this.frameHeight,  // source from sheet
+//                  this.frameWidth, this.frameHeight,
+//                  x, y,
+//                  this.frameWidth * this.scale,
+//                  this.frameHeight * this.scale);
+// }
 
-Animation.prototype.currentFrame = function () {
-    return Math.floor(this.elapsedTime / this.frameDuration);
-}
+// Animation.prototype.currentFrame = function () {
+//     return Math.floor(this.elapsedTime / this.frameDuration);
+// }
 
-Animation.prototype.isDone = function () {
-    return (this.elapsedTime >= this.totalTime);
-}
+// Animation.prototype.isDone = function () {
+//     return (this.elapsedTime >= this.totalTime);
+// }
 
 // no inheritance
 function Background(game, spritesheet) {
@@ -299,16 +299,19 @@ Background.prototype.draw = function () {
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new ElixirBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.spritesheet = this.level2;
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new ElixirBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.spritesheet = this.level3;
         this.start = false;
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new ElixirBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.spritesheet = this.tutorial;
         this.start = false;
@@ -346,7 +349,8 @@ Background.prototype.update = function () {
 
 // inheritance 
 function Fireball(game, spritesheet, X, Y) {
-    this.animation = new Animation(spritesheet, 160, 160, 5, 0.15, 12, true, 0.5);
+    // spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse
+    this.animation = new MyAnimation(spritesheet, 0, 0, 160, 160, 0.15, 12, true, false);
     this.speed = 100;
     this.ctx = game.ctx;
     Entity.call(this, game, X, Y);
@@ -364,7 +368,7 @@ Fireball.prototype.update = function () {
 
 Fireball.prototype.draw = function () {
     if (this.x < 1135){
-        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.5);
         Entity.prototype.draw.call(this);
     }
 }
@@ -522,6 +526,32 @@ BlueHP.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
     }
     this.ctx.fillRect(856, 137, 296, 34);
+}
+
+function ElixirBar(game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.timemeter = 0;
+    this.maxelixir = 338;
+    this.speed = 100;
+    Entity.call(this, game, 0, 0);
+}
+
+ElixirBar.prototype = new Entity();
+ElixirBar.prototype.constructor = ElixirBar;
+
+ElixirBar.prototype.update = function () {
+    this.x += this.game.clockTick * this.speed;
+    if (this.x > this.maxelixir){
+        this.x = 0;
+    }
+    Entity.prototype.update.call(this);
+}
+
+ElixirBar.prototype.draw = function () {
+    this.ctx.fillStyle = "rgb(255, 0, 89)";
+    this.ctx.fillRect(43, 687, this.x, 34);
+    Entity.prototype.draw.call(this);
 }
 
 
