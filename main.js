@@ -1,6 +1,6 @@
 var AM = new AssetManager();
-var is_enemy_spawn_1 = false;
-var is_enemy_spawn_2 = false;
+var is_enemy_spawn = false;
+var count = 0;
 // Copy of Animation class from Lecture 5 for player controlled units
 class MyAnimation {
     constructor(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
@@ -548,33 +548,26 @@ Background.prototype.draw = function () {
 
     this.ctx.drawImage(this.spritesheet,this.x, this.y);
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
-        //debugger;
+        debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/EasyText.png"), 584, 481, 200, 100);
     }
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 602 && this.game.mouseXY.x <= 863) && (this.game.mouseXY.y >= 579 && this.game.mouseXY.y <= 629)) {
-        //debugger;
+        debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/MediumText.png"), 583, 551, 300, 100);
     }
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 603 && this.game.mouseXY.x <= 777) && (this.game.mouseXY.y >= 649 && this.game.mouseXY.y <= 699)) {
-        //debugger;
+        debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/HardText.png"), 591, 620, 200, 100);
     }
     if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 614 && this.game.mouseXY.x <= 881) && (this.game.mouseXY.y >= 711 && this.game.mouseXY.y <= 771)) {
-        //debugger;
+        debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/TutorialText.png"), 601, 690, 300, 100);
     }
-    if (this.game.mouseXY != null && (this.game.mouseXY.x >= 1280 && this.game.mouseXY.x <= 1406) && (this.game.mouseXY.y >= 751 && this.game.mouseXY.y <= 780)) {
-        //debugger;
+    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 1280 && this.game.mouseXY.x <= 1406) && (this.game.mouseXY.y >= 751 && this.game.mouseXY.y <= 780)) {
+        debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/SoundText.png"), 1272, 739, 140, 50);
-    } 
-    if (!this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 20 && this.game.mouseXY.x <= 182) && (this.game.mouseXY.y >=  12 && this.game.mouseXY.y <= 64)) {
-        //debugger;
-        this.ctx.drawImage(AM.getAsset("./img/Background/BackText.png"), 18, 1, 180, 80);
     }
 
-
-
-    
 };
 
 Background.prototype.update = function () {
@@ -602,7 +595,7 @@ Fireball.prototype.draw = function () {
     if (this.x < 1135){
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.5);
         Entity.prototype.draw.call(this);
-    } 
+    }
 }
 
 function UnitsControl (game){
@@ -663,34 +656,7 @@ UnitsControl.prototype.draw = function () {
         this.ctx.drawImage(AM.getAsset("./img/Goblin/Goblin_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
     }
-    // hover lane 1
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  410 && this.game.mouseXY.y <= 482)){
-        this.ctx.save();
-        this.ctx.globalAlpha = 0.5;
-        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 410, 405, 72);
-        this.ctx.restore();
-    }
-
-    // hover lane 2
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  484 && this.game.mouseXY.y <= 556)){
-        this.ctx.save();
-        this.ctx.globalAlpha = 0.5;
-        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 484, 405, 72);
-        this.ctx.restore();
-    }
-
-    // hover lane 3
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  558 && this.game.mouseXY.y <= 630)){
-        this.ctx.save();
-        this.ctx.globalAlpha = 0.5;
-        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 558, 405, 72);
-        this.ctx.restore();
-    }
-
-    if (this.game.lane !== 0 && this.unitName != null){
+    if (this.game.lane != null){
         this.lane = this.game.lane;
     }
     if (this.unitName != null && this.lane != null) {
@@ -703,75 +669,60 @@ UnitsControl.prototype.draw = function () {
             laneY = 551;
         }
 
+
         if (laneY && this.unitName === "Fireball") {
             this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
-            is_enemy_spawn_2 = true;
         } else if (laneY && this.unitName === "Knight") {
             this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
-            is_enemy_spawn_1 = true;
         } else if (laneY && this.unitName === "Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
-            is_enemy_spawn_2 = true;
 
         } else if (laneY && this.unitName === "Samurai") {
             this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
-            is_enemy_spawn_1 = true;
 
         } else if (laneY && this.unitName === "Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), 305, laneY));
+            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
 
         }
+        if (count > 3) {
+            is_enemy_spawn = false;
+        }
+        //this.shadow = false;
+        if (is_enemy_spawn) {
+            if (count > 3) {
+                is_enemy_spawn = false;
+            }
+            count += 1;
+            is_enemy_spawn = false; 
+            var random_num = Math.floor(Math.random() * Math.floor(2));
+            if (random_num === 0) this.game.addEntity(new Orc(this.game, 1000, laneY))
+            else this.game.addEntity(new FallenAngel(this.game, 980, laneY));
+                    
+                // case 2: 
+                //     this.game.addEntity(new FallenAngel(this.game, 1000, laneY));
+            }
+                   
+       
+
+
     }
+
+
 }
-
-function EnemyControl (game){
-    this.game = game;
-    this.ctx = game.ctx;
-    this.toggle = false;
-}
-
-EnemyControl.prototype = new Entity();
-EnemyControl.prototype.constructor = EnemyControl;
-
-EnemyControl.prototype.update = function () {
-    
-}
-EnemyControl.prototype.draw = function () {
-    if (is_enemy_spawn_1) {
-        this.game.addEntity(new ReaperMan(this.game, 1000, 385));
-        this.game.addEntity(new FallenAngel(this.game, 980, 468));
-        // this.game.addEntity(new ReaperMan(this.game, 1000, 551));
-        is_enemy_spawn_1 = false;
-    }
-    if (is_enemy_spawn_2) {
-        // this.game.addEntity(new Orc(this.game, 1000, 385));
-        this.game.addEntity(new FallenAngel(this.game, 980, 468));
-        this.game.addEntity(new ReaperMan(this.game, 1000, 551));
-        is_enemy_spawn_2 = false;
-    }
-    
-    // if (is_enemy_spawn) {
-    //     is_enemy_spawn = false; 
-    //     var random_num = Math.floor(Math.random() * Math.floor(2));
-    //     if (random_num === 0) this.game.addEntity(new Orc(this.game, 1000, laneY))
-    //     else this.game.addEntity(new FallenAngel(this.game, 980, laneY));
-                
-            // case 2: 
-            //     this.game.addEntity(new FallenAngel(this.game, 1000, laneY));
-        // }
-}
-
-
 
 function RedHP(game){
     this.game = game;
@@ -955,7 +906,6 @@ AM.queueDownload("./img/Background/MediumText.png");
 AM.queueDownload("./img/Background/HardText.png");
 AM.queueDownload("./img/Background/TutorialText.png");
 AM.queueDownload("./img/Background/SoundText.png");
-AM.queueDownload("./img/Background/BackText.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
@@ -965,6 +915,5 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Start.png")));
     gameEngine.addEntity(new UnitsControl(gameEngine));
-    gameEngine.addEntity(new EnemyControl(gameEngine));
     console.log("All Done!");
 });
