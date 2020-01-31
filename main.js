@@ -585,7 +585,7 @@ UnitsControl.prototype.draw = function () {
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Knight") {
-            this.game.addEntity(new Knight(this.game, AM.getAsset("./img//Knight/Knight.png"), 305, laneY));
+            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
         } else if (laneY && this.unitName === "Bandit") {
