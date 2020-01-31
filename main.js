@@ -623,7 +623,7 @@ UnitsControl.prototype.draw = function () {
             if (random_num === 0) this.game.addEntity(new Orc(this.game, 1000, laneY))
             else if (random_num === 1) this.game.addEntity(new FallenAngel(this.game, 980, laneY))
                     
-            else this.game.addEntity(new ReaperMan(this.game, 1000, laneY));
+            else this.game.addEntity(new ReaperMan(this.game, 970, laneY));
             }
                    
        
