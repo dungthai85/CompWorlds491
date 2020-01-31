@@ -171,6 +171,18 @@ GameEngine.prototype.addEntity = function (entity) {
     this.entities.push(entity);
 }
 
+GameEngine.prototype.removal = function () {
+    var entitiesCount = this.entities.length;
+    for (var i = 0; i < entitiesCount; i++) {
+        var entity = this.entities.shift();
+        if (!entity.removeFromWorld) {
+            this.entities.push(entity);
+        }
+
+    }
+
+}
+
 GameEngine.prototype.reset = function(){
     this.entities.splice(2);
 }
@@ -191,6 +203,7 @@ GameEngine.prototype.update = function () {
         var entity = this.entities[i];
         entity.update();
     }
+    this.removal();
 }
 
 GameEngine.prototype.loop = function () {
@@ -240,6 +253,8 @@ Entity.prototype.draw = function (ctx) {
         this.game.ctx.closePath();
     }
 }
+
+
 
 Entity.prototype.rotateAndCache = function (image, angle) {
     var offscreenCanvas = document.createElement('canvas');
