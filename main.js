@@ -1,5 +1,6 @@
 var AM = new AssetManager();
-is_enemy_spawn = false;
+var is_enemy_spawn_1 = false;
+var is_enemy_spawn_2 = false;
 // Copy of Animation class from Lecture 5 for player controlled units
 class MyAnimation {
     constructor(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
@@ -584,49 +585,71 @@ UnitsControl.prototype.draw = function () {
             this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
+            is_enemy_spawn_2 = true;
         } else if (laneY && this.unitName === "Knight") {
             this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), 305, laneY));
-            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
+            is_enemy_spawn_1 = true;
         } else if (laneY && this.unitName === "Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), 305, laneY));
-            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
+            is_enemy_spawn_2 = true;
 
         } else if (laneY && this.unitName === "Samurai") {
             this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), 305, laneY));
-            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
+            is_enemy_spawn_1 = true;
 
         } else if (laneY && this.unitName === "Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), 305, laneY));
-            is_enemy_spawn = true;
             this.unitName = null;
             this.lane = null;
 
         }
-        //this.shadow = false;
-        if (is_enemy_spawn) {
-            is_enemy_spawn = false; 
-            var random_num = Math.floor(Math.random() * Math.floor(2));
-            console.log(random_num);
-            if (random_num === 0) this.game.addEntity(new Orc(this.game, 1000, laneY))
-            else this.game.addEntity(new FallenAngel(this.game, 980, laneY));
-                    
-                // case 2: 
-                //     this.game.addEntity(new FallenAngel(this.game, 1000, laneY));
-            }
-                   
-       
-
-
     }
-
-
 }
+
+function EnemyControl (game){
+    this.game = game;
+    this.ctx = game.ctx;
+    this.toggle = false;
+}
+
+EnemyControl.prototype = new Entity();
+EnemyControl.prototype.constructor = EnemyControl;
+
+EnemyControl.prototype.update = function () {
+    
+}
+EnemyControl.prototype.draw = function () {
+    if (is_enemy_spawn_1) {
+        this.game.addEntity(new ReaperMan(this.game, 1000, 385));
+        this.game.addEntity(new FallenAngel(this.game, 980, 468));
+        // this.game.addEntity(new ReaperMan(this.game, 1000, 551));
+        is_enemy_spawn_1 = false;
+    }
+    if (is_enemy_spawn_2) {
+        // this.game.addEntity(new Orc(this.game, 1000, 385));
+        this.game.addEntity(new FallenAngel(this.game, 980, 468));
+        this.game.addEntity(new ReaperMan(this.game, 1000, 551));
+        is_enemy_spawn_2 = false;
+    }
+    
+    // if (is_enemy_spawn) {
+    //     is_enemy_spawn = false; 
+    //     var random_num = Math.floor(Math.random() * Math.floor(2));
+    //     if (random_num === 0) this.game.addEntity(new Orc(this.game, 1000, laneY))
+    //     else this.game.addEntity(new FallenAngel(this.game, 980, laneY));
+                
+            // case 2: 
+            //     this.game.addEntity(new FallenAngel(this.game, 1000, laneY));
+        // }
+}
+
+
 
 function RedHP(game){
     this.game = game;
@@ -819,5 +842,6 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Start.png")));
     gameEngine.addEntity(new UnitsControl(gameEngine));
+    gameEngine.addEntity(new EnemyControl(gameEngine));
     console.log("All Done!");
 });
