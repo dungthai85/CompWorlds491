@@ -426,6 +426,8 @@ Background.prototype.draw = function () {
     if(this.game.menu.clicked && this.game.menu.id === "easy") {
         this.spritesheet = this.level1;
         this.start = false;
+        this.game.addEntity(new UnitsControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game));
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new ElixirBar(this.game));
@@ -434,6 +436,8 @@ Background.prototype.draw = function () {
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.spritesheet = this.level2;
         this.start = false;
+        this.game.addEntity(new UnitsControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game));
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new ElixirBar(this.game));
@@ -441,6 +445,8 @@ Background.prototype.draw = function () {
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.spritesheet = this.level3;
         this.start = false;
+        this.game.addEntity(new UnitsControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game));
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new ElixirBar(this.game));
@@ -449,8 +455,10 @@ Background.prototype.draw = function () {
         this.spritesheet = this.tutorial;
         this.start = false;
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
+        debugger;
         this.start = true;
         this.game.reset();
+        console.log("clicked back");
     } 
     if (this.start) {
         this.spritesheet = this.startBackground;
@@ -875,7 +883,7 @@ AM.downloadAll(function () {
     gameEngine.start();
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Start.png")));
-    gameEngine.addEntity(new UnitsControl(gameEngine));
-    gameEngine.addEntity(new EnemyControl(gameEngine));
+    // gameEngine.addEntity(new UnitsControl(gameEngine));
+    // gameEngine.addEntity(new EnemyControl(gameEngine));
     console.log("All Done!");
 });
