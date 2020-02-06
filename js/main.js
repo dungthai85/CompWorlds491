@@ -47,7 +47,8 @@ function RedHP(game){
     this.full = true;
     this.half = false;
     this.quarter = false;
-
+    this.type = "hero";
+    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, 220);
 }
 
 RedHP.prototype = new Entity();

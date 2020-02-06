@@ -85,9 +85,10 @@ MyAnimation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
         if (this.isDone()) {
             this.elapsedTime = 0;
         }
-    } else if (this.isDone()) {
-        return;
-    }
+    } 
+    // else if (this.isDone()) {
+    //     return;
+    // }
     var index = this.reverse ? this.frames - this.currentFrame() - 1 : this.currentFrame();
     var vindex = 0;
     if ((index + 1) * this.frameWidth + this.startX > this.spriteSheet.width) {
@@ -121,5 +122,5 @@ MyAnimation.prototype.isDone = function () {
 }
 
 MyAnimation.prototype.animationComplete = function () {
-    return this.currentFrame() === this.frames - 1;
+   return this.currentFrame() === this.frames - 8;
 }

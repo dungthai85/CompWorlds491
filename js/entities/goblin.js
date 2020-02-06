@@ -3,8 +3,8 @@
 
 function Goblin(game, spritesheet, X, Y) {
     // scale 0.125
-    this.animation = new MyAnimation(spritesheet, 0, 0, 524, 591, 0.4, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 600, 524, 591, 0.2, 8, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 524, 591, 0.1, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 600, 524, 591, 0.05, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 1800, 524, 591, 0.2, 8, true, false);
     this.hp = 10;
     this.moving = true;
@@ -15,8 +15,8 @@ function Goblin(game, spritesheet, X, Y) {
     this.laneEnd = getLaneEnd(Y);
     this.x = X;
     this.y = Y;
-
-    this.boundingbox = new BoundingBox(this.x + 2, this.y + 2, this.attackAnimation.frameWidth*.1, this.attackAnimation.frameHeight*.1);
+    this.type = "hero";
+    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
 
     // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);
@@ -26,7 +26,49 @@ Goblin.prototype = new Entity();
 Goblin.prototype.constructor = Goblin;
 
 Goblin.prototype.update = function () {
-    if (this.moving) {
+    var entity;
+    for(var i = 0; i < this.game.entities.length; i ++){
+        entity = this.game.entities[i];
+
+        // if (entity === this) {
+        //     continue;
+        // }
+
+        // if (entity.boundingbox == null) {
+        //     continue;
+        // }
+
+        // //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+        //     console.log('Colliding ' + entity.type);
+        //     this.moving = false;
+        //     this.attacking = true;
+        //     break;
+        // }
+
+        // if (!entity.removeFromWorld) {
+        //     this.moving = true;
+        //     this.attacking = false;
+        //     break;
+        // }
+
+        if(entity.boundingbox != null && this.boundingbox != entity.boundingbox){
+            if(this.boundingbox.collide(entity.boundingbox) && entity.type != this.type){
+                this.moving = false;
+                this.attacking = true;
+                break;
+            }
+        }
+    }
+    if (this.attacking){
+        if(entity.removeFromWorld){
+            this.attacking = false;
+            this.moving = true;
+            this.attackAnimation.elapsedTime = 0;
+            this.animation.elapsedTime = 0;
+        }
+    }
+    else if (this.moving) {
         this.x += this.game.clockTick * this.speed;
         if (this.x > this.laneEnd) {
             this.moving = false;
@@ -34,7 +76,7 @@ Goblin.prototype.update = function () {
         }
 
     }
-    this.boundingbox = new BoundingBox(this.x + 2, this.y + 2, this.animation.frameWidth*.1, this.animation.frameHeight*.1);
+    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.animation.frameHeight*.1);
     Entity.prototype.update.call(this);
 }
 

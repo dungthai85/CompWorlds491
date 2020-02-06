@@ -7,7 +7,7 @@ function Fireball(game, spritesheet, X, Y) {
     this.ctx = game.ctx;
     this.x = X;
     this.y = Y;
-
+    this.type = "hero";
     this.boundingbox = new BoundingBox(this.x + 2, this.y + 2, this.animation.frameWidth*.35, this.animation.frameHeight*.35);
     Entity.call(this, game, X, Y);
 }
@@ -16,6 +16,23 @@ Fireball.prototype = new Entity();
 Fireball.prototype.constructor = Fireball;
 
 Fireball.prototype.update = function () {
+    for(var i = 0; i < this.game.entities.length; i ++){
+        entity = this.game.entities[i];
+        if (entity === this) {
+            continue;
+        }
+
+        if (entity.boundingbox == null) {
+            continue;
+        }
+
+        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            entity.removeFromWorld = true;
+
+            break;
+        }
+    }
     if (this.x < 1135){
         this.x += this.game.clockTick * this.speed;
         this.boundingbox = new BoundingBox(this.x + 8, this.y + 8, this.animation.frameWidth*.35, this.animation.frameHeight*.35);

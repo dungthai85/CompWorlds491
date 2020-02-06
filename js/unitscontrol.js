@@ -75,14 +75,14 @@ UnitsControl.prototype.update = function () {
         }
     }
     if (is_enemy_spawn_1) {
-       this.game.addEntity(new ReaperMan(this.game, 1000, 385, AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png")));
+       this.game.addEntity(new ReaperMan(this.game, 1000, 370, AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png")));
       //  this.game.addEntity(new FallenAngel(this.game, 980, 468, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
       //  this.game.addEntity(new Orc(this.game, 1000, 551, AM.getAsset("./img/enemy_team/orc/orc_walk.png")));
         is_enemy_spawn_1 = false;
     }
     else if (is_enemy_spawn_2) {
      //   this.game.addEntity(new Orc(this.game, 1000, 385, AM.getAsset("./img/enemy_team/orc/orc_walk.png")));
-        this.game.addEntity(new FallenAngel(this.game, 980, 455, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
+        this.game.addEntity(new FallenAngel(this.game, 980, 453, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
        // this.game.addEntity(new ReaperMan(this.game, 1000, 551, AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png")));
         this.game.addEntity(new FallenAngel(this.game, 1000, 535, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
         this.game.addEntity(new FallenAngel(this.game, 1000, 370, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));

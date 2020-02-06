@@ -22,7 +22,7 @@ function Orc(game, X, Y, spritesheet) {
     this.laneEnd = getLaneEnd(Y);
     this.x = X;
     this.y = Y;
-
+    this.type = "enemy";
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, this.attack_animation.frameWidth*.125, this.attack_animation.frameHeight*.125);
     Entity.call(this, game, X, Y);
 }
@@ -31,6 +31,15 @@ Orc.prototype = new Entity();
 Orc.prototype.constructor = Orc;
 
 Orc.prototype.update = function () {
+    for(var i = 0; i < this.game.entities.length; i ++){
+        var entity = this.game.entities[i];
+        if(entity.boundingbox != null && this.boundingbox != entity.boundingbox){
+            if(this.boundingbox.collide(entity.boundingbox)){
+                this.moving = false;
+                this.attacking = true;
+            }
+        }
+    }
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
         if (this.x < 250) {
