@@ -51,8 +51,8 @@ function RedHP(game){
     this.hpbar = 296;
     this.boundingbox = new BoundingBox(280, 400, 1, 65);
     this.boundingbox1 = new BoundingBox(280, 400, 1, 65);
-    this.boundingbox2 = new BoundingBox(275, 480, 1, 65);
-    this.boundingbox3 = new BoundingBox(250, 550, 1, 65);
+    this.boundingbox2 = new BoundingBox(280, 470, 1, 65);
+    this.boundingbox3 = new BoundingBox(280, 550, 1, 65);
     this.x = 288;
   
 }
@@ -73,13 +73,22 @@ RedHP.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        if ((this.boundingbox1.collide(entity.boundingbox) || this.boundingbox2.collide(entity.boundingbox) || this.boundingbox3.collide(entity.boundingbox))
-                 && entity.type !== this.type) {
-            //console.log('Colliding ' + entity.type);
-            if(entity.attack_animation.animationComplete()){
-                this.hp -= 10;
+        if (entity.type !== this.type) {
+            if (this.boundingbox1.collide(entity.boundingbox)){
+                if(entity.attack_animation.animationComplete()){
+                    this.hp -= 10;
+                }
+            } 
+            else if (this.boundingbox2.collide(entity.boundingbox)){
+                if(entity.attack_animation.animationComplete()){
+                    this.hp -= 10;
+                }
+            }
+            else if (this.boundingbox3.collide(entity.boundingbox)){
+                if(entity.attack_animation.animationComplete()){
+                    this.hp -= 10;
+                }
             }
             break;
         }
