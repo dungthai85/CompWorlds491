@@ -1,30 +1,44 @@
-var AM = new AssetManager();
-AM.queueDownload("./img/Fireball/Fireball.png");
-AM.queueDownload("./img/Fireball/Fireball_icon.png");
-AM.queueDownload("./img/Knight/Knight_icon.png");
-AM.queueDownload("./img/Samurai/Samurai_icon.png");
-AM.queueDownload("./img/Goblin/Goblin_icon.png");
-AM.queueDownload("./img/Bandit/Bandit_icon.png");
-AM.queueDownload("./img/Knight/Knight.png");
-AM.queueDownload("./img/Samurai/Samurai.png");
-AM.queueDownload("./img/Goblin/Goblin.png");
-AM.queueDownload("./img/Bandit/Bandit.png");
-AM.queueDownload("./img/Background/Start.png");
-AM.queueDownload("./img/Background/Tutorial.png");
-AM.queueDownload("./img/Background/Map 1/NoDamage.png");
-AM.queueDownload("./img/Background/Map 2/NoDamage.png");
-AM.queueDownload("./img/Background/Map 3/NoDamage.png");
-AM.queueDownload("./img/Background/EasyText.png");
-AM.queueDownload("./img/Background/MediumText.png");
-AM.queueDownload("./img/Background/HardText.png");
-AM.queueDownload("./img/Background/TutorialText.png");
-AM.downloadAll(function () {
-    var canvas = document.getElementById("gameWorld");
-    var ctx = canvas.getContext("2d");
-    var gameEngine = new GameEngine();
-    gameEngine.init(ctx);
-    gameEngine.start();
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Background/Start.png")));
-    gameEngine.addEntity(new UnitsControl(gameEngine));
-    console.log("All Done!");
-});
+function AssetManager() {
+    this.successCount = 0;
+    this.errorCount = 0;
+    this.cache = [];
+    this.downloadQueue = [];
+}
+
+AssetManager.prototype.queueDownload = function (path) {
+    console.log("Queueing " + path);
+    this.downloadQueue.push(path);
+}
+
+AssetManager.prototype.isDone = function () {
+    return this.downloadQueue.length === this.successCount + this.errorCount;
+}
+
+AssetManager.prototype.downloadAll = function (callback) {
+    for (var i = 0; i < this.downloadQueue.length; i++) {
+        var img = new Image();
+        var that = this;
+
+        var path = this.downloadQueue[i];
+        console.log(path);
+
+        img.addEventListener("load", function () {
+            console.log("Loaded " + this.src);
+            that.successCount++;
+            if(that.isDone()) callback();
+        });
+
+        img.addEventListener("error", function () {
+            console.log("Error loading " + this.src);
+            that.errorCount++;
+            if (that.isDone()) callback();
+        });
+
+        img.src = path;
+        this.cache[path] = img;
+    }
+}
+
+AssetManager.prototype.getAsset = function (path) {
+    return this.cache[path];
+}
