@@ -49,9 +49,9 @@ function RedHP(game){
     this.name ="redhp";
     this.hp = 1000;
     this.hpbar = 296;
-    this.boundingbox = new BoundingBox(280, 400, 1, 65);
-    this.boundingbox1 = new BoundingBox(280, 400, 1, 65);
-    this.boundingbox2 = new BoundingBox(275, 480, 1, 65);
+    this.boundingbox = new BoundingBox(290, 400, 1, 65);
+    this.boundingbox1 = new BoundingBox(290, 400, 1, 65);
+    this.boundingbox2 = new BoundingBox(290, 480, 1, 65);
     this.boundingbox3 = new BoundingBox(250, 550, 1, 65);
     this.x = 288;
   
@@ -63,7 +63,6 @@ RedHP.prototype.constructor = RedHP;
 RedHP.prototype.update = function () {
     console.log(this.hp);
     var entity;
-    var entity2;
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
         if (entity === this) {
@@ -73,10 +72,25 @@ RedHP.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-
+        this.boundingbox = this.boundingbox1;
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        if ((this.boundingbox1.collide(entity.boundingbox) || this.boundingbox2.collide(entity.boundingbox) || this.boundingbox3.collide(entity.boundingbox))
-                 && entity.type !== this.type) {
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            //console.log('Colliding ' + entity.type);
+            if(entity.attack_animation.animationComplete()){
+                this.hp -= 10;
+            }
+            break;
+        }
+        this.boundingbox = this.boundingbox2;
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            //console.log('Colliding ' + entity.type);
+            if(entity.attack_animation.animationComplete()){
+                this.hp -= 10;
+            }
+            break;
+        }
+        this.boundingbox = this.boundingbox3;
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if(entity.attack_animation.animationComplete()){
                 this.hp -= 10;
@@ -108,8 +122,8 @@ RedHP.prototype.draw = function () {
     //bounding box test
     this.ctx.fillRect(288, 137, this.hpbar, 34);
     this.ctx.strokeStyle = "red";
+    //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
     this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
-    //this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
     this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
     this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
     Entity.prototype.draw.call(this);
@@ -121,6 +135,15 @@ function BlueHP(game){
     this.full = true;
     this.half = false;
     this.quarter = false;
+    this.type = "enemy";
+    this.name ="bluehp";
+    this.hp = 1000;
+    this.hpbar = 296;
+    this.boundingbox = new BoundingBox(1145, 400, 1, 65);
+    this.boundingbox1 = new BoundingBox(1145, 400, 1, 65);
+    this.boundingbox2 = new BoundingBox(1160, 480, 1, 65);
+    this.boundingbox3 = new BoundingBox(1200, 550, 1, 65);
+    this.x = 865;
 
 }
 
@@ -128,6 +151,62 @@ BlueHP.prototype = new Entity();
 BlueHP.prototype.constructor = BlueHP;
 
 BlueHP.prototype.update = function () {
+    var entity;
+    for(var i = 0; i < this.game.entities.length; i ++){
+        entity = this.game.entities[i];
+        if (entity === this) {
+            continue;
+        }
+
+        if (entity.boundingbox == null) {
+            continue;
+        }
+        this.boundingbox = this.boundingbox1;
+        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            //console.log('Colliding ' + entity.type);
+            if (entity.name === "Fireball" && entity.animation.animationComplete()){
+                console.log("lane1");
+                this.hp -= 10;
+            } else if(entity.attackAnimation.animationComplete()){
+                this.hp -= 10;
+            }
+            break;
+        }
+        this.boundingbox = this.boundingbox2;
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            //console.log('Colliding ' + entity.type);
+            if (entity.name === "Fireball" && entity.animation.animationComplete()){
+                console.log("lane2");
+                this.hp -= 10;
+            } else if(entity.attackAnimation.animationComplete()){
+                this.hp -= 10;
+            }
+            break;
+        }
+        this.boundingbox = this.boundingbox3;
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            if (entity.name === "Fireball" && entity.animation.animationComplete()){
+                console.log("lane3");
+                this.hp -= 10;
+            } else if(entity.attackAnimation.animationComplete()){
+                this.hp -= 10;
+            }
+            break;
+        }
+    }
+    this.hpbar = 296 - (1 - (this.hp/1000))*296;
+    if(this.hpbar < 0){
+        this.hpbar = 0;
+    }
+    if(this.hp < 500 && this.hp > 250){
+        this.full = false;
+        this.half = true;
+    }
+    else if(this.hp <= 250){
+        this.half = false;
+        this.quarter = true;
+    }
     
 }
 
@@ -135,10 +214,19 @@ BlueHP.prototype.draw = function () {
     if (this.full){
         this.ctx.fillStyle = "rgb(58, 174, 89)";
     } 
-    if (this.quarter){
+    else if (this.half){
+        this.ctx.fillStyle = "rgb(255, 174, 66)";
+    } 
+    else if (this.quarter){
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
     }
-    this.ctx.fillRect(856, 137, 296, 34);
+    this.ctx.fillRect(856, 137, this.hpbar, 34);
+    this.ctx.strokeStyle = "red";
+    //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
+    this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
+    this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
+    Entity.prototype.draw.call(this);
 }
 
 // function ElixirBar(game){
@@ -226,6 +314,7 @@ function SuperBar(game){
     this.speed = 25;
     this.unitName = null;
     this.shadow = false;
+    this.type = "hero";
     Entity.call(this, game, 0, 0);
 }
 
