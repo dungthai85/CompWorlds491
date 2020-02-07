@@ -5,15 +5,15 @@
 
 
 function Orc(game, X, Y, spritesheet) {
-    this.walk_animation = new MyAnimation(spritesheet, 10, 0, 900, 900, 0.05, 24, true, true);
+    this.walk_animation = new MyAnimation(spritesheet, 10, 0, 900, 900, 0.02, 24, true, true);
     this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_attack.png"), 0, 0, 450, 450, 0.05, 12, true, false);
-    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions1.png"), 0, 900, 450, 450, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions1.png"), 0, 900, 450, 450, 0.01, 12, true, false);
     // this.moving = true;
     // this.attacking = false;
     // this.dead = false;
     // this.speed = 100;
     // this.ctx = game.ctx;
-    this.hp = 10;
+    this.hp = 80;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
@@ -23,7 +23,7 @@ function Orc(game, X, Y, spritesheet) {
     this.x = X;
     this.y = Y;
     this.type = "enemy";
-    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, this.attack_animation.frameWidth*.125, this.attack_animation.frameHeight*.125);
+    this.boundingbox = new BoundingBox(this.x + 25, this.y + 20, 1, this.attack_animation.frameHeight*.125);
     Entity.call(this, game, X, Y);
 }
 
@@ -32,12 +32,21 @@ Orc.prototype.constructor = Orc;
 
 Orc.prototype.update = function () {
     for(var i = 0; i < this.game.entities.length; i ++){
-        var entity = this.game.entities[i];
-        if(entity.boundingbox != null && this.boundingbox != entity.boundingbox){
-            if(this.boundingbox.collide(entity.boundingbox)){
-                this.moving = false;
-                this.attacking = true;
-            }
+        entity = this.game.entities[i];
+        if (entity === this) {
+            continue;
+        }
+
+        if (entity.boundingbox == null) {
+            continue;
+        }
+
+        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
         }
     }
     if (this.moving) {
@@ -60,7 +69,7 @@ Orc.prototype.update = function () {
         this.attacking = false;
     }
 
-    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, this.attack_animation.frameWidth*.125, this.attack_animation.frameHeight*.125);
+    this.boundingbox = new BoundingBox(this.x + 25, this.y + 20, 1, this.attack_animation.frameHeight*.125);
     Entity.prototype.update.call(this);
     // if (this.moving) {
     //     this.x -= this.game.clockTick * this.speed;
@@ -91,9 +100,11 @@ Orc.prototype.draw = function () {
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.2);
     } else if (this.hp <= 0) {
-        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.2);
         if (this.dead_animation.animationComplete()) {
+            this.attack_animation.elapsedTime = 0;
             this.removeFromWorld = true;
+        } else {
+            this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.20);
         }
     }
     Entity.prototype.draw.call(this);
