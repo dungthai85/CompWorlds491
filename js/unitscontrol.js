@@ -17,10 +17,7 @@ UnitsControl.prototype = new Entity();
 UnitsControl.prototype.constructor = UnitsControl;
 
 UnitsControl.prototype.update = function () {
-    if (this.game.menu.clicked && this.game.menu.id === "Fireball") {
-        this.unitName = "Fireball";
-        this.shadow = true;
-    } else if (this.game.menu.clicked && this.game.menu.id === "Knight") {
+    if (this.game.menu.clicked && this.game.menu.id === "Knight") {
         this.unitName = "Knight";
         this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === "Bandit") {
@@ -45,13 +42,8 @@ UnitsControl.prototype.update = function () {
         } else if (this.lane === 3) {
             laneY = 551;
         }
-
-        if (laneY && this.unitName === "Fireball") {
-            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 305, laneY));
-            this.unitName = null;
-            this.lane = null;
-            is_enemy_spawn_2 = true;
-        } else if (laneY && this.unitName === "Knight") {
+        if (laneY && this.unitName === "Knight") {
+            //debugger;
             this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), 305, laneY));
             this.unitName = null;
             this.lane = null;
@@ -77,7 +69,7 @@ UnitsControl.prototype.update = function () {
     if (is_enemy_spawn_1) {
        this.game.addEntity(new ReaperMan(this.game, 1000, 370, AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png")));
       //  this.game.addEntity(new FallenAngel(this.game, 980, 468, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
-      //  this.game.addEntity(new Orc(this.game, 1000, 551, AM.getAsset("./img/enemy_team/orc/orc_walk.png")));
+        this.game.addEntity(new Orc(this.game, 1000, 535, AM.getAsset("./img/enemy_team/orc/orc_walk.png")));
         is_enemy_spawn_1 = false;
     }
     else if (is_enemy_spawn_2) {
@@ -91,12 +83,7 @@ UnitsControl.prototype.update = function () {
 }
 
 UnitsControl.prototype.draw = function () {
-    if (this.unitName === "Fireball" && this.shadow){
-        this.ctx.save();
-        this.ctx.globalAlpha = 0.5;
-        this.ctx.drawImage(AM.getAsset("./img/Fireball/Fireball_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
-        this.ctx.restore();
-    } else if (this.unitName === "Knight" && this.shadow){
+    if (this.unitName === "Knight" && this.shadow){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Knight/Knight_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
@@ -143,6 +130,4 @@ UnitsControl.prototype.draw = function () {
         this.ctx.fillRect(315, 558, 405, 72);
         this.ctx.restore();
     }
-
-
 }
