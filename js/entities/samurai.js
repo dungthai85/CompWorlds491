@@ -30,21 +30,21 @@ Samurai.prototype.update = function () {
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
 
-        // if (entity === this) {
-        //     continue;
-        // }
+        if (entity === this) {
+            continue;
+        }
 
-        // if (entity.boundingbox == null) {
-        //     continue;
-        // }
+        if (entity.boundingbox == null) {
+            continue;
+        }
 
-        // //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-        //     console.log('Colliding ' + entity.type);
-        //     this.moving = false;
-        //     this.attacking = true;
-        //     break;
-        // }
+        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
 
         // if (!entity.removeFromWorld) {
         //     this.moving = true;
@@ -52,13 +52,13 @@ Samurai.prototype.update = function () {
         //     break;
         // }
 
-        if(entity.boundingbox != null && this.boundingbox != entity.boundingbox){
-            if(this.boundingbox.collide(entity.boundingbox) && entity.type != this.type){
-                this.moving = false;
-                this.attacking = true;
-                break;
-            }
-        }
+        // if(entity.boundingbox != null && this.boundingbox != entity.boundingbox){
+        //     if(this.boundingbox.collide(entity.boundingbox) && entity.type != this.type){
+        //         this.moving = false;
+        //         this.attacking = true;
+        //         break;
+        //     }
+        // }
     }
     if (this.attacking){
         if(entity.removeFromWorld){

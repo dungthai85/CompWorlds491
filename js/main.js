@@ -48,24 +48,45 @@ function RedHP(game){
     this.half = false;
     this.quarter = false;
     this.type = "hero";
-    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, 220);
+    this.name ="redhp";
+    this.hp = 1000;
+    this.hpbar = 296;
+    this.boundingbox = new BoundingBox(200, 400, 15, 220);
+    this.x = 288;
+  
 }
 
 RedHP.prototype = new Entity();
 RedHP.prototype.constructor = RedHP;
 
 RedHP.prototype.update = function () {
-    
+    console.log(this.hp);
+    this.hpbar = 296 - (1 - (this.hp/1000))*296;
+    if(this.hp < 500 && this.hp > 250){
+        this.full = false;
+        this.half = true;
+    }
+    else if(this.hp <= 250){
+        this.half = false;
+        this.quarter = true;
+    }
 }
 
 RedHP.prototype.draw = function () {
     if (this.full){
         this.ctx.fillStyle = "rgb(58, 174, 89)";
     } 
-    if (this.quarter){
+    else if (this.half){
+        this.ctx.fillStyle = "rgb(255, 174, 66)";
+    } 
+    else if (this.quarter){
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
     }
-    this.ctx.fillRect(288, 137, 296, 34);
+    //bounding box test
+    this.ctx.fillRect(288, 137, this.hpbar, 34);
+    this.ctx.strokeStyle = "red";
+    this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    Entity.prototype.draw.call(this);
 }
 
 function BlueHP(game){

@@ -34,6 +34,7 @@ FallenAngel.prototype = new Entity();
 FallenAngel.prototype.constructor = FallenAngel;
 
 FallenAngel.prototype.update = function () {
+    var entity;
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
         if (entity === this) {
@@ -46,7 +47,7 @@ FallenAngel.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            console.log('Colliding ' + entity.type);
+            // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
             break;
@@ -66,6 +67,11 @@ FallenAngel.prototype.update = function () {
             this.attacking = true;
         }
 
+    }
+    else if (this.attacking){
+        // if (this.x < 250 && entity.name === "redhp"){
+        //     entity.hp -= 10;
+        // }
     }
     if (this.attack_animation.animationComplete() && !this.finished) {
         this.hp -= 10;

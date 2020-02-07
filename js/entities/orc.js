@@ -43,7 +43,7 @@ Orc.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            console.log('Colliding ' + entity.type);
+            // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
             break;
