@@ -51,7 +51,7 @@ function RedHP(game){
     this.name ="redhp";
     this.hp = 1000;
     this.hpbar = 296;
-    this.boundingbox = new BoundingBox(200, 400, 15, 220);
+    this.boundingbox = new BoundingBox(280, 400, 1, 65);
     this.x = 288;
   
 }
@@ -61,6 +61,27 @@ RedHP.prototype.constructor = RedHP;
 
 RedHP.prototype.update = function () {
     console.log(this.hp);
+    var entity;
+    var entity2;
+    for(var i = 0; i < this.game.entities.length; i ++){
+        entity = this.game.entities[i];
+        if (entity === this) {
+            continue;
+        }
+
+        if (entity.boundingbox == null) {
+            continue;
+        }
+
+        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            //console.log('Colliding ' + entity.type);
+            if(entity.attack_animation.animationComplete()){
+                this.hp -= 10;
+            }
+            break;
+        }
+    }
     this.hpbar = 296 - (1 - (this.hp/1000))*296;
     if(this.hp < 500 && this.hp > 250){
         this.full = false;
@@ -86,6 +107,9 @@ RedHP.prototype.draw = function () {
     this.ctx.fillRect(288, 137, this.hpbar, 34);
     this.ctx.strokeStyle = "red";
     this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    // this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
+    // this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
+    // this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
     Entity.prototype.draw.call(this);
 }
 
