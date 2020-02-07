@@ -28,7 +28,7 @@ Knight.prototype.constructor = Knight;
 Knight.prototype.update = function () {
 
     var entity;
-    var entity2
+    var entity2;
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
         if (entity === this) {

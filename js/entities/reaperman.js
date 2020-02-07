@@ -27,12 +27,21 @@ ReaperMan.prototype.constructor = ReaperMan;
 
 ReaperMan.prototype.update = function () {
     for(var i = 0; i < this.game.entities.length; i ++){
-        var entity = this.game.entities[i];
-        if(entity.boundingbox != null && this.boundingbox != entity.boundingbox){
-            if(this.boundingbox.collide(entity.boundingbox)){
-                this.moving = false;
-                this.attacking = true;
-            }
+        entity = this.game.entities[i];
+        if (entity === this) {
+            continue;
+        }
+
+        if (entity.boundingbox == null) {
+            continue;
+        }
+
+        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
         }
     }
     if (this.moving) {

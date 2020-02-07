@@ -8,7 +8,7 @@ function Fireball(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.type = "hero";
-    this.boundingbox = new BoundingBox(this.x + 2, this.y + 2, this.animation.frameWidth*.35, this.animation.frameHeight*.35);
+    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.animation.frameHeight*.35);
     Entity.call(this, game, X, Y);
 }
 
@@ -35,7 +35,7 @@ Fireball.prototype.update = function () {
     }
     if (this.x < 1135){
         this.x += this.game.clockTick * this.speed;
-        this.boundingbox = new BoundingBox(this.x + 8, this.y + 8, this.animation.frameWidth*.35, this.animation.frameHeight*.35);
+        this.boundingbox = new BoundingBox(this.x + 67, this.y + 8, 1, this.animation.frameHeight*.35);
         Entity.prototype.update.call(this);
     } 
 }
