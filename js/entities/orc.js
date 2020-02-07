@@ -4,26 +4,21 @@
 */
 
 
-function Orc(game, X, Y, spritesheet) {
-    this.walk_animation = new MyAnimation(spritesheet, 10, 0, 900, 900, 0.02, 24, true, true);
-    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_attack.png"), 0, 0, 450, 450, 0.05, 12, true, false);
-    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions1.png"), 0, 900, 450, 450, 0.01, 12, true, false);
-    // this.moving = true;
-    // this.attacking = false;
-    // this.dead = false;
-    // this.speed = 100;
-    // this.ctx = game.ctx;
-    this.hp = 80;
+function Orc(game, spritesheet, X, Y ) {
+    this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false);
+    this.hp = 100;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
     this.speed = -100;
     this.ctx = game.ctx;
-    this.laneEnd = getLaneEnd(Y);
-    this.x = X;
-    this.y = Y;
+    this.endLane = getEndPointEnemy(Y);
+    // this.x = X;
+    // this.y = Y;
     this.type = "enemy";
-    this.boundingbox = new BoundingBox(this.x + 25, this.y + 20, 1, this.attack_animation.frameHeight*.125);
+    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
     Entity.call(this, game, X, Y);
 }
 
@@ -51,7 +46,7 @@ Orc.prototype.update = function () {
     }
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x < 250) {
+        if (this.x < this.endLane) {
             this.moving = false;
             this.attacking = true;
         }
@@ -69,7 +64,7 @@ Orc.prototype.update = function () {
         this.attacking = false;
     }
 
-    this.boundingbox = new BoundingBox(this.x + 25, this.y + 20, 1, this.attack_animation.frameHeight*.125);
+    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
     Entity.prototype.update.call(this);
     // if (this.moving) {
     //     this.x -= this.game.clockTick * this.speed;
@@ -93,15 +88,16 @@ Orc.prototype.draw = function () {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
     } else if (this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.2);
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
     } else if (this.hp <= 0) {
+        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
         if (this.dead_animation.animationComplete()) {
-            this.attack_animation.elapsedTime = 0;
+
             this.removeFromWorld = true;
         } else {
             this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.20);
@@ -139,3 +135,12 @@ Orc.prototype.draw = function () {
 //         this.removeFromWorld = true;
 //     }
 // }
+function getEndPointEnemy(yValue) {
+    if (yValue === 370) { // lane 1
+        return 270;
+    } else if (yValue === 455) { // lane 2
+        return 250;
+    } else if (yValue === 535) { // lane 3
+        return 170;
+    }
+}
