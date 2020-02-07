@@ -203,6 +203,7 @@ GameEngine.prototype.update = function () {
         var entity = this.entities[i];
         entity.update();
     }
+    debugger;
     this.removal();
 }
 

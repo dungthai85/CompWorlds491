@@ -326,14 +326,16 @@ Goblin.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 // Enemy side
-function Orc(game, X, Y) {
-    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
-    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
-    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/orc/orc_actions.png"), 0, 1800, 900, 900, 0.05, 12, true, false);
+function Orc(game, spritesheet, X, Y) {
+    this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false);
     this.moving = true;
     this.attacking = false;
     this.dead = false;
+    this.attack_count = 0;
     this.speed = 100;
+    this.endLane = getEndPoint(Y); 
     this.ctx = game.ctx;
     Entity.call(this, game, X, Y);
 }
@@ -345,51 +347,7 @@ Orc.prototype.update = function () {
     
     if (this.moving) {
         this.x -= this.game.clockTick * this.speed;
-        if (this.x < 250) {
-            this.moving = false;
-            this.attacking = true;
-        }
-    }
-    // if (this.attacking) {
-    //     if (this.attack_animation.isDone()) {
-    //         this.attack_animation.elapsedTime = 0;
-    //         this.attacking = false;
-    //     }      
-    // }
-    Entity.prototype.update.call(this);
-}
-
-Orc.prototype.draw = function () {
-    if (this.attacking) {
-        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
-    }
-    else {
-        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
-    }
-    Entity.prototype.draw.call(this);
-}
-
-function ReaperMan(game, X, Y) {
-    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
-    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
-    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_actions.png"), 0, 1800, 900, 900, 0.05, 12, false, false);
-    this.moving = true;
-    this.attacking = false;
-    this.dead = false;
-    this.attack_count = 0;
-    this.speed = 100;
-    this.ctx = game.ctx;
-    Entity.call(this, game, X, Y);
-}
-
-ReaperMan.prototype = new Entity();
-ReaperMan.prototype.constructor = ReaperMan;
-
-ReaperMan.prototype.update = function () {
-    
-    if (this.moving) {
-        this.x -= this.game.clockTick * this.speed;
-        if (this.x < 250) {
+        if (this.x < this.endLane) {
             this.moving = false;
             this.attacking = true;
         }
@@ -408,24 +366,18 @@ ReaperMan.prototype.update = function () {
             this.dead = false;
         }
     }
-    // if (this.attacking) {
-    //     if (this.attack_animation.isDone()) {
-    //         this.attack_animation.elapsedTime = 0;
-    //         this.attacking = false;
-    //     }      
-    // }
     Entity.prototype.update.call(this);
 }
 
-ReaperMan.prototype.draw = function () {
+Orc.prototype.draw = function () {
     if (this.attacking) {
-        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45);        
     }
     else if (this.moving){
-        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45); 
     }
     else if (this.dead) {
-        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);
+        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45);
     }
     else {
         // console.log(":D")
@@ -433,16 +385,75 @@ ReaperMan.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
-function FallenAngel(game, X, Y) {
-    this.walk_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png"), 10, 0, 900, 900, 0.05, 24, true, false);
-    this.attack_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_actions.png"), 0, 0, 900, 900, 0.05, 12, true, false);
-    this.dead_animation = new MyAnimation(AM.getAsset("./img/enemy_team/fallen_angel/fallen_actions.png"), 0, 1800, 900, 900, 0.05, 12, false, false);
+function ReaperMan(game, spritesheet, X, Y) {
+    this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false);
     this.moving = true;
     this.attacking = false;
     this.dead = false;
-    // this.delete = false;
     this.attack_count = 0;
     this.speed = 100;
+    this.endLane = getEndPoint(Y); 
+    this.ctx = game.ctx;
+    Entity.call(this, game, X, Y);
+}
+
+ReaperMan.prototype = new Entity();
+ReaperMan.prototype.constructor = ReaperMan;
+
+ReaperMan.prototype.update = function () {
+    
+    if (this.moving) {
+        this.x -= this.game.clockTick * this.speed;
+        if (this.x < this.endLane) {
+            this.moving = false;
+            this.attacking = true;
+        }
+    }
+    if (this.attacking) {
+        this.attack_count += 1;
+        if (this.attack_count > 250) {
+                this.attacking = false;
+                this.dead = true;             
+        }
+    
+    }
+    if (this.dead) {
+        if (this.dead_animation.isDone()) {
+            this.dead_animation.elapsedTime = 0;
+            this.dead = false;
+        }
+    }
+    Entity.prototype.update.call(this);
+}
+
+ReaperMan.prototype.draw = function () {
+    if (this.attacking) {
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45);        
+    }
+    else if (this.moving){
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45); 
+    }
+    else if (this.dead) {
+        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45);
+    }
+    else {
+        // console.log(":D")
+    }
+    Entity.prototype.draw.call(this);
+}
+
+function FallenAngel(game, spritesheet, X, Y) {
+    this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false);
+    this.moving = true;
+    this.attacking = false;
+    this.dead = false;
+    this.attack_count = 0;
+    this.speed = 100;
+    this.endLane = getEndPoint(Y); 
     this.ctx = game.ctx;
     Entity.call(this, game, X, Y);
 }
@@ -454,14 +465,14 @@ FallenAngel.prototype.update = function () {
     
     if (this.moving) {
         this.x -= this.game.clockTick * this.speed;
-        if (this.x < 250) {
+        if (this.x < this.endLane) {
             this.moving = false;
             this.attacking = true;
         }
     }
     if (this.attacking) {
         this.attack_count += 1;
-        if (this.attack_count > 200) {
+        if (this.attack_count > 250) {
                 this.attacking = false;
                 this.dead = true;             
         }
@@ -478,13 +489,13 @@ FallenAngel.prototype.update = function () {
 
 FallenAngel.prototype.draw = function () {
     if (this.attacking) {
-        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);        
+        this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45);        
     }
     else if (this.moving){
-        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1); 
+        this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45); 
     }
     else if (this.dead) {
-        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);
+        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.45);
     }
     else {
         // console.log(":D")
@@ -492,45 +503,15 @@ FallenAngel.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
-// function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
-//     this.spriteSheet = spriteSheet;
-//     this.frameWidth = frameWidth;
-//     this.frameDuration = frameDuration;
-//     this.frameHeight = frameHeight;
-//     this.sheetWidth = sheetWidth;
-//     this.frames = frames;
-//     this.totalTime = frameDuration * frames;
-//     this.elapsedTime = 0;
-//     this.loop = loop;
-//     this.scale = scale;
-// }
-
-// Animation.prototype.drawFrame = function (tick, ctx, x, y) {
-//     this.elapsedTime += tick;
-//     if (this.isDone()) {
-//         if (this.loop) this.elapsedTime = 0;
-//     }
-//     var frame = this.currentFrame();
-//     var xindex = 0;
-//     var yindex = 0;
-//     xindex = frame % this.sheetWidth;
-//     yindex = Math.floor(frame / this.sheetWidth);
-
-//     ctx.drawImage(this.spriteSheet,
-//                  xindex * this.frameWidth, yindex * this.frameHeight,  // source from sheet
-//                  this.frameWidth, this.frameHeight,
-//                  x, y,
-//                  this.frameWidth * this.scale,
-//                  this.frameHeight * this.scale);
-// }
-
-// Animation.prototype.currentFrame = function () {
-//     return Math.floor(this.elapsedTime / this.frameDuration);
-// }
-
-// Animation.prototype.isDone = function () {
-//     return (this.elapsedTime >= this.totalTime);
-// }
+function getEndPoint(yValue) {
+    if (yValue === 330) { // lane 1
+        return 270;
+    } else if (yValue === 430) { // lane 2
+        return 250;
+    } else if (yValue === 530) { // lane 3
+        return 170;
+    }
+}
 
 // no inheritance
 function Background(game, spritesheet) {
@@ -792,15 +773,15 @@ EnemyControl.prototype.update = function () {
 }
 EnemyControl.prototype.draw = function () {
     if (is_enemy_spawn_1) {
-        this.game.addEntity(new ReaperMan(this.game, 1000, 385));
-        this.game.addEntity(new FallenAngel(this.game, 980, 468));
-        // this.game.addEntity(new ReaperMan(this.game, 1000, 551));
+        this.game.addEntity(new Orc(this.game, AM.getAsset("./img/enemy_team/orc/orc.png"), 1050, 330));
+        this.game.addEntity(new ReaperMan(this.game, AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1100, 430));
+        this.game.addEntity(new FallenAngel(this.game, AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1150, 530));
         is_enemy_spawn_1 = false;
     }
     if (is_enemy_spawn_2) {
-        // this.game.addEntity(new Orc(this.game, 1000, 385));
-        this.game.addEntity(new FallenAngel(this.game, 980, 468));
-        this.game.addEntity(new ReaperMan(this.game, 1000, 551));
+        this.game.addEntity(new Orc(this.game, AM.getAsset("./img/enemy_team/orc/orc.png"), 1100, 430));
+        this.game.addEntity(new ReaperMan(this.game, AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1150, 530));
+        this.game.addEntity(new FallenAngel(this.game, AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1050, 330));
         is_enemy_spawn_2 = false;
     }
 }
@@ -970,12 +951,9 @@ AM.queueDownload("./img/Bandit/Bandit.png");
 // AM.queueDownload("./img/Goblin.png");
 // AM.queueDownload("./img/Bandit.png");
 
-AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_walk.png");
-AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_actions.png");
-AM.queueDownload("./img/enemy_team/orc/orc_walk.png");
-AM.queueDownload("./img/enemy_team/orc/orc_actions.png");
-AM.queueDownload("./img/enemy_team/fallen_angel/fallen_walk.png");
-AM.queueDownload("./img/enemy_team/fallen_angel/fallen_actions.png");
+AM.queueDownload("./img/enemy_team/orc/orc.png");
+AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper.png");
+AM.queueDownload("./img/enemy_team/fallen_angel/fallen_angel.png");
 
 
 
