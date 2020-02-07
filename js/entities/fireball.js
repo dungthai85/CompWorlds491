@@ -8,6 +8,7 @@ function Fireball(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.type = "hero";
+    this.name = "Fireball";
     this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.animation.frameHeight*.35);
     Entity.call(this, game, X, Y);
 }

@@ -15,8 +15,8 @@ function Orc(game, spritesheet, X, Y ) {
     this.speed = -100;
     this.ctx = game.ctx;
     this.endLane = getEndPointEnemy(Y);
-    // this.x = X;
-    // this.y = Y;
+    this.x = X;
+    this.y = Y;
     this.type = "enemy";
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
     Entity.call(this, game, X, Y);
