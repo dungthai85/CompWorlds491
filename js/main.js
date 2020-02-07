@@ -213,14 +213,14 @@ SuperBar.prototype.update = function () {
         this.timemeter += this.game.clockTick * this.speed;
     }
 
-    if (is_enemy_spawn_2) {
-        //   this.game.addEntity(new Orc(this.game, 1000, 385, AM.getAsset("./img/enemy_team/orc/orc_walk.png")));
-           this.game.addEntity(new FallenAngel(this.game, 980, 453, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
-          // this.game.addEntity(new ReaperMan(this.game, 1000, 551, AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png")));
-           this.game.addEntity(new FallenAngel(this.game, 1000, 535, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
-           this.game.addEntity(new FallenAngel(this.game, 1000, 370, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
-           is_enemy_spawn_2 = false;
-    }
+    // if (is_enemy_spawn_2) {
+    //     // this.game.addEntity(new Orc(this.game, 1000, 385, AM.getAsset("./img/enemy_team/orc/orc_walk.png")));
+    //        //this.game.addEntity(new FallenAngel(this.game, 980, 453, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
+    //       // this.game.addEntity(new ReaperMan(this.game, 1000, 551, AM.getAsset("./img/enemy_team/reaper_chibbi/reaper_walk.png")));
+    //        //this.game.addEntity(new FallenAngel(this.game, 1000, 535, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
+    //        //this.game.addEntity(new FallenAngel(this.game, 1000, 370, AM.getAsset("./img/enemy_team/fallen_angel/fallen_walk.png")));
+    //        is_enemy_spawn_2 = false;
+    // }
 
     Entity.prototype.update.call(this);
 }
@@ -277,15 +277,17 @@ AM.queueDownload("./img/Samurai/Samurai.png");
 AM.queueDownload("./img/Goblin/Goblin.png");
 AM.queueDownload("./img/Bandit/Bandit.png");
 
-AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_walk.png");
-AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_actions1.png");
-AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_attack.png");
-AM.queueDownload("./img/enemy_team/orc/orc_walk.png");
-AM.queueDownload("./img/enemy_team/orc/orc_actions1.png");
-AM.queueDownload("./img/enemy_team/orc/orc_attack.png");
-AM.queueDownload("./img/enemy_team/fallen_angel/fallen_walk.png");
-AM.queueDownload("./img/enemy_team/fallen_angel/fallen_actions1.png");
-AM.queueDownload("./img/enemy_team/fallen_angel/fallen_attack.png");
+// AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_walk.png");
+// AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_actions1.png");
+// AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_attack.png");
+AM.queueDownload("./img/enemy_team/orc/orc.png");
+AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper.png");
+AM.queueDownload("./img/enemy_team/fallen_angel/fallen_angel.png");
+// AM.queueDownload("./img/enemy_team/orc/orc_actions1.png");
+// AM.queueDownload("./img/enemy_team/orc/orc_attack.png");
+// AM.queueDownload("./img/enemy_team/fallen_angel/fallen_walk.png");
+// AM.queueDownload("./img/enemy_team/fallen_angel/fallen_actions1.png");
+// AM.queueDownload("./img/enemy_team/fallen_angel/fallen_attack.png");
 
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
