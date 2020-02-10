@@ -61,7 +61,7 @@ RedHP.prototype = new Entity();
 RedHP.prototype.constructor = RedHP;
 
 RedHP.prototype.update = function () {
-    console.log(this.hp);
+   // console.log(this.hp);
     var entity;
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
@@ -99,6 +99,9 @@ RedHP.prototype.update = function () {
         }
     }
     this.hpbar = 296 - (1 - (this.hp/1000))*296;
+    if(this.hpbar < 0){
+        this.hpbar = 0;
+    }
     if(this.hp < 500 && this.hp > 250){
         this.full = false;
         this.half = true;
@@ -166,9 +169,9 @@ BlueHP.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if (entity.name === "Fireball" && entity.animation.animationComplete()){
-                console.log("lane1");
+                // console.log("lane1");
                 this.hp -= 10;
-            } else if(entity.attackAnimation.animationComplete()){
+            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
             break;
@@ -177,9 +180,9 @@ BlueHP.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if (entity.name === "Fireball" && entity.animation.animationComplete()){
-                console.log("lane2");
+                // console.log("lane2");
                 this.hp -= 10;
-            } else if(entity.attackAnimation.animationComplete()){
+            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
             break;
@@ -187,9 +190,9 @@ BlueHP.prototype.update = function () {
         this.boundingbox = this.boundingbox3;
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             if (entity.name === "Fireball" && entity.animation.animationComplete()){
-                console.log("lane3");
+                // console.log("lane3");
                 this.hp -= 10;
-            } else if(entity.attackAnimation.animationComplete()){
+            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
             break;
@@ -242,10 +245,10 @@ function ElixirBar(game){
     this.ctx = game.ctx;
     this.timemeter = 0;
     this.maxelixir = 338;
-    this.speed = 50;
+    this.speed = 20;
     this.oneElixir = 338/10;
     this.unitName = null;
-    Entity.call(this, game, 43, 687);
+    Entity.call(this, game, 0, 687);
 }
 
 ElixirBar.prototype = new Entity();
@@ -266,11 +269,13 @@ ElixirBar.prototype.update = function () {
     }
 
     if (this.unitName === "Knight" && this.game.lane !== 0){
-        if (this.x - this.oneElixir*4 < 96){
-            console.log(this.x);
+        if (this.x - this.oneElixir*4 < 0){
+            console.log("TESTING" + this.x);
             this.x = 43
         } else {
             this.x = this.x - this.oneElixir*4;
+            console.log(this.x + "x");
+            console.log(this.oneElixir*4 + "elixir");
         }
 
         this.unitName = null;
@@ -328,7 +333,7 @@ SuperBar.prototype.update = function () {
         this.shadow = true;
     } 
     if (this.unitName != null && this.game.lane !== 0) {
-        debugger;
+        //debugger;
         var laneY;
         if (this.game.lane === 1) {
             laneY = 385;

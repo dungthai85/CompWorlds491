@@ -4,11 +4,12 @@ function Bandit(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 621, 569, 0.1, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 625, 621, 569, 0.05, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 1863, 621, 569, 0.2, 8, true, false);
-    this.hp = 20;
+    this.hp = 130;
+    this.attackdamage = 15;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
-    this.speed = 90;
+    this.speed = 75;
     this.ctx = game.ctx;
     this.laneEnd = getLaneEnd(Y);
     this.x = X;

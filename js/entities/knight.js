@@ -5,11 +5,12 @@ function Knight(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 550, 598, 0.1, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 600, 550, 598, 0.05, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 1800, 550, 598, 0.2, 8, true, false);
-    this.hp = 40;
+    this.hp = 150;
+    this.attackdamage = 20;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
-    this.speed = 80;
+    this.speed = 50;
     this.ctx = game.ctx;
     this.laneEnd = getLaneEnd(Y);
     this.x = X;
@@ -44,8 +45,20 @@ Knight.prototype.update = function () {
            // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
+            if (entity.name !== "bluehp"){
+                if(entity.attack_animation.animationComplete()){
+                    this.hp = this.hp - entity.attackdamage;
+                }
+            } else{
+                this.hp = this.hp - entity.attackdamage;
+            }
+            // if(entity.attack_animation.animationComplete() && entity.name !== "bluehp"){
+            //     this.hp = this.hp - entity.attackdamage;
+            // }
+    
             break;
         }
+        // console.log(this.hp);
 
         // if (!entity.removeFromWorld) {
         //     this.moving = true;

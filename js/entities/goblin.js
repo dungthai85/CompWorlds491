@@ -6,7 +6,8 @@ function Goblin(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 524, 591, 0.1, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 600, 524, 591, 0.05, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 1800, 524, 591, 0.2, 8, true, false);
-    this.hp = 10;
+    this.hp = 100;
+    this.attackdamage = 10;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
