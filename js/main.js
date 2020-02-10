@@ -140,7 +140,7 @@ function BlueHP(game){
     this.hp = 1000;
     this.hpbar = 296;
     this.boundingbox = new BoundingBox(1145, 400, 1, 65);
-    this.boundingbox1 = new BoundingBox(1145, 400, 1, 65);
+    this.boundingbox1 = new BoundingBox(1142 , 400, 1, 65);
     this.boundingbox2 = new BoundingBox(1160, 480, 1, 65);
     this.boundingbox3 = new BoundingBox(1200, 550, 1, 65);
     this.x = 865;
@@ -166,20 +166,17 @@ BlueHP.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if (entity.name === "Fireball" && entity.animation.animationComplete()){
-                console.log("lane1");
-                this.hp -= 10;
-            } else if(entity.attackAnimation.animationComplete()){
+                this.hp -= 100;
+            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
             break;
         }
         this.boundingbox = this.boundingbox2;
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            //console.log('Colliding ' + entity.type);
             if (entity.name === "Fireball" && entity.animation.animationComplete()){
-                console.log("lane2");
-                this.hp -= 10;
-            } else if(entity.attackAnimation.animationComplete()){
+                this.hp -= 100;
+            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
             break;
@@ -187,9 +184,8 @@ BlueHP.prototype.update = function () {
         this.boundingbox = this.boundingbox3;
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             if (entity.name === "Fireball" && entity.animation.animationComplete()){
-                console.log("lane3");
-                this.hp -= 10;
-            } else if(entity.attackAnimation.animationComplete()){
+                this.hp -= 100;
+            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
             break;
@@ -199,7 +195,7 @@ BlueHP.prototype.update = function () {
     if(this.hpbar < 0){
         this.hpbar = 0;
     }
-    if(this.hp < 500 && this.hp > 250){
+    else if(this.hp < 500 && this.hp > 250){
         this.full = false;
         this.half = true;
     }
@@ -207,10 +203,13 @@ BlueHP.prototype.update = function () {
         this.half = false;
         this.quarter = true;
     }
-    
+    Entity.prototype.update.call(this);   
 }
 
 BlueHP.prototype.draw = function () {
+    console.log("draw1" + this.hpbar);
+
+
     if (this.full){
         this.ctx.fillStyle = "rgb(58, 174, 89)";
     } 
@@ -220,12 +219,14 @@ BlueHP.prototype.draw = function () {
     else if (this.quarter){
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
     }
-    this.ctx.fillRect(856, 137, this.hpbar, 34);
+    //console.log("draw" + this.hpbar);
+    // this.ctx.fillRect(856, 137, this.hpbar, 34);
     this.ctx.strokeStyle = "red";
     //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
     this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
     this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
     this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
+    this.ctx.fillRect(856, 137, this.hpbar, 34);
     Entity.prototype.draw.call(this);
 }
 
@@ -328,7 +329,7 @@ SuperBar.prototype.update = function () {
         this.shadow = true;
     } 
     if (this.unitName != null && this.game.lane !== 0) {
-        debugger;
+        //debugger;
         var laneY;
         if (this.game.lane === 1) {
             laneY = 385;

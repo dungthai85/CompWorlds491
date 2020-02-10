@@ -29,8 +29,9 @@ Fireball.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            entity.removeFromWorld = true;
-
+            if (entity.name !== "bluehp"){
+                entity.removeFromWorld = true;
+            }
             break;
         }
     }
