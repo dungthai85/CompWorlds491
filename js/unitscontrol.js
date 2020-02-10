@@ -17,6 +17,10 @@ function UnitsControl (game){
     this.speed = 50;
     this.oneElixir = 338/10;
     this.x = 0;
+    this.knight = false;
+    this.bandit = false;
+    this.samurai = false;
+    this.goblin = false;
     Entity.call(this, game, 0, 687);
 }
 
@@ -30,6 +34,7 @@ UnitsControl.prototype.update = function () {
     if (this.game.menu.clicked && this.game.menu.id === "Knight" && this.x > 135) {
         this.unitName = "Knight";
         this.shadow = true;
+
     } else if (this.game.menu.clicked && this.game.menu.id === "Bandit" && this.x > 101) {
         this.unitName = "Bandit";
         this.shadow = true;
@@ -158,7 +163,14 @@ UnitsControl.prototype.draw = function () {
         this.ctx.fillRect(315, 558, 405, 72);
         this.ctx.restore();
     }
-
+    if(this.x < 67.6){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        //this.ctx.fillRect(315, 558, 405, 72);
+        //this.ctx.fillRect(315, 558, 405, 72);
+        this.ctx.restore();
+    }
     this.ctx.fillStyle = "rgb(255, 0, 89)";
     this.ctx.fillRect(43, 687, this.x, 34);
     Entity.prototype.draw.call(this);

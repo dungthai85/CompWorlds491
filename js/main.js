@@ -280,7 +280,7 @@ SuperBar.prototype.update = function () {
 
 SuperBar.prototype.draw = function () {
     //debugger;
-    if (this.timemeter < this.maxelixir){
+    if (this.timemeter < this.maxelixir){  
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
