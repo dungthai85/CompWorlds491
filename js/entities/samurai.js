@@ -7,10 +7,11 @@ function Samurai(game, spritesheet, X, Y) {
     this.attackAnimation = new MyAnimation(spritesheet, 0, 738, 738, 611, 0.05, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 2214, 738, 611, 0.2, 8, true, false);
     this.hp = 30;
+    this.attackdamage = 15;
     this.moving = true;
     this.finished = false;
     this.attacking = false;
-    this.speed = 100;
+    this.speed = 75;
     this.ctx = game.ctx;
     this.laneEnd = getLaneEnd(Y);
     this.x = X;

@@ -8,11 +8,12 @@ function ReaperMan(game, spritesheet, X, Y ) {
     this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
     this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
     this.dead_animation = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false);
-    this.hp = 100;
+    this.hp = 120;
+    this.attackdamage = 15;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
-    this.speed = -100;
+    this.speed = -75;
     this.ctx = game.ctx;
     this.endLane = getEndPointEnemy(Y);
     this.x = X;
