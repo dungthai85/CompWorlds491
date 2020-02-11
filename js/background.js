@@ -55,7 +55,6 @@ Background.prototype.update = function () {
       //his.game.addEntity(new EnemyControl(this.game));
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
-        //this.game.addEntity(new ElixirBar(this.game));
         this.game.addEntity(new SuperBar(this.game));
 
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
@@ -65,7 +64,6 @@ Background.prototype.update = function () {
       //  this.game.addEntity(new EnemyControl(this.game));
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
-        //this.game.addEntity(new ElixirBar(this.game));
         this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.spritesheet = this.level3;
@@ -74,7 +72,6 @@ Background.prototype.update = function () {
      //   this.game.addEntity(new EnemyControl(this.game));
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
-        //this.game.addEntity(new ElixirBar(this.game));
         this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.spritesheet = this.tutorial;

@@ -171,6 +171,23 @@ UnitsControl.prototype.draw = function () {
         //this.ctx.fillRect(315, 558, 405, 72);
         this.ctx.restore();
     }
+    if(this.x < 101){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        //this.ctx.fillRect(315, 558, 405, 72);
+        //this.ctx.fillRect(315, 558, 405, 72);
+        this.ctx.restore();
+    }
+    if(this.x < 135){ // draw 
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        //this.ctx.fillRect(315, 558, 405, 72);
+        //this.ctx.fillRect(315, 558, 405, 72);
+        this.ctx.restore();
+    }
+
     this.ctx.fillStyle = "rgb(255, 0, 89)";
     this.ctx.fillRect(43, 687, this.x, 34);
     Entity.prototype.draw.call(this);
