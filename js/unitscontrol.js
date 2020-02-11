@@ -1,5 +1,3 @@
-
-
 /**
 *
 *This function is to draw the hover for the lanes, the shadow of the characters,
@@ -100,18 +98,19 @@ UnitsControl.prototype.update = function () {
             }
         }
     }
-    if (is_enemy_spawn_1) {
-        this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
-        this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
-        this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
-        is_enemy_spawn_1 = false;
-    }
-    else if (is_enemy_spawn_2) {
-        this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
-        this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
-        this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
-        is_enemy_spawn_2 = false;
-    }
+    
+    // if (is_enemy_spawn_1) {
+    //     this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
+    //     this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
+    //     this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
+    //     is_enemy_spawn_1 = false;
+    // }
+    // else if (is_enemy_spawn_2) {
+    //     this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
+    //     this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
+    //     this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
+    //     is_enemy_spawn_2 = false;
+    // }
     Entity.prototype.update.call(this);
 }
 

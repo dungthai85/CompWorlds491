@@ -52,7 +52,8 @@ Background.prototype.update = function () {
         this.spritesheet = this.level1;
         this.start = false;
         this.game.addEntity(new UnitsControl(this.game));
-      //his.game.addEntity(new EnemyControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game, 1));
+        
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         //this.game.addEntity(new ElixirBar(this.game));
@@ -62,7 +63,7 @@ Background.prototype.update = function () {
         this.spritesheet = this.level2;
         this.start = false;
         this.game.addEntity(new UnitsControl(this.game));
-      //  this.game.addEntity(new EnemyControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game, 2));
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         //this.game.addEntity(new ElixirBar(this.game));
@@ -71,7 +72,7 @@ Background.prototype.update = function () {
         this.spritesheet = this.level3;
         this.start = false;
         this.game.addEntity(new UnitsControl(this.game));
-     //   this.game.addEntity(new EnemyControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game, 3));
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         //this.game.addEntity(new ElixirBar(this.game));

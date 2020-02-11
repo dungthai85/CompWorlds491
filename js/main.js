@@ -12,33 +12,6 @@ function getLaneEnd(yValue) {
     }
 }
 
-// function EnemyControl (game){
-//     this.game = game;
-//     this.ctx = game.ctx;
-//     this.toggle = false;
-// }
-
-// EnemyControl.prototype = new Entity();
-// EnemyControl.prototype.constructor = EnemyControl;
-
-// EnemyControl.prototype.update = function () {
-    
-// }
-// EnemyControl.prototype.draw = function () {
-//     // if (is_enemy_spawn_1) {
-//     //     this.game.addEntity(new ReaperMan(this.game, 1000, 385));
-//     //     this.game.addEntity(new FallenAngel(this.game, 980, 468));
-//     //     this.game.addEntity(new ReaperMan(this.game, 1000, 551));
-//     //     is_enemy_spawn_1 = false;
-//     // }
-//     // if (is_enemy_spawn_2) {
-//     //     this.game.addEntity(new Orc(this.game, 1000, 385));
-//     //     this.game.addEntity(new FallenAngel(this.game, 980, 468));
-//     //     this.game.addEntity(new ReaperMan(this.game, 1000, 551));
-//     //     is_enemy_spawn_2 = false;
-//     // }
-// }
-
 function RedHP(game){
     this.game = game;
     this.ctx = game.ctx;
@@ -61,7 +34,7 @@ RedHP.prototype = new Entity();
 RedHP.prototype.constructor = RedHP;
 
 RedHP.prototype.update = function () {
-    console.log(this.hp);
+    // console.log(this.hp);
     var entity;
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
@@ -207,7 +180,7 @@ BlueHP.prototype.update = function () {
 }
 
 BlueHP.prototype.draw = function () {
-    console.log("draw1" + this.hpbar);
+    // console.log("draw1" + this.hpbar);
 
 
     if (this.full){
@@ -337,17 +310,9 @@ AM.queueDownload("./img/Samurai/Samurai.png");
 AM.queueDownload("./img/Goblin/Goblin.png");
 AM.queueDownload("./img/Bandit/Bandit.png");
 
-// AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_walk.png");
-// AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_actions1.png");
-// AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper_attack.png");
 AM.queueDownload("./img/enemy_team/orc/orc.png");
 AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper.png");
 AM.queueDownload("./img/enemy_team/fallen_angel/fallen_angel.png");
-// AM.queueDownload("./img/enemy_team/orc/orc_actions1.png");
-// AM.queueDownload("./img/enemy_team/orc/orc_attack.png");
-// AM.queueDownload("./img/enemy_team/fallen_angel/fallen_walk.png");
-// AM.queueDownload("./img/enemy_team/fallen_angel/fallen_actions1.png");
-// AM.queueDownload("./img/enemy_team/fallen_angel/fallen_attack.png");
 
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
