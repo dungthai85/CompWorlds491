@@ -14,7 +14,7 @@ function UnitsControl (game){
     this.shadow = false;
     this.timemeter = 0;
     this.maxelixir = 338;
-    this.speed = 50;
+    this.speed = 35;
     this.oneElixir = 338/10;
     this.x = 0;
     this.knight = false;
@@ -167,11 +167,37 @@ UnitsControl.prototype.draw = function () {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        //this.ctx.fillRect(315, 558, 405, 72);
-        //this.ctx.fillRect(315, 558, 405, 72);
+        this.ctx.fillRect(782, 646, 106, 101);
+        this.ctx.restore();
+    }
+    if(this.x < 101.4){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(659, 647, 106, 101);
+        this.ctx.fillRect(539, 648, 106, 101);
+        this.ctx.restore();
+    }
+    if(this.x < 135.2){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(421, 650, 106, 101);
         this.ctx.restore();
     }
     this.ctx.fillStyle = "rgb(255, 0, 89)";
     this.ctx.fillRect(43, 687, this.x, 34);
+    //This fills the lines for the elixir bar
+    this.ctx.strokeStyle = "grey";
+    this.ctx.strokeRect(43, 687, 1, 34);
+    this.ctx.strokeRect(76.8, 687, 1, 34);
+    this.ctx.strokeRect(110.6, 687, 1, 34);
+    this.ctx.strokeRect(144.4, 687, 1, 34);
+    this.ctx.strokeRect(178.2, 687, 1, 34);
+    this.ctx.strokeRect(212, 687, 1, 34);
+    this.ctx.strokeRect(245.8, 687, 1, 34);
+    this.ctx.strokeRect(279.6, 687, 1, 34);
+    this.ctx.strokeRect(313.4, 687, 1, 34);
+    this.ctx.strokeRect(347.2, 687, 1, 34);
     Entity.prototype.draw.call(this);
 }

@@ -210,7 +210,7 @@ BlueHP.prototype.update = function () {
 }
 
 BlueHP.prototype.draw = function () {
-    console.log("draw1" + this.hpbar);
+   // console.log("draw1" + this.hpbar);
 
 
     if (this.full){
@@ -223,13 +223,13 @@ BlueHP.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
     }
     //console.log("draw" + this.hpbar);
-    // this.ctx.fillRect(856, 137, this.hpbar, 34);
+    this.ctx.fillRect(856, 137, this.hpbar, 34);
     this.ctx.strokeStyle = "red";
     //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
     this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
     this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
     this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
-    this.ctx.fillRect(856, 137, this.hpbar, 34);
+    // this.ctx.fillRect(856, 137, this.hpbar, 34);
     Entity.prototype.draw.call(this);
 }
 
