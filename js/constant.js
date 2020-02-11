@@ -1,0 +1,1 @@
+var FIREBALL_DAMAGE = 20;
