@@ -3,7 +3,6 @@
 *This function that changes the background.
 */
 
-
 function Background(game, spritesheet) {
     this.x = 0;
     this.y = 0;
@@ -11,11 +10,10 @@ function Background(game, spritesheet) {
     this.spritesheet = spritesheet;
     this.game = game;
     this.ctx = game.ctx;
-    this.start = true;
     this.one = 0;
-    this.startBackground = AM.getAsset("./img/Background/Start.png");
+    this.backgroundstart = AM.getAsset("./img/Background/Start.png");
     this.level = 0;
-    this.gameover = true;
+    this.gameover = false;
     this.tutorial = AM.getAsset("./img/Background/Tutorial.png");
     //Entity.call(this, game, 0, 0);
 };
@@ -24,19 +22,19 @@ function Background(game, spritesheet) {
 
 Background.prototype.draw = function () {
     this.ctx.drawImage(this.spritesheet,this.x, this.y);
-    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
+    if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
         //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/EasyText.png"), 584, 481, 200, 100);
     }
-    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 602 && this.game.mouseXY.x <= 863) && (this.game.mouseXY.y >= 579 && this.game.mouseXY.y <= 629)) {
+    if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 602 && this.game.mouseXY.x <= 863) && (this.game.mouseXY.y >= 579 && this.game.mouseXY.y <= 629)) {
         //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/MediumText.png"), 583, 551, 300, 100);
     }
-    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 603 && this.game.mouseXY.x <= 777) && (this.game.mouseXY.y >= 649 && this.game.mouseXY.y <= 699)) {
+    if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 603 && this.game.mouseXY.x <= 777) && (this.game.mouseXY.y >= 649 && this.game.mouseXY.y <= 699)) {
         //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/HardText.png"), 591, 620, 200, 100);
     }
-    if (this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 614 && this.game.mouseXY.x <= 881) && (this.game.mouseXY.y >= 711 && this.game.mouseXY.y <= 771)) {
+    if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 614 && this.game.mouseXY.x <= 881) && (this.game.mouseXY.y >= 711 && this.game.mouseXY.y <= 771)) {
         //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/TutorialText.png"), 601, 690, 300, 100);
     }
@@ -44,11 +42,11 @@ Background.prototype.draw = function () {
         //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/SoundText.png"), 1272, 739, 140, 50);
     } 
-    if (!this.start && this.game.mouseXY != null && (this.game.mouseXY.x >= 20 && this.game.mouseXY.x <= 182) && (this.game.mouseXY.y >=  12 && this.game.mouseXY.y <= 64)) {
+    if (!START && this.game.mouseXY != null && (this.game.mouseXY.x >= 20 && this.game.mouseXY.x <= 182) && (this.game.mouseXY.y >=  12 && this.game.mouseXY.y <= 64)) {
         //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/BackText.png"), 18, 1, 180, 80);
     }  
-    if (this.gameover){
+    if (GAME_OVER){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
@@ -58,9 +56,9 @@ Background.prototype.draw = function () {
         this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain.png"), 480, 500);
     }
     // this.one++;
-    // if (!this.start && this.one % 15 === 0){
+    // if (!START && this.one % 15 === 0){
     //     this.ctx.drawImage(AM.getAsset("./img/Background/Flag1.png"), 0, 0);
-    // } else if (!this.start && this.one % 15 !== 0) {
+    // } else if (!START && this.one % 15 !== 0) {
     //     this.ctx.drawImage(AM.getAsset("./img/Background/Flag2.png"), 0, 0);
     // }
     //Entity.prototype.draw.call(this);
@@ -80,10 +78,10 @@ Background.prototype.update = function () {
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.level = 0;
         this.spritesheet = this.tutorial;
-        this.start = false;
+        START = false;
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
         this.level = 0;
-        this.start = true;
+        START = true;
         var len = this.game.entities.length;
         for (var i = 1; i < len; i ++){
             this.game.entities[i].removeFromWorld = true;
@@ -91,15 +89,15 @@ Background.prototype.update = function () {
         console.log("clicked back");
     } 
 
-    if (this.level !== 0 && this.start){
+    if (this.level !== 0 && START){
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
         //  this.game.addEntity(new EnemyControl(this.game));
-        this.start = false;
+        START = false;
     }
-    if (this.gameover && this.game.mouseXY != null && (this.game.mouseXY.x >= 480 && this.game.mouseXY.x <= 896) && (this.game.mouseXY.y >=  500 && this.game.mouseXY.y <= 580)) {
+    if (GAME_OVER && this.game.menu.clicked && this.game.menu.id === "PlayAgain"){
         if (this.level === 1){
             this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
         } else if(this.level === 2){
@@ -111,7 +109,7 @@ Background.prototype.update = function () {
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
-        this.gameover = false;
+        GAME_OVER = false;
     }
     if (this.level !== 0){
         var len = this.game.entities.length;
@@ -145,7 +143,7 @@ Background.prototype.update = function () {
                     for (var i = 1; i < len; i ++){
                         this.game.entities[i].removeFromWorld = true;
                     }
-                    this.gameover = true;
+                    GAME_OVER = true;
                 }
             }
             if (temp === 2){
@@ -156,9 +154,9 @@ Background.prototype.update = function () {
         }
     }
 
-    if (this.start) {
-        this.spritesheet = this.startBackground;
-        this.start = true;
+    if (START) {
+        this.spritesheet = this.backgroundstart;
+        START = true;
     }
 
     //Entity.prototype.update.call(this);
