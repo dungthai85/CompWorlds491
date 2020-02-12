@@ -27,14 +27,22 @@ FallenAngel.prototype = new Entity();
 FallenAngel.prototype.constructor = FallenAngel;
 
 FallenAngel.prototype.update = function () {
-    var entity;
     for(var i = 0; i < this.game.entities.length; i ++){
-        var entity = this.game.entities[i];
-        if(entity.boundingbox != null && this.boundingbox != entity.boundingbox){
-            if(this.boundingbox.collide(entity.boundingbox)){
-                this.moving = false;
-                this.attacking = true;
-            }
+        entity = this.game.entities[i];
+        if (entity === this) {
+            continue;
+        }
+
+        if (entity.boundingbox == null) {
+            continue;
+        }
+
+        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
         }
     }
     if (this.moving) {
@@ -43,11 +51,7 @@ FallenAngel.prototype.update = function () {
             this.moving = false;
             this.attacking = true;
         }
-    }
-    else if (this.attacking){
-        // if (this.x < 250 && entity.name === "redhp"){
-        //     entity.hp -= 10;
-        // }
+
     }
     if (this.attack_animation.animationComplete() && !this.finished) {
         this.hp -= 10;
@@ -96,6 +100,8 @@ FallenAngel.prototype.draw = function () {
         if (this.dead_animation.animationComplete()) {
 
             this.removeFromWorld = true;
+        } else {
+            this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.20);
         }
     }
     Entity.prototype.draw.call(this);
@@ -107,29 +113,6 @@ FallenAngel.prototype.draw = function () {
     // }
     // Entity.prototype.draw.call(this);
 }
-
-// if (this.moving) {
-//     this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.1);
-// } else if (this.attacking) {
-//     this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.2);
-//     if (this.attack_animation.animationComplete() && !this.finished) {
-//         this.hp -= 10;
-//     }
-
-//     else if (this.finished && this.attack_animation.currentFrame() === 0) {
-//         this.finished = false;
-//     }
-
-//     else if (this.hp <= 0) {
-//         this.attacking = false;
-//     }
-
-// } else if (this.hp <= 0) {
-//     this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.2);
-//     if (this.dead_animation.animationComplete()) {
-//         this.removeFromWorld = true;
-//     }
-// }
 function getEndPointEnemy(yValue) {
     if (yValue === 370) { // lane 1
         return 270;

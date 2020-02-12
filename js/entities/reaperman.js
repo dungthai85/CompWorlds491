@@ -27,6 +27,7 @@ ReaperMan.prototype = new Entity();
 ReaperMan.prototype.constructor = ReaperMan;
 
 ReaperMan.prototype.update = function () {
+    var entity;
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
         if (entity === this) {
