@@ -12,33 +12,6 @@ function getLaneEnd(yValue) {
     }
 }
 
-// function EnemyControl (game){
-//     this.game = game;
-//     this.ctx = game.ctx;
-//     this.toggle = false;
-// }
-
-// EnemyControl.prototype = new Entity();
-// EnemyControl.prototype.constructor = EnemyControl;
-
-// EnemyControl.prototype.update = function () {
-    
-// }
-// EnemyControl.prototype.draw = function () {
-//     // if (is_enemy_spawn_1) {
-//     //     this.game.addEntity(new ReaperMan(this.game, 1000, 385));
-//     //     this.game.addEntity(new FallenAngel(this.game, 980, 468));
-//     //     this.game.addEntity(new ReaperMan(this.game, 1000, 551));
-//     //     is_enemy_spawn_1 = false;
-//     // }
-//     // if (is_enemy_spawn_2) {
-//     //     this.game.addEntity(new Orc(this.game, 1000, 385));
-//     //     this.game.addEntity(new FallenAngel(this.game, 980, 468));
-//     //     this.game.addEntity(new ReaperMan(this.game, 1000, 551));
-//     //     is_enemy_spawn_2 = false;
-//     // }
-// }
-
 function RedHP(game){
     this.game = game;
     this.ctx = game.ctx;
