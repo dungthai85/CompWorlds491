@@ -144,6 +144,7 @@ Background.prototype.update = function () {
                     for (var i = 1; i < len; i ++){
                         this.game.entities[i].removeFromWorld = true;
                     }
+                    GAME_OVER = true;
                 }
             }
             if (temp === 2){
