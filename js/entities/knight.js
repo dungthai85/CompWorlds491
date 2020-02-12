@@ -1,10 +1,9 @@
 
 
 function Knight(game, spritesheet, X, Y) {
-    // scale 0.125
-    this.animation = new MyAnimation(spritesheet, 0, 0, 550, 598, 0.1, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 600, 550, 598, 0.05, 8, true, false);
-    this.deathAnimation = new MyAnimation(spritesheet, 0, 1800, 550, 598, 0.2, 8, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 184, 200, 0.4, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 200, 184, 200, 0.2, 8, true, false);
+    this.deathAnimation = new MyAnimation(spritesheet, 0, 600, 184, 200, 0.2, 8, true, false);
     this.hp = 150;
     this.attackdamage = 20;
     this.moving = true;
@@ -99,12 +98,12 @@ Knight.prototype.draw = function () {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
-        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
     } else if (this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
-        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
         // if (this.attackAnimation.animationComplete() && !this.finished) {
         //     this.attackAnimation.elapsedTime = 0;
         //     this.finished = true;
@@ -120,7 +119,7 @@ Knight.prototype.draw = function () {
         // }
 
     } else if (this.hp <= 0) {
-        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.125);
+        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
         if (this.deathAnimation.animationComplete()) {
             this.removeFromWorld = true;
         }
