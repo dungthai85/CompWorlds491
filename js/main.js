@@ -371,6 +371,12 @@ AM.queueDownload("./img/Background/TutorialText.png");
 AM.queueDownload("./img/Background/SoundText.png");
 AM.queueDownload("./img/Background/BackText.png");
 
+AM.queueDownload("./img/Background/GameOver.png");
+AM.queueDownload("./img/Background/PlayAgain.png");
+
+AM.queueDownload("./img/Background/Flag1.png");
+AM.queueDownload("./img/Background/Flag2.png");
+
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");

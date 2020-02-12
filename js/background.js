@@ -12,9 +12,10 @@ function Background(game, spritesheet) {
     this.game = game;
     this.ctx = game.ctx;
     this.start = true;
+    this.one = 0;
     this.startBackground = AM.getAsset("./img/Background/Start.png");
     this.level = 0;
-    this.gameover = false;
+    this.gameover = true;
     this.tutorial = AM.getAsset("./img/Background/Tutorial.png");
     //Entity.call(this, game, 0, 0);
 };
@@ -47,48 +48,71 @@ Background.prototype.draw = function () {
         //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/BackText.png"), 18, 1, 180, 80);
     }  
+    if (this.gameover){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(0, 0, 1440, 810);
+        this.ctx.restore();
+        this.ctx.drawImage(AM.getAsset("./img/Background/GameOver.png"), 200, 250);
+        this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain.png"), 480, 500);
+    }
+    // this.one++;
+    // if (!this.start && this.one % 15 === 0){
+    //     this.ctx.drawImage(AM.getAsset("./img/Background/Flag1.png"), 0, 0);
+    // } else if (!this.start && this.one % 15 !== 0) {
+    //     this.ctx.drawImage(AM.getAsset("./img/Background/Flag2.png"), 0, 0);
+    // }
     //Entity.prototype.draw.call(this);
 };
 
 Background.prototype.update = function () {
+
     if(this.game.menu.clicked && this.game.menu.id === "easy") {
         this.level = 1;
         this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
-        this.start = false;
-        this.game.addEntity(new UnitsControl(this.game));
-      //his.game.addEntity(new EnemyControl(this.game));
-        this.game.addEntity(new RedHP(this.game));
-        this.game.addEntity(new BlueHP(this.game));
-        this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.level = 2;
         this.spritesheet = AM.getAsset("./img/Background/Map 2/NoDamage.png");
-        this.start = false;
-        this.game.addEntity(new UnitsControl(this.game));
-      //  this.game.addEntity(new EnemyControl(this.game));
-        this.game.addEntity(new RedHP(this.game));
-        this.game.addEntity(new BlueHP(this.game));
-        this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.level = 3;
         this.spritesheet = AM.getAsset("./img/Background/Map 3/NoDamage.png");
-        this.start = false;
-        this.game.addEntity(new UnitsControl(this.game));
-     //   this.game.addEntity(new EnemyControl(this.game));
-        this.game.addEntity(new RedHP(this.game));
-        this.game.addEntity(new BlueHP(this.game));
-        this.game.addEntity(new SuperBar(this.game));
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.level = 0;
         this.spritesheet = this.tutorial;
         this.start = false;
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
         this.level = 0;
-        debugger;
         this.start = true;
-        this.game.reset();
+        var len = this.game.entities.length;
+        for (var i = 1; i < len; i ++){
+            this.game.entities[i].removeFromWorld = true;
+        }
         console.log("clicked back");
     } 
+
+    if (this.level !== 0 && this.start){
+        this.game.addEntity(new RedHP(this.game));
+        this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new SuperBar(this.game));
+        this.game.addEntity(new UnitsControl(this.game));
+        //  this.game.addEntity(new EnemyControl(this.game));
+        this.start = false;
+    }
+    if (this.gameover && this.game.mouseXY != null && (this.game.mouseXY.x >= 480 && this.game.mouseXY.x <= 896) && (this.game.mouseXY.y >=  500 && this.game.mouseXY.y <= 580)) {
+        if (this.level === 1){
+            this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
+        } else if(this.level === 2){
+            this.spritesheet = AM.getAsset("./img/Background/Map 2/NoDamage.png");
+        } else if(this.level === 3){
+            this.spritesheet = AM.getAsset("./img/Background/Map 3/NoDamage.png");
+        }
+        this.game.addEntity(new RedHP(this.game));
+        this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new SuperBar(this.game));
+        this.game.addEntity(new UnitsControl(this.game));
+        this.gameover = false;
+    }
     if (this.level !== 0){
         var len = this.game.entities.length;
         var temp = 0; 
@@ -103,9 +127,11 @@ Background.prototype.update = function () {
                     temp++;
                 } 
                 if(entity.hpbar <= 0){
-                    //console.log("game over");
+                    var len = this.game.entities.length;
+                    for (var i = 1; i < len; i ++){
+                        this.game.entities[i].removeFromWorld = true;
+                    }
                 }
-
             }
             if(entity.name === "bluehp"){
                if (entity.half || entity.quarter){
@@ -115,7 +141,11 @@ Background.prototype.update = function () {
                     else if(this.level === 3) this.spritesheet = AM.getAsset("./img/Background/Map 3/RightDamage.png");
                 } 
                 if(entity.hpbar <= 0){
-                    //console.log("win");
+                    var len = this.game.entities.length;
+                    for (var i = 1; i < len; i ++){
+                        this.game.entities[i].removeFromWorld = true;
+                    }
+                    this.gameover = true;
                 }
             }
             if (temp === 2){
@@ -130,5 +160,6 @@ Background.prototype.update = function () {
         this.spritesheet = this.startBackground;
         this.start = true;
     }
+
     //Entity.prototype.update.call(this);
 };

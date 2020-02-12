@@ -178,9 +178,7 @@ GameEngine.prototype.removal = function () {
         if (!entity.removeFromWorld) {
             this.entities.push(entity);
         }
-
     }
-
 }
 
 GameEngine.prototype.reset = function(){
