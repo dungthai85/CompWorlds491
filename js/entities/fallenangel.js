@@ -49,7 +49,7 @@ FallenAngel.prototype.update = function () {
         // }
     }
     if (this.attack_animation.animationComplete() && !this.finished) {
-        this.hp -= 10;
+        // this.hp -= 10;
     }
 
     else if (this.finished && this.attack_animation.currentFrame() === 0) {

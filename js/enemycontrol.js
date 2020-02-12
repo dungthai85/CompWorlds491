@@ -28,19 +28,25 @@ EnemyControl.prototype.update = function () {
         }
     }
 
+    if (this.difficulty === 2) {
+        if (this.elapsed < curr_elapsed - 0.5) {
+            this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, this.spawn_lane_position[Math.floor(Math.random() * 3)]));
+            this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, this.spawn_lane_position[Math.floor(Math.random() * 3)]));
+            this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, this.spawn_lane_position[Math.floor(Math.random() * 3)]));
+            this.elapsed = curr_elapsed;
+        }
+    }
+
+    if (this.difficulty === 3) {
+        if (this.elapsed < curr_elapsed) {
+            this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, this.spawn_lane_position[Math.floor(Math.random() * 3)]));
+            this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, this.spawn_lane_position[Math.floor(Math.random() * 3)]));
+            this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, this.spawn_lane_position[Math.floor(Math.random() * 3)]));
+            this.elapsed = curr_elapsed;
+        }
+    }
+
 
 }
 EnemyControl.prototype.draw = function () {
-    // if (is_enemy_spawn_1) {
-    //     this.game.addEntity(new ReaperMan(this.game, 1000, 385));
-    //     this.game.addEntity(new FallenAngel(this.game, 980, 468));
-    //     this.game.addEntity(new ReaperMan(this.game, 1000, 551));
-    //     is_enemy_spawn_1 = false;
-    // }
-    // if (is_enemy_spawn_2) {
-    //     this.game.addEntity(new Orc(this.game, 1000, 385));
-    //     this.game.addEntity(new FallenAngel(this.game, 980, 468));
-    //     this.game.addEntity(new ReaperMan(this.game, 1000, 551));
-    //     is_enemy_spawn_2 = false;
-    // }
 }
