@@ -25,6 +25,20 @@ function UnitsControl (game){
 UnitsControl.prototype = new Entity();
 UnitsControl.prototype.constructor = UnitsControl;
 
+function defenseAdjustment(game, lane) {
+    var result = 305;
+    if (game.defense === true) {
+        if (lane === 1) {
+            result -= 70;
+        } else if (lane === 2) {
+            result -= 91.5;
+        } else {
+            result -= 190;
+        }
+    }
+    return result;
+}
+
 UnitsControl.prototype.update = function () {
     if (this.x < this.maxelixir){
         this.x += this.game.clockTick * this.speed;
@@ -55,9 +69,11 @@ UnitsControl.prototype.update = function () {
         } else if (this.lane === 3) {
             laneY = 551;
         }
+
+        var laneX = defenseAdjustment(this.game, this.lane);
         if (laneY && this.unitName === "Knight") {
             //debugger;
-            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), 305, laneY));
+            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
             is_enemy_spawn_1 = true;
@@ -67,7 +83,7 @@ UnitsControl.prototype.update = function () {
                 this.x = this.x - this.oneElixir*4;
             }
         } else if (laneY && this.unitName === "Bandit") {
-            this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), 305, laneY));
+            this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
             is_enemy_spawn_2 = true;
@@ -78,7 +94,7 @@ UnitsControl.prototype.update = function () {
             }
 
         } else if (laneY && this.unitName === "Samurai") {
-            this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), 305, laneY));
+            this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
             is_enemy_spawn_1 = true;
@@ -88,7 +104,7 @@ UnitsControl.prototype.update = function () {
                 this.x = this.x - this.oneElixir*3;
             }
         } else if (laneY && this.unitName === "Goblin") {
-            this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), 305, laneY));
+            this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
             if (this.x - this.oneElixir*2 < 0){

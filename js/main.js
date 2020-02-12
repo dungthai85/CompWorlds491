@@ -52,6 +52,7 @@ RedHP.prototype.update = function () {
             if(entity.attack_animation.animationComplete()){
                 this.hp -= 10;
             }
+            this.game.defense = true;
             break;
         }
         this.boundingbox = this.boundingbox2;
@@ -60,6 +61,7 @@ RedHP.prototype.update = function () {
             if(entity.attack_animation.animationComplete()){
                 this.hp -= 10;
             }
+            this.game.defense = true;
             break;
         }
         this.boundingbox = this.boundingbox3;
@@ -68,8 +70,10 @@ RedHP.prototype.update = function () {
             if(entity.attack_animation.animationComplete()){
                 this.hp -= 10;
             }
+            this.game.defense = true;
             break;
         }
+        this.game.defense = false;
     }
     this.hpbar = 296 - (1 - (this.hp/1000))*296;
     if(this.hpbar < 0){
