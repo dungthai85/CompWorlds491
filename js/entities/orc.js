@@ -18,12 +18,12 @@ function Orc(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.hp = 130;
-    this.full = true;
-    this.half = false;
-    this.quarter = false;
+    this.hp_full = true;
+    this.hp_half = false;
+    this.hp_quarter = false;
     this.type = "enemy";
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
-    this.hpbar = new EnemyHP(game, 1000, this.x, this.y + 40, 5, this.attack_animation.frameHeight*.20);
+    this.hp_bar = new EnemyHP(this.x, this.y + 40, 5, this.attack_animation.frameHeight*.20);
     Entity.call(this, game, X, Y);
 }
 
@@ -31,6 +31,7 @@ Orc.prototype = new Entity();
 Orc.prototype.constructor = Orc;
 
 Orc.prototype.update = function () {
+    // Update boundingbox
     var entity;
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
@@ -48,6 +49,7 @@ Orc.prototype.update = function () {
             break;
         }
     }
+    // Update animation
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
         if (this.x < this.endLane) {
@@ -57,7 +59,7 @@ Orc.prototype.update = function () {
 
     }
     if (this.attack_animation.animationComplete() && !this.finished) {
-        this.hp -= 10;
+        this.hp -= 5;
     }
 
     else if (this.finished && this.attack_animation.currentFrame() === 0) {
@@ -67,40 +69,24 @@ Orc.prototype.update = function () {
     else if (this.hp <= 0) {
         this.attacking = false;
     }
-
-    // update hp bar
-    if(this.hpbar < 0){
-        this.hpbar = 0;
-    }
-    else if(this.hp < 500 && this.hp > 250){
-        this.full = false;
-        this.half = true;
-    }
-    else if(this.hp <= 250){
-        this.half = false;
-        this.quarter = true;
-    }
-
+    // Update the boundingbox
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
-    this.hpbar = new EnemyHP(this.game, 1000, this.x+20, this.y + 75, this.hp*0.4, 13);
+    // Update the hp bar
+    if (this.hp < 0) {
+        this.dead = true;
+    } else if ((this.hp < orc_chibbi_attributes.HP / 2) && (this.hp > orc_chibbi_attributes.HP / 4)) {
+        this.hp_full = false;
+        this.hp_half = true;
+    } else if ((this.hp < orc_chibbi_attributes.HP / 4 && (this.hp >= 0))) {
+        this.hp_half = false;
+        this.hp_quarter = true;
+    }
+    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp*0.25, 10);
     Entity.prototype.update.call(this);
 }
 
 
 Orc.prototype.draw = function () {
-    // Draw hp bar
-    if (this.full){
-        this.ctx.fillStyle = "rgb(58, 174, 89)";
-    } 
-    else if (this.half){
-        this.ctx.fillStyle = "rgb(255, 174, 66)";
-    } 
-    else if (this.quarter){
-        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-    }
-    this.ctx.fillStyle = "pink";
-    this.ctx.fillRect(this.hpbar.x, this.hpbar.y,this.hpbar.width,this.hpbar.height);
-
     // Draw animation and boundingbow
     if (this.moving) {
         //bounding box test
@@ -112,7 +98,7 @@ Orc.prototype.draw = function () {
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
-    } else if (this.hp <= 0) {
+    } else if (this.dead) {
         this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
         if (this.dead_animation.animationComplete()) {
 
@@ -121,6 +107,21 @@ Orc.prototype.draw = function () {
             this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.20);
         }
     }
+
+    // Draw hp bar
+    if (!this.dead) {
+        if (this.hp_full){
+            this.ctx.fillStyle = "rgb(0, 62, 0)";
+        } 
+        else if (this.hp_half){
+            this.ctx.fillStyle = "rgb(255, 174, 66)";
+        } 
+        else if (this.hp_quarter){
+            this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        } 
+        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,this.hp_bar.width,this.hp_bar.height);
+    }
+
     Entity.prototype.draw.call(this);
 }
 
