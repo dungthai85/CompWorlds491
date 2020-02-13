@@ -148,7 +148,9 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp -= FIREBALL_DAMAGE;
-            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
+            } else if (entity.name === "Arrow") {
+                this.hp -= ARROW_DAMAGE;
+            } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
                 this.hp -= 10;
             }
             break;
@@ -158,6 +160,8 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp -= FIREBALL_DAMAGE;
+            } else if (entity.name === "Arrow") {
+                this.hp -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
@@ -168,6 +172,8 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp -= FIREBALL_DAMAGE;
+            } else if (entity.name === "Arrow") {
+                this.hp -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
@@ -314,10 +320,14 @@ AM.queueDownload("./img/Knight/Knight_icon.png");
 AM.queueDownload("./img/Samurai/Samurai_icon.png");
 AM.queueDownload("./img/Goblin/Goblin_icon.png");
 AM.queueDownload("./img/Bandit/Bandit_icon.png");
+AM.queueDownload("./img/Archer/Archer_icon.png");
+AM.queueDownload("./img/Archer/Archer_Full_Walk.png");
+AM.queueDownload("./img/Archer/Arrow.png");
 AM.queueDownload("./img/Knight/Knight.png");
 AM.queueDownload("./img/Samurai/Samurai.png");
 AM.queueDownload("./img/Goblin/Goblin.png");
 AM.queueDownload("./img/Bandit/Bandit.png");
+AM.queueDownload("./img/Archer/Archer.png");
 
 AM.queueDownload("./img/enemy_team/orc/orc.png");
 AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper.png");
