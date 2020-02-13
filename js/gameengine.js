@@ -1,4 +1,4 @@
-var mainMenu = true;
+
 // var MOUSE_X = null;
 // var MOUSE_Y = null;
 
@@ -60,7 +60,7 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("click", function (e) {
         that.click = getXandY(e);
         //console.log(e);
-        //console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
+        console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         // debugger;
         that.menu = getSelectedThing(e, that, true);
         //console.log(that.menu.id);
@@ -84,31 +84,31 @@ GameEngine.prototype.startInput = function () {
     console.log('Input started');
 }
 function getSelectedThing(e, that, click){
-    if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555) && mainMenu) {
+    if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555) && MAIN_MENU) {
         if (click){
             that.menu = { clicked: true, id: "easy", mousemove: false };
-            mainMenu = false;
+            MAIN_MENU = false;
         } else {
             that.menu = { clicked: false, id: "easy", mousemove: true };
         }
-    } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629) && mainMenu) {
+    } else if ((e.clientX >= 602 && e.clientX <= 863) && (e.clientY >= 579 && e.clientY <= 629) && MAIN_MENU) {
         if (click){
             that.menu = { clicked: true, id: "medium", mousemove: false };
-            mainMenu = false;
+            MAIN_MENU = false;
         } else {
             that.menu = { clicked: false, id: "medium", mousemove: true };
         }
-    } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699) & mainMenu) {
+    } else if ((e.clientX >= 603 && e.clientX <= 777) && (e.clientY >= 649 && e.clientY <= 699) & MAIN_MENU) {
         if (click){
             that.menu = { clicked: true, id: "hard", mousemove: false };
-            mainMenu = false;
+            MAIN_MENU = false;
         } else {
             that.menu = { clicked: false, id: "hard", mousemove: true };
         }
-    } else if ((e.clientX >= 614 && e.clientX <= 881) && (e.clientY >= 711 && e.clientY <= 771) & mainMenu) {
+    } else if ((e.clientX >= 614 && e.clientX <= 881) && (e.clientY >= 711 && e.clientY <= 771) & MAIN_MENU) {
         if (click){
             that.menu = { clicked: true, id: "tutorial", mousemove: false };
-            mainMenu = false;
+            MAIN_MENU = false;
         } else {
             that.menu = { clicked: false, id: "tutorial", mousemove: true };
         }
@@ -122,7 +122,7 @@ function getSelectedThing(e, that, click){
     } else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)) {
         if (click){
             that.menu = { clicked: true, id: "back", mousemove: false };
-            mainMenu = true;
+            MAIN_MENU = true;
         } else {
             that.menu = { clicked: false, id: "back", mousemove: true };
         }
@@ -147,9 +147,16 @@ function getSelectedThing(e, that, click){
     } else if ((e.clientX >= 782 && e.clientX <= 884) && (e.clientY >= 646 && e.clientY <= 747)) {
         if (click){
             that.menu = { clicked: true, id: "Goblin", mousemove: false };
-            mainMenu = false;
+            MAIN_MENU = false;
         } else {
             that.menu = { clicked: false, id: "Goblin", mousemove: true };
+        }
+    }
+    // 760, 815 | 1420 930
+    if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && GAME_OVER) {
+        //debugger;
+        if (click){
+            that.menu = { clicked: true, id: "PlayAgain", mousemove: false };
         }
     }
     return that.menu;
@@ -178,9 +185,7 @@ GameEngine.prototype.removal = function () {
         if (!entity.removeFromWorld) {
             this.entities.push(entity);
         }
-
     }
-
 }
 
 GameEngine.prototype.reset = function(){

@@ -1,5 +1,3 @@
-
-
 /**
 *
 *This function is to draw the hover for the lanes, the shadow of the characters,
@@ -100,6 +98,7 @@ UnitsControl.prototype.update = function () {
             }
         }
     }
+<<<<<<< HEAD
     if (is_enemy_spawn_1) {
        // this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
        // this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
@@ -112,6 +111,21 @@ UnitsControl.prototype.update = function () {
        // this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
         is_enemy_spawn_2 = false;
     }
+=======
+    
+    // if (is_enemy_spawn_1) {
+    //     this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
+    //     this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
+    //     this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
+    //     is_enemy_spawn_1 = false;
+    // }
+    // else if (is_enemy_spawn_2) {
+    //     this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
+    //     this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
+    //     this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
+    //     is_enemy_spawn_2 = false;
+    // }
+>>>>>>> master
     Entity.prototype.update.call(this);
 }
 
@@ -185,6 +199,23 @@ UnitsControl.prototype.draw = function () {
         this.ctx.fillRect(421, 650, 106, 101);
         this.ctx.restore();
     }
+    if(this.x < 101){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        //this.ctx.fillRect(315, 558, 405, 72);
+        //this.ctx.fillRect(315, 558, 405, 72);
+        this.ctx.restore();
+    }
+    if(this.x < 135){ // draw 
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        //this.ctx.fillRect(315, 558, 405, 72);
+        //this.ctx.fillRect(315, 558, 405, 72);
+        this.ctx.restore();
+    }
+
     this.ctx.fillStyle = "rgb(255, 0, 89)";
     this.ctx.fillRect(43, 687, this.x, 34);
     //This fills the lines for the elixir bar
