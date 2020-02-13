@@ -55,6 +55,7 @@ UnitsControl.prototype.update = function () {
         this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === "Goblin" && this.x > 67.6) {
         this.unitName = "Archer";
+        // this.unitName = "Goblin";
         this.shadow = true;
     }
     if (this.game.lane !== 0 && this.unitName != null){
@@ -77,20 +78,20 @@ UnitsControl.prototype.update = function () {
             this.unitName = null;
             this.lane = null;
             is_enemy_spawn_1 = true;
-            if (this.x - this.oneElixir*4 < 96){
+            if (this.x - this.oneElixir * 4 < 96) {
                 this.x = 0
             } else {
-                this.x = this.x - this.oneElixir*4;
+                this.x = this.x - this.oneElixir * 4;
             }
         } else if (laneY && this.unitName === "Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
             is_enemy_spawn_2 = true;
-            if (this.x - this.oneElixir*3 < 0){
+            if (this.x - this.oneElixir * 3 < 0) {
                 this.x = 0
             } else {
-                this.x = this.x - this.oneElixir*3;
+                this.x = this.x - this.oneElixir * 3;
             }
 
         } else if (laneY && this.unitName === "Samurai") {
@@ -98,19 +99,28 @@ UnitsControl.prototype.update = function () {
             this.unitName = null;
             this.lane = null;
             is_enemy_spawn_1 = true;
-            if (this.x - this.oneElixir*3 < 0){
+            if (this.x - this.oneElixir * 3 < 0) {
                 this.x = 0
             } else {
-                this.x = this.x - this.oneElixir*3;
+                this.x = this.x - this.oneElixir * 3;
             }
         } else if (laneY && this.unitName === "Archer") {
             this.game.addEntity(new Archer(this.game, AM.getAsset("./img/Archer/Archer.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
-            if (this.x - this.oneElixir*2 < 0){
+            if (this.x - this.oneElixir * 2 < 0) {
                 this.x = 0
             } else {
-                this.x = this.x - this.oneElixir*2;
+                this.x = this.x - this.oneElixir * 2;
+            }
+        } else if (laneY && this.unitName === "Goblin") {
+            this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));
+            this.unitName = null;
+            this.lane = null;
+            if (this.x - this.oneElixir * 2 < 0) {
+                this.x = 0
+            } else {
+                this.x = this.x - this.oneElixir * 2;
             }
         }
     }

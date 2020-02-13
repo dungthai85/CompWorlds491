@@ -3,12 +3,13 @@
 function Knight(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 184, 200, 0.4, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 200, 184, 200, 0.2, 8, true, false);
-    this.deathAnimation = new MyAnimation(spritesheet, 0, 600, 184, 200, 0.2, 8, true, false);
+    this.deathAnimation = new MyAnimation(spritesheet, 0, 600, 184, 200, 0.2, 8, false, false);
     this.hp = 150;
     this.attackdamage = 20;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
+    this.death = false;
     this.speed = 50;
     this.ctx = game.ctx;
     this.laneEnd = getLaneEnd(Y);
@@ -42,19 +43,19 @@ Knight.prototype.update = function () {
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
            // console.log('Colliding ' + entity.type);
-            this.moving = false;
-            this.attacking = true;
-            if (entity.name !== "bluehp"){
-                if(entity.attack_animation.animationComplete()){
-                    this.hp = this.hp - entity.attackdamage;
-                }
-            } else{
-                this.hp = this.hp - entity.attackdamage;
+            if (entity.attack_animation.animationComplete()) {
+                // debugger;
+                this.hp -= entity.attackdamage;
+
+
             }
-            // if(entity.attack_animation.animationComplete() && entity.name !== "bluehp"){
-            //     this.hp = this.hp - entity.attackdamage;
-            // }
-    
+            this.moving = false;
+            if (this.hp > 0) {
+                this.attacking = true;
+            } else {
+                this.attacking = false;
+
+            }
             break;
         }
         // console.log(this.hp);
@@ -94,12 +95,12 @@ Knight.prototype.update = function () {
 }
 
 Knight.prototype.draw = function () {
-    if (this.moving) {
+    if (this.hp > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
-    } else if (this.attacking) {
+    } else if (this.hp > 0 && this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
@@ -120,7 +121,9 @@ Knight.prototype.draw = function () {
 
     } else if (this.hp <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
-        if (this.deathAnimation.animationComplete()) {
+        if (!this.death) {
+            this.death = true;
+        } else if (this.death && this.deathAnimation.currentFrame() === 8) {
             this.removeFromWorld = true;
         }
     }

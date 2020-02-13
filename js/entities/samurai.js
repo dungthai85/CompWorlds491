@@ -4,12 +4,13 @@
 function Samurai(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 246, 204, 0.4, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 246, 246, 204, 0.2, 8, true, false);
-    this.deathAnimation = new MyAnimation(spritesheet, 0, 738, 246, 204, 0.2, 8, true, false);
+    this.deathAnimation = new MyAnimation(spritesheet, 0, 738, 246, 204, 0.2, 8, false, false);
     this.hp = 30;
     this.attackdamage = 15;
     this.moving = true;
     this.finished = false;
     this.attacking = false;
+    this.death = false;
     this.speed = 75;
     this.ctx = game.ctx;
     this.laneEnd = getLaneEnd(Y);
@@ -41,8 +42,19 @@ Samurai.prototype.update = function () {
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             // console.log('Colliding ' + entity.type);
+            if (entity.attack_animation.animationComplete()) {
+                // debugger;
+                this.hp -= entity.attackdamage;
+
+
+            }
             this.moving = false;
-            this.attacking = true;
+            if (this.hp > 0) {
+                this.attacking = true;
+            } else {
+                this.attacking = false;
+
+            }
             break;
         }
 
@@ -84,19 +96,18 @@ Samurai.prototype.update = function () {
 }
 
 Samurai.prototype.draw = function () {
-    if (this.moving) {
+    if (this.hp > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
-    } else if (this.attacking) {
+    } else if (this.hp > 0 && this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
         if (this.attackAnimation.animationComplete() && !this.finished) {
             this.finished = true;
-            this.hp -= 10;
         }
 
         else if (this.finished && this.attackAnimation.currentFrame() === 0) {
@@ -109,7 +120,9 @@ Samurai.prototype.draw = function () {
 
     } else if (this.hp <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
-        if (this.deathAnimation.animationComplete()) {
+        if (!this.death) {
+            this.death = true;
+        } else if (this.death && this.deathAnimation.currentFrame() === 8) {
             this.removeFromWorld = true;
         }
     }

@@ -47,6 +47,11 @@ RedHP.prototype.update = function () {
         }
         this.boundingbox = this.boundingbox1;
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
+            this.game.defense = true;
+        }
+
+
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if(entity.attack_animation.animationComplete()){

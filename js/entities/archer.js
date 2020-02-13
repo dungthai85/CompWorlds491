@@ -2,12 +2,14 @@
 function Archer(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.30, 24, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2, 9, true, false);
-    this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, true, false);
+    this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.hp = 100;
     this.attackdamage = 0;
+    this.range = 400;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
+    this.death = false;
     this.arrowFire = false;
     this.speed = 100;
     this.ctx = game.ctx;
@@ -39,6 +41,23 @@ Archer.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            if (entity.attack_animation.animationComplete()) {
+                // debugger;
+                this.hp -= entity.attackdamage;
+
+
+            }
+            this.moving = false;
+            if (this.hp > 0) {
+                this.attacking = true;
+            } else {
+                this.attacking = false;
+
+            }
+            break;
+
+            
+        } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
@@ -90,18 +109,19 @@ Archer.prototype.update = function () {
 }
 
 Archer.prototype.draw = function () {
-    if (this.moving) {
+    if (this.hp > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
-    } else if (this.attacking) {
+    } else if (this.hp > 0 && this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
         if (this.attackAnimation.animationComplete() && !this.finished) {
-            this.hp -= 10;
+            // this.hp -= 10;
+            this.finished = true;
         }
 
         else if (this.finished && this.attackAnimation.currentFrame() === 0) {
@@ -114,7 +134,9 @@ Archer.prototype.draw = function () {
 
     } else if (this.hp <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
-        if (this.deathAnimation.animationComplete()) {
+        if (!this.death) {
+            this.death = true;
+        } else if (this.death && this.deathAnimation.currentFrame() === 15) {
             this.removeFromWorld = true;
         }
     }

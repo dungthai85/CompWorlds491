@@ -4,8 +4,9 @@
 function Goblin(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 175, 197, 0.4, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 197, 175, 197, 0.2, 8, true, false);
-    this.deathAnimation = new MyAnimation(spritesheet, 0, 591, 175, 197, 0.2, 8, true, false);
+    this.deathAnimation = new MyAnimation(spritesheet, 0, 591, 175, 197, 0.2, 8, false, false);
     this.hp = 100;
+    this.death = false;
     this.attackdamage = 10;
     this.moving = true;
     this.attacking = false;
@@ -41,8 +42,19 @@ Goblin.prototype.update = function () {
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             // console.log('Colliding ' + entity.type);
+            if (entity.attack_animation.animationComplete()) {
+                // debugger;
+                this.hp -= entity.attackdamage;
+
+
+            }
             this.moving = false;
-            this.attacking = true;
+            if (this.hp > 0) {
+                this.attacking = true;
+            } else {
+                this.attacking = false;
+
+            }
             break;
         }
 
@@ -81,12 +93,12 @@ Goblin.prototype.update = function () {
 }
 
 Goblin.prototype.draw = function () {
-    if (this.moving) {
+    if (this.hp > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
-    } else if (this.attacking) {
+    } else if (this.hp > 0 && this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
@@ -105,7 +117,9 @@ Goblin.prototype.draw = function () {
 
     } else if (this.hp <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
-        if (this.deathAnimation.animationComplete()) {
+        if (!this.death) {
+            this.death = true;
+        } else if (this.death && this.deathAnimation.currentFrame() === 8) {
             this.removeFromWorld = true;
         }
     }
