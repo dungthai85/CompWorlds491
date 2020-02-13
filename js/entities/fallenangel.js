@@ -37,9 +37,7 @@ FallenAngel.prototype.update = function () {
             continue;
         }
 
-        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
             break;
@@ -67,20 +65,7 @@ FallenAngel.prototype.update = function () {
 
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
     Entity.prototype.update.call(this);
-    // if (this.moving) {
-    //     this.x -= this.game.clockTick * this.speed;
-    //     if (this.x < 250) {
-    //         this.moving = false;
-    //         this.attacking = true;
-    //     }
-    // }
-    // // if (this.attacking) {
-    // //     if (this.attack_animation.isDone()) {
-    // //         this.attack_animation.elapsedTime = 0;
-    // //         this.attacking = false;
-    // //     }      
-    // // }
-    // Entity.prototype.update.call(this);
+
 }
 
 
