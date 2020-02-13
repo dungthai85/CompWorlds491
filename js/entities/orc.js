@@ -4,7 +4,7 @@
 */
 
 
-function Orc(game, spritesheet, X, Y, LEVEL) {
+function Orc(game, spritesheet, POSITION, LEVEL) {
     this.ctx = game.ctx;
     this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
     this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
@@ -12,10 +12,11 @@ function Orc(game, spritesheet, X, Y, LEVEL) {
     this.moving = true;
     this.attacking = false;
     this.finished = false;
+    this.dead = false;
 
     this.hp = Orc_attributes.HP * LEVEL; 
     this.attackdamage = Orc_attributes.DAMAGE;
-    this.speed = Orc_attributes.SPEED;
+    this.speed = Orc_attributes.SPEED * LEVEL;
 
     // this.hp_full = true;
     // this.hp_half = false;
@@ -25,11 +26,10 @@ function Orc(game, spritesheet, X, Y, LEVEL) {
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
     this.hp_current = Orc_attributes.HP * LEVEL;
     this.hp_scale = 35;
-    this.hp_ratio = this.hp_scale / this.hp;
-    this.endLane = getEndPointEnemy(Y);
-    this.x = X;
-    this.y = Y;
-    Entity.call(this, game, X, Y);
+    this.x = POSITION[0];
+    this.y = POSITION[1];
+    this.endLane = getEndPointEnemy(this.y);
+    Entity.call(this, game, this.x, this.y);
 }
 
 Orc.prototype = new Entity();
@@ -77,7 +77,7 @@ Orc.prototype.update = function () {
     // Update the boundingbox
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
     // Update the hp bar
-    if (this.hp <= 0) {
+    if (this.hp_current <= 0) {
         this.dead = true;
     } 
     else if ((this.hp_current < this.hp / 2) && (this.hp_current > this.hp / 4)) {
@@ -87,7 +87,12 @@ Orc.prototype.update = function () {
         this.hp_half = false;
         this.hp_quarter = true;
     }
-    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * this.hp_ratio), 10);
+
+    // hp after scaled formula:
+    // hp_scale = 250, hp_total = 1000 => ratio: 1/4
+    // hp_after_scale = hp_scale - ((total_hp - current_hp) * ratio)
+    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
+
     Entity.prototype.update.call(this);
 }
 
