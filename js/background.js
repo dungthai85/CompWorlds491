@@ -13,7 +13,6 @@ function Background(game, spritesheet) {
     this.one = 0;
     this.backgroundstart = AM.getAsset("./img/Background/Start.png");
     this.level = 0;
-    this.gameover = false;
     this.tutorial = AM.getAsset("./img/Background/Tutorial.png");
     //Entity.call(this, game, 0, 0);
 };
@@ -55,6 +54,15 @@ Background.prototype.draw = function () {
         this.ctx.drawImage(AM.getAsset("./img/Background/GameOver.png"), 200, 250);
         this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain.png"), 480, 500);
     }
+    if (WIN_LEVEL){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(0, 0, 1440, 810);
+        this.ctx.restore();
+        this.ctx.drawImage(AM.getAsset("./img/Background/Victory.png"), 200, 250);
+        this.ctx.drawImage(AM.getAsset("./img/Background/NextLevel.png"), 480, 500);
+    }
     // this.one++;
     // if (!START && this.one % 15 === 0){
     //     this.ctx.drawImage(AM.getAsset("./img/Background/Flag1.png"), 0, 0);
@@ -83,6 +91,8 @@ Background.prototype.update = function () {
         this.level = 0;
         START = true;
         GAME_OVER = false;
+        WIN_GAME = false;
+        WIN_LEVEL = false;
         var len = this.game.entities.length;
         for (var i = 1; i < len; i ++){
             this.game.entities[i].removeFromWorld = true;
@@ -146,7 +156,11 @@ Background.prototype.update = function () {
                     for (var i = 1; i < len; i ++){
                         this.game.entities[i].removeFromWorld = true;
                     }
-                    GAME_OVER = true;
+                    if (this.level === 1 || this.level === 2){
+                        WIN_LEVEL = true;
+                    } else if(this.level === 3){
+                        WIN_GAME = true;
+                    }
                 }
             }
             if (temp === 2){
