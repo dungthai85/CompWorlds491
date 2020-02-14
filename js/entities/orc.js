@@ -119,6 +119,9 @@ Orc.prototype.draw = function () {
         }
     }
 
+    // Draw hp bar background
+    this.ctx.fillStyle = "rgb(255,255,255)";
+    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,35,this.hp_bar.height);
     // Draw hp bar
     if (!this.dead) {
         // if (this.hp_full){

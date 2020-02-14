@@ -96,6 +96,8 @@ FallenAngel.prototype.update = function () {
 
 
 FallenAngel.prototype.draw = function () {
+
+
     // Draw animation and boundingbow
     if (this.moving) {
         //bounding box test
@@ -116,7 +118,9 @@ FallenAngel.prototype.draw = function () {
             this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.20);
         }
     }
-
+    // Draw hp bar background
+    this.ctx.fillStyle = "rgb(255,255,255)";
+    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,35,this.hp_bar.height);
     // Draw hp bar
     if (!this.dead) {
         // if (this.hp_full){
