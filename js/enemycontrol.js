@@ -68,7 +68,6 @@ EnemyControl.prototype.update = function () {
 EnemyControl.prototype.draw = function () {
 }
 
-
 function EnemyHP(x ,y, width, height){
     this.x = x;
     this.y = y;
