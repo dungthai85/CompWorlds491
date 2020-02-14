@@ -62,17 +62,17 @@ FallenAngel.prototype.update = function () {
         }
 
     }
-    if (this.attack_animation.animationComplete() && !this.finished) {
-        this.hp_current -= 15;
-    }
+    // if (this.attack_animation.animationComplete() && !this.finished) {
+    //     this.hp_current -= 15;
+    // }
 
-    else if (this.finished && this.attack_animation.currentFrame() === 0) {
-        this.finished = false;
-    }
+    // else if (this.finished && this.attack_animation.currentFrame() === 0) {
+    //     this.finished = false;
+    // }
 
-    else if (this.hp_current <= 0) {
-        this.attacking = false;
-    }
+    // else if (this.hp_current <= 0) {
+    //     this.attacking = false;
+    // }
     // Update the boundingbox
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
     // Update the hp bar

@@ -37,7 +37,7 @@ EnemyControl.prototype.update = function () {
     
     //Prevent update too many times
     if (this.difficulty === 1) {
-        if (this.elapsed < curr_elapsed - 5) {
+        if (this.elapsed < curr_elapsed - 10) {
             this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
             this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
             this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));

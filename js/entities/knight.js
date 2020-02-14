@@ -51,7 +51,16 @@ Knight.prototype.update = function () {
                 this.hp -= entity.attackdamage;
 
 
-            }
+            // }
+           } else {
+                if (entity.attack_animation.animationComplete()) {
+                    // debugger;
+                    this.hp -= entity.attackdamage;
+
+
+                }
+           }
+ 
             this.moving = false;
             if (this.hp > 0) {
                 this.attacking = true;

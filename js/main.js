@@ -372,6 +372,13 @@ AM.queueDownload("./img/Background/PlayAgain.png");
 AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
 
+
+AM.queueDownload("./img/Background/Victory.png");
+AM.queueDownload("./img/Background/Victory1.png");
+
+AM.queueDownload("./img/Background/NextLevel.png");
+AM.queueDownload("./img/Background/NextLevel1.png");
+
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
