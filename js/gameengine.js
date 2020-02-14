@@ -153,12 +153,20 @@ function getSelectedThing(e, that, click){
         }
     }
     // 760, 815 | 1420 930
-    if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && GAME_OVER) {
+    if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && (GAME_OVER || WIN_GAME)) {
         //debugger;
         if (click){
             that.menu = { clicked: true, id: "PlayAgain", mousemove: false };
         }
     }
+    if ((e.clientX >= 490 && e.clientX <= 920) && (e.clientY >= 460 && e.clientY <= 530) && WIN_LEVEL) {
+        //debugger;
+        if (click){
+            that.menu = { clicked: true, id: "NextLevel", mousemove: false };
+        }
+    }
+
+
     return that.menu;
 }
 

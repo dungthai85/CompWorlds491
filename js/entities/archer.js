@@ -1,43 +1,40 @@
 
-
-function Knight(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 184, 200, 0.4, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 200, 184, 200, 0.2, 8, true, false);
-    this.deathAnimation = new MyAnimation(spritesheet, 0, 600, 184, 200, 0.2, 8, false, false);
-    this.hp = 150;
-    this.attackdamage = 20;
+function Archer(game, spritesheet, X, Y) {
+    this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.15, 24, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2, 9, true, false);
+    this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
+    this.hp = 100;
+    this.attackdamage = 0;
+    this.range = 400;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
     this.death = false;
-    this.speed = 50;
+    this.arrowFire = false;
+    this.speed = 100;
     this.ctx = game.ctx;
     this.laneEnd = getLaneEnd(Y);
     this.x = X;
     this.y = Y;
-    this.game = game;
     this.type = "hero";
-    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
-    //console.log(this.boundingbox.y);
-    // Entity.call(this, game, 248, 469);
+    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
-    this.hp_bar = new EnemyHP(this.x + 12.5, this.y + 65, 35, 5);
-    this.hp_current = Knight_attributes.HP;
+    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);
+    this.hp_current = Archer_attributes.HP;
     this.hp_scale = 35;
 
-
+    // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);
 }
 
-Knight.prototype = new Entity();
-Knight.prototype.constructor = Knight;
+Archer.prototype = new Entity();
+Archer.prototype.constructor = Archer;
 
-Knight.prototype.update = function () {
-
+Archer.prototype.update = function () {
     var entity;
-    var entity2;
-    for(var i = 0; i < this.game.entities.length; i ++){
+    for (var i = 0; i < this.game.entities.length; i++) {
         entity = this.game.entities[i];
+
         if (entity === this) {
             continue;
         }
@@ -48,7 +45,6 @@ Knight.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-           // console.log('Colliding ' + entity.type);
             if(entity.name === "bluehp") {
                 this.hp -= entity.attackdamage;
             }
@@ -57,16 +53,7 @@ Knight.prototype.update = function () {
                 this.hp_current -= entity.attackdamage;
 
 
-            // }
-           } else {
-                if (entity.attack_animation.animationComplete()) {
-                    // debugger;
-                    this.hp -= entity.attackdamage;
-
-
-                }
-           }
- 
+            }
             this.moving = false;
             if (this.hp_current > 0) {
                 this.attacking = true;
@@ -75,8 +62,14 @@ Knight.prototype.update = function () {
 
             }
             break;
+
+            
+        } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
         }
-        // console.log(this.hp);
 
         // if (!entity.removeFromWorld) {
         //     this.moving = true;
@@ -92,8 +85,18 @@ Knight.prototype.update = function () {
         //     }
         // }
     }
-    if (this.attacking){
-        if(entity.removeFromWorld){
+    if (this.attacking) {
+        if (this.attackAnimation.currentFrame() === 4 && !this.arrowFire) {
+            this.arrowFire = true;
+            this.game.addEntity(new Arrow(this.game, AM.getAsset("./img/Archer/Arrow.png"), this.x, this.y));
+
+        }
+
+        if (this.attackAnimation.currentFrame() === 8) {
+            this.arrowFire = false;
+        }
+
+        if (entity.removeFromWorld) {
             this.attacking = false;
             this.moving = true;
             this.attackAnimation.elapsedTime = 0;
@@ -102,19 +105,19 @@ Knight.prototype.update = function () {
     }
     else if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x > this.laneEnd + 10) {
+        if (this.x > this.laneEnd) {
             this.moving = false;
             this.attacking = true;
         }
 
     }
-    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, this.animation.frameHeight * .1);
-    this.hp_bar = new EnemyHP(this.x + 12.5, this.y + 65, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
+    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.animation.frameHeight * .1);
+    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
 
     Entity.prototype.update.call(this);
 }
 
-Knight.prototype.draw = function () {
+Archer.prototype.draw = function () {
     // Draw hp bar background
     this.ctx.fillStyle = "rgb(255,255,255)";
     this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, 35, this.hp_bar.height);
@@ -136,32 +139,31 @@ Knight.prototype.draw = function () {
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
-        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
-        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
-        // if (this.attackAnimation.animationComplete() && !this.finished) {
-        //     this.attackAnimation.elapsedTime = 0;
-        //     this.finished = true;
-        //     this.hp -= 10;
-        // }
+        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
+        if (this.attackAnimation.animationComplete() && !this.finished) {
+            // this.hp -= 10;
+            this.finished = true;
+        }
 
-        // else if (this.finished && this.attackAnimation.currentFrame() === 0) {
-        //     this.finished = false;
-        // }
+        else if (this.finished && this.attackAnimation.currentFrame() === 0) {
+            this.finished = false;
+        }
 
-        // else if (this.hp <= 0) {
-        //     this.attacking = false;
-        // }
+        else if (this.hp_current <= 0) {
+            this.attacking = false;
+        }
 
     } else if (this.hp_current <= 0) {
-        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
         if (!this.death) {
             this.death = true;
-        } else if (this.death && this.deathAnimation.currentFrame() === 8) {
+        } else if (this.death && this.deathAnimation.currentFrame() === 15) {
             this.removeFromWorld = true;
         }
     }

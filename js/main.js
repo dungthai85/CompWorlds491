@@ -12,6 +12,7 @@ function getLaneEnd(yValue) {
     }
 }
 
+//Enemy Health bar
 function RedHP(game){
     this.game = game;
     this.ctx = game.ctx;
@@ -47,11 +48,17 @@ RedHP.prototype.update = function () {
         }
         this.boundingbox = this.boundingbox1;
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
+            this.game.defense = true;
+        }
+
+
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if(entity.attack_animation.animationComplete()){
                 this.hp -= 10;
             }
+            this.game.defense = true;
             break;
         }
         this.boundingbox = this.boundingbox2;
@@ -60,6 +67,7 @@ RedHP.prototype.update = function () {
             if(entity.attack_animation.animationComplete()){
                 this.hp -= 10;
             }
+            this.game.defense = true;
             break;
         }
         this.boundingbox = this.boundingbox3;
@@ -68,8 +76,10 @@ RedHP.prototype.update = function () {
             if(entity.attack_animation.animationComplete()){
                 this.hp -= 10;
             }
+            this.game.defense = true;
             break;
         }
+        this.game.defense = false;
     }
     this.hpbar = 296 - (1 - (this.hp/1000))*296;
     if(this.hpbar < 0){
@@ -96,6 +106,7 @@ RedHP.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
     }
     //bounding box test
+    
     this.ctx.fillRect(288, 137, this.hpbar, 34);
     this.ctx.strokeStyle = "red";
     //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
@@ -123,6 +134,7 @@ function BlueHP(game){
 
 }
 
+//Hero side health bar
 BlueHP.prototype = new Entity();
 BlueHP.prototype.constructor = BlueHP;
 
@@ -144,7 +156,9 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp -= FIREBALL_DAMAGE;
-            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
+            } else if (entity.name === "Arrow") {
+                this.hp -= ARROW_DAMAGE;
+            } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
                 this.hp -= 10;
             }
             break;
@@ -154,6 +168,8 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp -= FIREBALL_DAMAGE;
+            } else if (entity.name === "Arrow") {
+                this.hp -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
@@ -164,6 +180,8 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp -= FIREBALL_DAMAGE;
+            } else if (entity.name === "Arrow") {
+                this.hp -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp -= 10;
             }
@@ -327,10 +345,14 @@ AM.queueDownload("./img/Knight/Knight_icon.png");
 AM.queueDownload("./img/Samurai/Samurai_icon.png");
 AM.queueDownload("./img/Goblin/Goblin_icon.png");
 AM.queueDownload("./img/Bandit/Bandit_icon.png");
+AM.queueDownload("./img/Archer/Archer_icon.png");
+AM.queueDownload("./img/Archer/Archer_Full_Walk.png");
+AM.queueDownload("./img/Archer/Arrow.png");
 AM.queueDownload("./img/Knight/Knight.png");
 AM.queueDownload("./img/Samurai/Samurai.png");
 AM.queueDownload("./img/Goblin/Goblin.png");
 AM.queueDownload("./img/Bandit/Bandit.png");
+AM.queueDownload("./img/Archer/Archer.png");
 
 AM.queueDownload("./img/enemy_team/orc/orc.png");
 AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper.png");
@@ -368,6 +390,12 @@ AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
 
 AM.queueDownload("./img/Others/Firework.png");
+
+AM.queueDownload("./img/Background/Victory.png");
+AM.queueDownload("./img/Background/Victory1.png");
+
+AM.queueDownload("./img/Background/NextLevel.png");
+AM.queueDownload("./img/Background/NextLevel1.png");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");

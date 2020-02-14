@@ -60,7 +60,7 @@
 //         return this.currentFrame() === this.frames - 1;
 //     }
 
-    
+
 
 // }
 
@@ -85,7 +85,7 @@ MyAnimation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
         if (this.isDone()) {
             this.elapsedTime = 0;
         }
-    } 
+    }
     // else if (this.isDone()) {
     //     return;
     // }
@@ -122,5 +122,5 @@ MyAnimation.prototype.isDone = function () {
 }
 
 MyAnimation.prototype.animationComplete = function () {
-   return this.currentFrame() === this.frames - 8;
+    return this.currentFrame() === this.frames - 8;
 }
