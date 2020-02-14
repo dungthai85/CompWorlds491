@@ -82,6 +82,7 @@ Background.prototype.update = function () {
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
         this.level = 0;
         START = true;
+        GAME_OVER = false;
         var len = this.game.entities.length;
         for (var i = 1; i < len; i ++){
             this.game.entities[i].removeFromWorld = true;
@@ -145,6 +146,7 @@ Background.prototype.update = function () {
                     for (var i = 1; i < len; i ++){
                         this.game.entities[i].removeFromWorld = true;
                     }
+                    GAME_OVER = true;
                 }
             }
             if (temp === 2){
