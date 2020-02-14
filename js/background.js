@@ -70,7 +70,7 @@ Background.prototype.draw = function () {
         this.ctx.fillRect(0, 0, 1440, 810);
         this.ctx.restore();
         this.ctx.drawImage(AM.getAsset("./img/Background/Victory1.png"), 450, 270);
-        this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain.png"), 480, 500);
+        this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain1.png"), 480, 500);
     }
     if (WIN_LEVEL && this.game.mouseXY != null && (this.game.mouseXY.x >= 490 && this.game.mouseXY.x <= 920) && (this.game.mouseXY.y >=  460 && this.game.mouseXY.y <= 530)) {
         //debugger;
