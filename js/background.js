@@ -89,6 +89,10 @@ Background.prototype.update = function () {
         console.log("clicked back");
     } 
 
+    if (GAME_OVER) {
+        this.game.addEntity(new Firework(this.game));
+    }
+
     if (this.level !== 0 && START){
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));

@@ -303,6 +303,23 @@ SuperBar.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
+function Firework(game) {
+    this.animation = new MyAnimation(AM.getAsset("./img/Others/Firework.png"), 0, 0, 255, 250, 0.07, 28, true, true);
+    Entity.call(this, game, 500, 300);
+}
+
+Firework.prototype = new Firework();
+Firework.prototype.constructor = Firework;
+
+Firework.prototype.update = function () {
+    Entity.prototype.update.call(this);
+}
+
+Firework.prototype.draw = function (ctx) {
+    this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 3.5);
+    Entity.prototype.draw.call(this);
+}
+
 
 AM.queueDownload("./img/Fireball/Fireball.png");
 AM.queueDownload("./img/Fireball/Fireball_icon.png");
@@ -349,6 +366,8 @@ AM.queueDownload("./img/Background/PlayAgain.png");
 
 AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
+
+AM.queueDownload("./img/Others/Firework.png");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
