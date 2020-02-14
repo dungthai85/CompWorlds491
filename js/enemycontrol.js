@@ -18,7 +18,7 @@ EnemyControl.prototype.update = function () {
     var curr_elapsed = Math.round((checkpoint_time - this.start_time)/1000);
 
     
-    // Prevent update too many times
+    //Prevent update too many times
     if (this.difficulty === 1) {
         if (this.elapsed < curr_elapsed - 1) {
             this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, this.spawn_lane_position[Math.floor(Math.random() * 3)]));

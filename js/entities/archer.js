@@ -1,6 +1,6 @@
 
 function Archer(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.30, 24, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.15, 24, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2, 9, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.hp = 100;
@@ -41,7 +41,10 @@ Archer.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            if (entity.attack_animation.animationComplete()) {
+            if(entity.name === "bluehp") {
+                this.hp -= entity.attackdamage;
+            }
+            else if (entity.attack_animation.animationComplete()) {
                 // debugger;
                 this.hp -= entity.attackdamage;
 

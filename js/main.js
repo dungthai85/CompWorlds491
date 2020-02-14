@@ -12,6 +12,7 @@ function getLaneEnd(yValue) {
     }
 }
 
+//Enemy Health bar
 function RedHP(game){
     this.game = game;
     this.ctx = game.ctx;
@@ -133,6 +134,7 @@ function BlueHP(game){
 
 }
 
+//Hero side health bar
 BlueHP.prototype = new Entity();
 BlueHP.prototype.constructor = BlueHP;
 
