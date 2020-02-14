@@ -20,6 +20,12 @@ function Knight(game, spritesheet, X, Y) {
     this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
     //console.log(this.boundingbox.y);
     // Entity.call(this, game, 248, 469);
+
+    this.hp_bar = new EnemyHP(this.x + 12.5, this.y + 65, 35, 5);
+    this.hp_current = Knight_attributes.HP;
+    this.hp_scale = 35;
+
+
     Entity.call(this, game, X, Y);
 }
 
@@ -45,12 +51,12 @@ Knight.prototype.update = function () {
            // console.log('Colliding ' + entity.type);
             if (entity.attack_animation.animationComplete()) {
                 // debugger;
-                this.hp -= entity.attackdamage;
+                this.hp_current -= entity.attackdamage;
 
 
             }
             this.moving = false;
-            if (this.hp > 0) {
+            if (this.hp_current > 0) {
                 this.attacking = true;
             } else {
                 this.attacking = false;
@@ -90,17 +96,37 @@ Knight.prototype.update = function () {
         }
 
     }
-    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, this.animation.frameHeight*.1);
+    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, this.animation.frameHeight * .1);
+    this.hp_bar = new EnemyHP(this.x + 12.5, this.y + 65, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
+
     Entity.prototype.update.call(this);
 }
 
 Knight.prototype.draw = function () {
-    if (this.hp > 0 && this.moving) {
+    // Draw hp bar background
+    this.ctx.fillStyle = "rgb(255,255,255)";
+    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, 35, this.hp_bar.height);
+    // Draw hp bar
+    if (!this.death) {
+        // if (this.hp_full){
+        //     this.ctx.fillStyle = "rgb(0, 62, 0)";
+        // } 
+        // else if (this.hp_half){
+        //     this.ctx.fillStyle = "rgb(255, 174, 66)";
+        // } 
+        // else if (this.hp_quarter){
+        //     this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        // } 
+
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, this.hp_bar.width, this.hp_bar.height);
+    }
+    if (this.hp_current > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
-    } else if (this.hp > 0 && this.attacking) {
+    } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
@@ -119,7 +145,7 @@ Knight.prototype.draw = function () {
         //     this.attacking = false;
         // }
 
-    } else if (this.hp <= 0) {
+    } else if (this.hp_current <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
         if (!this.death) {
             this.death = true;

@@ -19,6 +19,10 @@ function Archer(game, spritesheet, X, Y) {
     this.type = "hero";
     this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
+    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);
+    this.hp_current = Archer_attributes.HP;
+    this.hp_scale = 35;
+
     // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);
 }
@@ -43,12 +47,12 @@ Archer.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             if (entity.attack_animation.animationComplete()) {
                 // debugger;
-                this.hp -= entity.attackdamage;
+                this.hp_current -= entity.attackdamage;
 
 
             }
             this.moving = false;
-            if (this.hp > 0) {
+            if (this.hp_current > 0) {
                 this.attacking = true;
             } else {
                 this.attacking = false;
@@ -105,16 +109,36 @@ Archer.prototype.update = function () {
 
     }
     this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.animation.frameHeight * .1);
+    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
+
     Entity.prototype.update.call(this);
 }
 
 Archer.prototype.draw = function () {
-    if (this.hp > 0 && this.moving) {
+    // Draw hp bar background
+    this.ctx.fillStyle = "rgb(255,255,255)";
+    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, 35, this.hp_bar.height);
+    // Draw hp bar
+    if (!this.death) {
+        // if (this.hp_full){
+        //     this.ctx.fillStyle = "rgb(0, 62, 0)";
+        // } 
+        // else if (this.hp_half){
+        //     this.ctx.fillStyle = "rgb(255, 174, 66)";
+        // } 
+        // else if (this.hp_quarter){
+        //     this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        // } 
+
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, this.hp_bar.width, this.hp_bar.height);
+    }
+    if (this.hp_current > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
-    } else if (this.hp > 0 && this.attacking) {
+    } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
@@ -128,11 +152,11 @@ Archer.prototype.draw = function () {
             this.finished = false;
         }
 
-        else if (this.hp <= 0) {
+        else if (this.hp_current <= 0) {
             this.attacking = false;
         }
 
-    } else if (this.hp <= 0) {
+    } else if (this.hp_current <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
         if (!this.death) {
             this.death = true;

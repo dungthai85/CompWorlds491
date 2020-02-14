@@ -1,3 +1,23 @@
+var Bandit_attributes = {
+    HP: 130
+};
+
+var Knight_attributes = {
+    HP: 150
+}
+
+var Samurai_attributes = {
+    HP: 130
+};
+
+var Archer_attributes = {
+    HP: 100
+};
+
+var Goblin_attributes = {
+    HP: 100
+};
+
 /**
 *
 *This function is to draw the hover for the lanes, the shadow of the characters,
