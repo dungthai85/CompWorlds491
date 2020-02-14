@@ -105,6 +105,7 @@ RedHP.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
     }
     //bounding box test
+    
     this.ctx.fillRect(288, 137, this.hpbar, 34);
     this.ctx.strokeStyle = "red";
     //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
