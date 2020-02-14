@@ -5,3 +5,4 @@ var GAME_OVER = false;
 var START = true;
 var WIN_LEVEL = false;
 var WIN_GAME = false;
+var FIRE_ON = true;
