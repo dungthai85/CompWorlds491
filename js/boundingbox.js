@@ -18,3 +18,9 @@ BoundingBox.prototype.collide = function (oth) {
     if (this.right > oth.left && this.left < oth.right && this.top < oth.bottom && this.bottom > oth.top) return true;
     return false;
 }
+
+BoundingBox.prototype.rangeCheck = function (oth, range) {
+    if (this.right + range > oth.left && this.left + range < oth.right && this.top < oth.bottom && this.bottom > oth.top) return true;
+    return false;
+
+}
