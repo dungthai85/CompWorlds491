@@ -72,8 +72,7 @@ Background.prototype.draw = function () {
         this.ctx.restore();
         // this.firework_animation.drawFrame(this.game.clockTick, this.ctx, 300, 150, 3.5);
         this.ctx.drawImage(AM.getAsset("./img/Background/Victory1.png"), 450, 270);
-        this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain.png"), 480, 500);
-        
+        this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain1.png"), 480, 500);
     }
     if (WIN_LEVEL && this.game.mouseXY != null && (this.game.mouseXY.x >= 490 && this.game.mouseXY.x <= 920) && (this.game.mouseXY.y >=  460 && this.game.mouseXY.y <= 530)) {
         //debugger;
