@@ -43,12 +43,23 @@ Knight.prototype.update = function () {
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
            // console.log('Colliding ' + entity.type);
-            if (entity.attack_animation.animationComplete()) {
-                // debugger;
-                this.hp -= entity.attackdamage;
+           if (entity.name === "redhp"){
+               //debugger;
+            // if (entity.attack_animation.animationComplete()) {
+            //     // debugger;
+            //     this.hp -= entity.attackdamage;
 
 
-            }
+            // }
+           } else {
+                if (entity.attack_animation.animationComplete()) {
+                    // debugger;
+                    this.hp -= entity.attackdamage;
+
+
+                }
+           }
+ 
             this.moving = false;
             if (this.hp > 0) {
                 this.attacking = true;

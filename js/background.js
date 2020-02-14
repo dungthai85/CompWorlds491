@@ -60,9 +60,24 @@ Background.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
         this.ctx.fillRect(0, 0, 1440, 810);
         this.ctx.restore();
-        this.ctx.drawImage(AM.getAsset("./img/Background/Victory.png"), 200, 250);
-        this.ctx.drawImage(AM.getAsset("./img/Background/NextLevel.png"), 480, 500);
+        this.ctx.drawImage(AM.getAsset("./img/Background/Victory1.png"), 450, 270);
+        this.ctx.drawImage(AM.getAsset("./img/Background/NextLevel.png"), 500, 450);
     }
+    if (WIN_GAME){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(0, 0, 1440, 810);
+        this.ctx.restore();
+        this.ctx.drawImage(AM.getAsset("./img/Background/Victory1.png"), 450, 270);
+        this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain.png"), 480, 500);
+    }
+    if (WIN_LEVEL && this.game.mouseXY != null && (this.game.mouseXY.x >= 490 && this.game.mouseXY.x <= 920) && (this.game.mouseXY.y >=  460 && this.game.mouseXY.y <= 530)) {
+        //debugger;
+        this.ctx.drawImage(AM.getAsset("./img/Background/NextLevel1.png"), 500, 450);
+    }  
+
+
     // this.one++;
     // if (!START && this.one % 15 === 0){
     //     this.ctx.drawImage(AM.getAsset("./img/Background/Flag1.png"), 0, 0);
@@ -99,16 +114,31 @@ Background.prototype.update = function () {
         }
         console.log("clicked back");
     } 
+    if (WIN_LEVEL && this.game.menu.clicked && this.game.menu.id === "NextLevel"){
+        this.level++;
+        if (this.level === 1){
+            this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
+        } else if(this.level === 2){
+            this.spritesheet = AM.getAsset("./img/Background/Map 2/NoDamage.png");
+        } else if(this.level === 3){
+            this.spritesheet = AM.getAsset("./img/Background/Map 3/NoDamage.png");
+        }
+        WIN_LEVEL = false;
+        this.game.addEntity(new RedHP(this.game));
+        this.game.addEntity(new BlueHP(this.game));
+        this.game.addEntity(new SuperBar(this.game));
+        this.game.addEntity(new UnitsControl(this.game));
+    }
 
     if (this.level !== 0 && START){
         this.game.addEntity(new RedHP(this.game));
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
-        this.game.addEntity(new EnemyControl(this.game, this.level));
+        //this.game.addEntity(new EnemyControl(this.game, this.level));
         START = false;
     }
-    if (GAME_OVER && this.game.menu.clicked && this.game.menu.id === "PlayAgain"){
+    if ((GAME_OVER || WIN_GAME) && this.game.menu.clicked && this.game.menu.id === "PlayAgain"){
         if (this.level === 1){
             this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
         } else if(this.level === 2){
@@ -120,9 +150,11 @@ Background.prototype.update = function () {
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
-        this.game.addEntity(new EnemyControl(this.game, this.level));
+        //this.game.addEntity(new EnemyControl(this.game, this.level));
         GAME_OVER = false;
+        WIN_GAME = false;
     }
+
     if (this.level !== 0){
         var len = this.game.entities.length;
         var temp = 0; 
