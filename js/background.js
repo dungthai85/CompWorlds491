@@ -80,11 +80,24 @@ Background.prototype.draw = function () {
 
     // this.one++;
     // if (!START && this.one % 15 === 0){
-    //     this.ctx.drawImage(AM.getAsset("./img/Background/Flag1.png"), 0, 0);
-    // } else if (!START && this.one % 15 !== 0) {
-    //     this.ctx.drawImage(AM.getAsset("./img/Background/Flag2.png"), 0, 0);
+    //     this.ctx.drawImage(AM.getAsset("./img/Background/Lights1.png"), 0, 0);
+    // } 
+    // else if (!START && this.one % 15 !== 0) {
+    //     this.ctx.drawImage(AM.getAsset("./img/Background/Lights2.png"), 0, 0);
     // }
-    //Entity.prototype.draw.call(this);
+    // else if (!START && this.one % 15 !== 0) {
+    //     this.ctx.drawImage(AM.getAsset("./img/Background/Lights3.png"), 0, 0);
+    // }
+    // else if (START && this.one % 15 === 0){
+    //     this.ctx.drawImage(AM.getAsset("./img/Background/StartLights1.png"), 0, 0);
+    // } 
+    // else if (START && this.one % 15 !== 0) {
+    //     this.ctx.drawImage(AM.getAsset("./img/Background/StartLights2.png"), 0, 0);
+    // }
+    // else if (START && this.one % 15 !== 0) {
+    //     this.ctx.drawImage(AM.getAsset("./img/Background/StartLights3.png"), 0, 0);
+    // }
+    // Entity.prototype.draw.call(this);
 };
 
 Background.prototype.update = function () {

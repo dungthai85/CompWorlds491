@@ -379,6 +379,14 @@ AM.queueDownload("./img/Background/Victory1.png");
 AM.queueDownload("./img/Background/NextLevel.png");
 AM.queueDownload("./img/Background/NextLevel1.png");
 
+AM.queueDownload("./img/Background/StartLights1.png");
+AM.queueDownload("./img/Background/StartLights2.png");
+AM.queueDownload("./img/Background/StartLights3.png");
+
+AM.queueDownload("./img/Background/Lights1.png");
+AM.queueDownload("./img/Background/Lights2.png");
+AM.queueDownload("./img/Background/Lights3.png");
+
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
