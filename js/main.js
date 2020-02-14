@@ -322,8 +322,8 @@ SuperBar.prototype.draw = function () {
 }
 
 function Firework(game) {
-    this.animation = new MyAnimation(AM.getAsset("./img/Others/Firework.png"), 0, 0, 255, 250, 0.07, 28, true, true);
-    Entity.call(this, game, 500, 300);
+    this.firework_animation = new MyAnimation(AM.getAsset("./img/Others/Firework.png"), 0, 0, 255, 250, 0.07, 28, true, true);
+    Entity.call(this, game, 300, 150);
 }
 
 Firework.prototype = new Firework();
@@ -334,7 +334,8 @@ Firework.prototype.update = function () {
 }
 
 Firework.prototype.draw = function (ctx) {
-    this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 3.5);
+    this.firework_animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 3.5);
+    // this.removeFromWorld = true;
     Entity.prototype.draw.call(this);
 }
 
