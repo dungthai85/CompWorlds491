@@ -153,21 +153,29 @@ function getSelectedThing(e, that, click){
         }
     }
     // 760, 815 | 1420 930
-    if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && GAME_OVER) {
+    if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && (GAME_OVER || WIN_GAME)) {
         //debugger;
         if (click){
             that.menu = { clicked: true, id: "PlayAgain", mousemove: false };
         }
     }
+    if ((e.clientX >= 490 && e.clientX <= 920) && (e.clientY >= 460 && e.clientY <= 530) && WIN_LEVEL) {
+        //debugger;
+        if (click){
+            that.menu = { clicked: true, id: "NextLevel", mousemove: false };
+        }
+    }
+
+
     return that.menu;
 }
 
 function getSelectedLane(e, that){
-    if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 385 && e.clientY <= 467)){
+    if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 385 && e.clientY <= 483)){
         that.lane = 1;
-    } else if((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 468 && e.clientY <= 550)){
+    } else if((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 484 && e.clientY <= 560)){
         that.lane = 2;
-    } else if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 551 && e.clientY <= 620)){
+    } else if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 561 && e.clientY <= 630)){
         that.lane = 3;
     }
     return that.lane;
