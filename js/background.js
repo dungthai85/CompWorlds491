@@ -82,6 +82,7 @@ Background.prototype.update = function () {
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
         this.level = 0;
         START = true;
+        GAME_OVER = false;
         var len = this.game.entities.length;
         for (var i = 1; i < len; i ++){
             this.game.entities[i].removeFromWorld = true;
@@ -110,6 +111,7 @@ Background.prototype.update = function () {
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game, this.level));
         GAME_OVER = false;
     }
     if (this.level !== 0){
@@ -145,6 +147,7 @@ Background.prototype.update = function () {
                     for (var i = 1; i < len; i ++){
                         this.game.entities[i].removeFromWorld = true;
                     }
+                    GAME_OVER = true;
                 }
             }
             if (temp === 2){
