@@ -13,6 +13,7 @@ function Background(game, spritesheet) {
     this.one = 0;
     this.backgroundstart = AM.getAsset("./img/Background/Start.png");
     this.level = 0;
+    this.up = true;
     this.tutorial = AM.getAsset("./img/Background/Tutorial.png");
     // this.firework_animation = new MyAnimation(AM.getAsset("./img/Others/Firework.png"), 0, 0, 255, 250, 0.07, 28, false, true);
     //Entity.call(this, game, 0, 0);
@@ -80,8 +81,6 @@ Background.prototype.draw = function () {
         this.ctx.drawImage(AM.getAsset("./img/Background/NextLevel1.png"), 500, 450);
     }  
 
-
-    // this.one++;
     // if (!START && this.one % 15 === 0){
     //     this.ctx.drawImage(AM.getAsset("./img/Background/Lights1.png"), 0, 0);
     // } 
@@ -91,20 +90,40 @@ Background.prototype.draw = function () {
     // else if (!START && this.one % 15 !== 0) {
     //     this.ctx.drawImage(AM.getAsset("./img/Background/Lights3.png"), 0, 0);
     // }
-    // else if (START && this.one % 15 === 0){
+    // if (START && this.one < 10 && this.one > 0){
     //     this.ctx.drawImage(AM.getAsset("./img/Background/StartLights1.png"), 0, 0);
     // } 
-    // else if (START && this.one % 15 !== 0) {
+    // if (START && this.one < 19 && this.one > 9) {
     //     this.ctx.drawImage(AM.getAsset("./img/Background/StartLights2.png"), 0, 0);
     // }
-    // else if (START && this.one % 15 !== 0) {
-    //     this.ctx.drawImage(AM.getAsset("./img/Background/StartLights3.png"), 0, 0);
-    // }
-    // Entity.prototype.draw.call(this);
+    if (START && this.one < 10 && this.one > 1) {
+        this.ctx.drawImage(AM.getAsset("./img/Background/StartLights3.png"), 0, 0);
+    }
+    if (START && this.one < 20 && this.one > 9){
+        this.ctx.drawImage(AM.getAsset("./img/Background/StartLights4.png"), 0, 0);
+    } 
+    if (START && this.one < 30 && this.one > 19) {
+        this.ctx.drawImage(AM.getAsset("./img/Background/StartLights5.png"), 0, 0);
+    }
+    if (START && this.one < 40 && this.one > 29) {
+        this.ctx.drawImage(AM.getAsset("./img/Background/StartLights6.png"), 0, 0);
+    }
+    Entity.prototype.draw.call(this);
 };
 
 Background.prototype.update = function () {
-
+    if (this.up){
+        this.one++;
+    }
+    if (!this.up){
+        this.one--;
+    }
+    if (this.one === 39){
+        this.up = false;
+    }
+    if (this.one === 1){
+        this.up = true;
+    }
     if(this.game.menu.clicked && this.game.menu.id === "easy") {
         this.level = 1;
         this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
@@ -151,7 +170,7 @@ Background.prototype.update = function () {
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
-        // this.game.addEntity(new EnemyControl(this.game, this.level));
+        this.game.addEntity(new EnemyControl(this.game, this.level));
         START = false;
     }
     if ((GAME_OVER || WIN_GAME) && this.game.menu.clicked && this.game.menu.id === "PlayAgain"){
