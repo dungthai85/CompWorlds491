@@ -386,6 +386,7 @@ AM.queueDownload("./img/Background/BackText.png");
 
 AM.queueDownload("./img/Background/GameOver.png");
 AM.queueDownload("./img/Background/PlayAgain.png");
+AM.queueDownload("./img/Background/PlayAgain1.png");
 
 AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
@@ -424,6 +425,9 @@ AM.queueDownload("./img/Background/LightsDoubleDamage1.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage2.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage3.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage4.png");
+
+AM.queueDownload("./img/music/start.mp3");
+AM.addMusic("./img/music/start.mp3");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");

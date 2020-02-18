@@ -3,6 +3,7 @@ function AssetManager() {
     this.errorCount = 0;
     this.cache = [];
     this.downloadQueue = [];
+    this.music = [];
 }
 
 AssetManager.prototype.queueDownload = function (path) {
@@ -41,4 +42,16 @@ AssetManager.prototype.downloadAll = function (callback) {
 
 AssetManager.prototype.getAsset = function (path) {
     return this.cache[path];
+}
+
+AssetManager.prototype.addMusic = function(path) {
+    var sound = new Audio();
+    sound.addEventListener("canplay", null);
+    sound.addEventListener("error", null);
+    sound.src = path;
+    this.music[path] = sound;
+}
+
+AssetManager.prototype.getMusic = function(path) {
+    return this.music[path];
 }
