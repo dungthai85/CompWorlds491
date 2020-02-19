@@ -63,18 +63,18 @@ UnitsControl.prototype.update = function () {
     if (this.x < this.maxelixir){
         this.x += this.game.clockTick * this.speed;
     }
-    if (this.game.menu.clicked && this.game.menu.id === "Knight" && this.x > 135) {
-        this.unitName = "Knight";
+    if (this.game.menu.clicked && this.game.menu.id === UNIT_CONTROL_CHARACTER[0] && this.x > 135) {
+        this.unitName = UNIT_CONTROL_CHARACTER[0];
         this.shadow = true;
 
-    } else if (this.game.menu.clicked && this.game.menu.id === "Bandit" && this.x > 101) {
-        this.unitName = "Bandit";
+    } else if (this.game.menu.clicked && this.game.menu.id === UNIT_CONTROL_CHARACTER[1] && this.x > 101) {
+        this.unitName = UNIT_CONTROL_CHARACTER[1];
         this.shadow = true;
-    } else if (this.game.menu.clicked && this.game.menu.id === "Samurai" && this.x > 67.6) {
-        this.unitName = "Samurai";
+    } else if (this.game.menu.clicked && this.game.menu.id === UNIT_CONTROL_CHARACTER[2] && this.x > 67.6) {
+        this.unitName = UNIT_CONTROL_CHARACTER[2];
         this.shadow = true;
-    } else if (this.game.menu.clicked && this.game.menu.id === "Goblin" && this.x > 67.6) {
-        this.unitName = "Archer";
+    } else if (this.game.menu.clicked && this.game.menu.id === UNIT_CONTROL_CHARACTER[3]&& this.x > 67.6) {
+        this.unitName = UNIT_CONTROL_CHARACTER[3];
         // this.unitName = "Goblin";
         this.shadow = true;
     }
@@ -92,7 +92,7 @@ UnitsControl.prototype.update = function () {
         }
 
         var laneX = defenseAdjustment(this.game, this.lane);
-        if (laneY && this.unitName === "Knight") {
+        if (laneY && this.unitName === "1Knight") {
             //debugger;
             this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), laneX, laneY));
             this.unitName = null;
@@ -103,7 +103,7 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 4;
             }
-        } else if (laneY && this.unitName === "Bandit") {
+        } else if (laneY && this.unitName === "2Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -114,7 +114,7 @@ UnitsControl.prototype.update = function () {
                 this.x = this.x - this.oneElixir * 3;
             }
 
-        } else if (laneY && this.unitName === "Samurai") {
+        } else if (laneY && this.unitName === "3Samurai") {
             this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -124,7 +124,7 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 3;
             }
-        } else if (laneY && this.unitName === "Archer") {
+        } else if (laneY && this.unitName === "5Archer") {
             this.game.addEntity(new Archer(this.game, AM.getAsset("./img/Archer/Archer.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -133,7 +133,7 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 2;
             }
-        } else if (laneY && this.unitName === "Goblin") {
+        } else if (laneY && this.unitName === "4Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -161,27 +161,27 @@ UnitsControl.prototype.update = function () {
 }
 
 UnitsControl.prototype.draw = function () {
-    if (this.unitName === "Knight" && this.shadow) {
+    if (this.unitName === "1Knight" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Knight/Knight_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
-    } else if (this.unitName === "Bandit" && this.shadow) {
+    } else if (this.unitName === "2Bandit" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Bandit/Bandit_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
-    } else if (this.unitName === "Samurai" && this.shadow) {
+    } else if (this.unitName === "3Samurai" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Samurai/Samurai_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
-    } else if (this.unitName === "Goblin" && this.shadow) {
+    } else if (this.unitName === "4Goblin" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Goblin/Goblin_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
-    } else if (this.unitName === "Archer" && this.shadow) {
+    } else if (this.unitName === "5Archer" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Archer/Archer_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
