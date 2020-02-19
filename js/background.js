@@ -145,7 +145,7 @@ Background.prototype.draw = function () {
         //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/NextLevel1.png"), 500, 450);
     }  
-    if (GAME_OVER && this.game.mouseXY != null && (this.game.mouseXY.x >= 480 && this.game.mouseXY.x <= 890) && (this.game.mouseXY.y >=  510 && this.game.mouseXY.y <= 580)) {
+    if ((GAME_OVER || WIN_GAME) && this.game.mouseXY != null && (this.game.mouseXY.x >= 480 && this.game.mouseXY.x <= 890) && (this.game.mouseXY.y >=  510 && this.game.mouseXY.y <= 580)) {
         debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain1.png"), 480, 500);
     }  
@@ -211,6 +211,7 @@ Background.prototype.update = function () {
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game, this.level));
     }
 
     if (this.level !== 0 && START){
@@ -222,6 +223,10 @@ Background.prototype.update = function () {
         START = false;
     }
     if ((GAME_OVER || WIN_GAME) && this.game.menu.clicked && this.game.menu.id === "PlayAgain"){
+        var len = this.game.entities.length;
+        for (var i = 1; i < len; i ++){
+            this.game.entities[i].removeFromWorld = true;
+        }
         if (this.level === 1){
             this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
             this.damage = "noDamage";
@@ -236,9 +241,10 @@ Background.prototype.update = function () {
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
-        //this.game.addEntity(new EnemyControl(this.game, this.level));
+        this.game.addEntity(new EnemyControl(this.game, this.level));
         GAME_OVER = false;
         WIN_GAME = false;
+        FIRE_ON = true;
     }
 
     if (this.level !== 0){
@@ -302,7 +308,8 @@ Background.prototype.update = function () {
     }
 
     if (WIN_GAME && FIRE_ON) {
-        this.game.addEntity(new Firework(this.game));
+        this.game.addEntity(new Firework(this.game, 0, 0));
+        this.game.addEntity(new Firework(this.game, 800, 0));
         FIRE_ON = false;
     }
 
