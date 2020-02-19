@@ -17,7 +17,7 @@ function Knight(game, spritesheet, X, Y) {
     this.y = Y;
     this.game = game;
     this.type = "hero";
-    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
+    this.boundingbox = new BoundingBox(this.x + 100, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
     //console.log(this.boundingbox.y);
     // Entity.call(this, game, 248, 469);
 
@@ -49,10 +49,7 @@ Knight.prototype.update = function () {
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
            // console.log('Colliding ' + entity.type);
-            if(entity.name === "bluehp") {
-                this.hp -= entity.attackdamage;
-            }
-            else if (entity.attack_animation.animationComplete()) {
+            if(entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
                 this.hp_current -= entity.attackdamage;
 

@@ -1,8 +1,7 @@
 /**
 *
-*This function is the entity orc that is part of the enemy troops.
+*This function is the entity Orc that is part of the enemy troops.
 */
-
 
 function Orc(game, spritesheet, POSITION, LEVEL) {
     this.ctx = game.ctx;
@@ -49,8 +48,30 @@ Orc.prototype.update = function () {
         }
 
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            console.log('Colliding ' + entity.name);
+            if(entity.name === "redhp") {
+                // this.hp_current -= entity.attackdamage;
+            } else if (entity.name === "Fireball"){
+
+            }
+            else if (entity.name === "Arrow"){
+                if(entity.animation.animationComplete()){
+                    this.hp_current -= entity.attackdamage;
+                }
+            }
+            else if (entity.attackAnimation.animationComplete()) {
+                // debugger;
+                this.hp_current -= entity.attackdamage;
+
+
+            }
             this.moving = false;
-            this.attacking = true;
+            if (this.hp_current > 0) {
+                this.attacking = true;
+            } else {
+                this.attacking = false;
+
+            }
             break;
         }
     }
@@ -62,78 +83,64 @@ Orc.prototype.update = function () {
             this.attacking = true;
         }
 
-    }
-    if (this.attack_animation.animationComplete() && !this.finished) {
-        this.hp_current -= 15;
-    }
+    } else if (this.attacking) {
+        if(entity.removeFromWorld){
+            this.attacking = false;
+            this.moving = true;
+            this.attack_animation.elapsedTime = 0;
+            this.walk_animation.elapsedTime = 0;
+        }
 
-    else if (this.finished && this.attack_animation.currentFrame() === 0) {
-        this.finished = false;
-    }
-
-    else if (this.hp_current <= 0) {
-        this.attacking = false;
     }
     // Update the boundingbox
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
-    // Update the hp bar
-    if (this.hp_current <= 0) {
-        this.dead = true;
-    } 
-    else if ((this.hp_current < this.hp / 2) && (this.hp_current > this.hp / 4)) {
-        this.hp_full = false;
-        this.hp_half = true;
-    } else if ((this.hp_current < this.hp / 4 && (this.hp_current >= 0))) {
-        this.hp_half = false;
-        this.hp_quarter = true;
-    }
 
     // hp after scaled formula:
     // hp_scale = 250, hp_total = 1000 => ratio: 1/4
     // hp_after_scale = hp_scale - ((total_hp - current_hp) * ratio)
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
-
     Entity.prototype.update.call(this);
 }
 
 
 Orc.prototype.draw = function () {
+
+
     // Draw animation and boundingbow
-    if (this.moving) {
+    if (this.moving && this.hp_current > 0 ) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
-    } else if (this.attacking) {
+    } else if (this.attacking && this.hp_current > 0 ) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
-    } else if (this.dead) {
-        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
-        if (this.dead_animation.animationComplete()) {
+        if (this.attack_animation.animationComplete() && !this.finished) {
+            this.finished = true;
+        }
 
+        else if (this.finished && this.attack_animation.currentFrame() === 0) {
+            this.finished = false;
+        }
+
+        else if (this.hp_current <= 0) {
+            this.attacking = false;
+        }
+    } else if (this.hp_current <= 0) {
+        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        if (!this.death) {
+            this.death = true;
+        } else if (this.death && this.dead_animation.currentFrame() === 8) {
             this.removeFromWorld = true;
-        } else {
-            this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.20);
         }
     }
-
     // Draw hp bar background
     this.ctx.fillStyle = "rgb(255,255,255)";
     this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,35,this.hp_bar.height);
     // Draw hp bar
     if (!this.dead) {
-        // if (this.hp_full){
-        //     this.ctx.fillStyle = "rgb(0, 62, 0)";
-        // } 
-        // else if (this.hp_half){
-        //     this.ctx.fillStyle = "rgb(255, 174, 66)";
-        // } 
-        // else if (this.hp_quarter){
-        //     this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        // } 
-
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
         this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,this.hp_bar.width,this.hp_bar.height);
     }

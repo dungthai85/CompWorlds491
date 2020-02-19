@@ -5,7 +5,7 @@ function Archer(game, spritesheet, X, Y) {
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.hp = 100;
     this.attackdamage = 0;
-    this.range = 400;
+    this.range = 300;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
@@ -17,7 +17,7 @@ function Archer(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.type = "hero";
-    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
+    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);
     this.hp_current = Archer_attributes.HP;
@@ -45,10 +45,7 @@ Archer.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            if(entity.name === "bluehp") {
-                this.hp -= entity.attackdamage;
-            }
-            else if (entity.attack_animation.animationComplete()) {
+            if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
                 this.hp_current -= entity.attackdamage;
 
@@ -111,16 +108,37 @@ Archer.prototype.update = function () {
         }
 
     }
-    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.animation.frameHeight * .1);
+    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.animation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
 
     Entity.prototype.update.call(this);
 }
 
+function determineLane(y) {
+    if (y === 385) {
+        return 1;
+    } else if (y === 468) {
+        return 2;
+    } else if (y === 551) {
+        return 3;
+    }
+
+}
+
 Archer.prototype.draw = function () {
+    var offset = 0;
+    if (determineLane(this.y) === 1) {
+        offset = -14;
+    } else if (determineLane(this.y) === 2) {
+        offset = -15;
+    } else if (determineLane(this.y) === 3) {
+        offset = -15;
+    }
+
+
     // Draw hp bar background
     this.ctx.fillStyle = "rgb(255,255,255)";
-    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, 35, this.hp_bar.height);
+    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + offset, 35, this.hp_bar.height);
     // Draw hp bar
     if (!this.death) {
         // if (this.hp_full){
@@ -134,18 +152,18 @@ Archer.prototype.draw = function () {
         // } 
 
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, this.hp_bar.width, this.hp_bar.height);
+        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + offset, this.hp_bar.width, this.hp_bar.height);
     }
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
         if (this.attackAnimation.animationComplete() && !this.finished) {
             // this.hp -= 10;
             this.finished = true;
@@ -160,7 +178,7 @@ Archer.prototype.draw = function () {
         }
 
     } else if (this.hp_current <= 0) {
-        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
+        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
         if (!this.death) {
             this.death = true;
         } else if (this.death && this.deathAnimation.currentFrame() === 15) {
