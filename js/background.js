@@ -163,6 +163,7 @@ Background.prototype.update = function () {
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
+        this.game.addEntity(new EnemyControl(this.game, this.level));
     }
 
     if (this.level !== 0 && START){
@@ -185,7 +186,7 @@ Background.prototype.update = function () {
         this.game.addEntity(new BlueHP(this.game));
         this.game.addEntity(new SuperBar(this.game));
         this.game.addEntity(new UnitsControl(this.game));
-        //this.game.addEntity(new EnemyControl(this.game, this.level));
+        this.game.addEntity(new EnemyControl(this.game, this.level));
         GAME_OVER = false;
         WIN_GAME = false;
     }

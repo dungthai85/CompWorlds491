@@ -322,7 +322,7 @@ SuperBar.prototype.draw = function () {
 }
 
 function Firework(game) {
-    this.firework_animation = new MyAnimation(AM.getAsset("./img/Others/Firework.png"), 0, 0, 255, 250, 0.07, 28, true, true);
+    this.firework_animation = new MyAnimation(AM.getAsset("./img/Others/Firework.png"), 0, 0, 255, 250, 0.07, 28, true, false);
     Entity.call(this, game, 300, 150);
 }
 
