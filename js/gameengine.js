@@ -24,6 +24,8 @@ GameEngine.prototype.init = function (ctx) {
     this.ctx = ctx;
     this.surfaceWidth = this.ctx.canvas.width;
     this.surfaceHeight = this.ctx.canvas.height;
+    //this.startmusic =  AM.getMusic("./img/music/start.mp3");
+    //this.startmusic.play();
     this.timer = new Timer();
     this.startInput();
     console.log('game initialized');
@@ -128,28 +130,28 @@ function getSelectedThing(e, that, click){
         }
     } else if ((e.clientX >= 421 && e.clientX <= 526) && (e.clientY >= 650 && e.clientY <= 751)) {
         if (click){
-            that.menu = { clicked: true, id: "Knight", mousemove: false };
+            that.menu = { clicked: true, id: UNIT_CONTROL_CHARACTER[0], mousemove: false };
         } else {
-            that.menu = { clicked: false, id: "knight", mousemove: true };
+            that.menu = { clicked: false, id: UNIT_CONTROL_CHARACTER[0], mousemove: true };
         }
     } else if ((e.clientX >= 539 && e.clientX <= 644) && (e.clientY >= 648 && e.clientY <= 749)) {
         if (click){
-            that.menu = { clicked: true, id: "Bandit", mousemove: false };
+            that.menu = { clicked: true, id: UNIT_CONTROL_CHARACTER[1], mousemove: false };
         } else {
-            that.menu = { clicked: false, id: "Bandit", mousemove: true };
+            that.menu = { clicked: false, id: UNIT_CONTROL_CHARACTER[1], mousemove: true };
         }
     } else if ((e.clientX >= 660 && e.clientX <= 764) && (e.clientY >= 647 && e.clientY <= 748)) {
         if (click){
-            that.menu = { clicked: true, id: "Samurai", mousemove: false };
+            that.menu = { clicked: true, id: UNIT_CONTROL_CHARACTER[2], mousemove: false };
         } else {
-            that.menu = { clicked: false, id: "Samurai", mousemove: true };
+            that.menu = { clicked: false, id: UNIT_CONTROL_CHARACTER[2], mousemove: true };
         }
     } else if ((e.clientX >= 782 && e.clientX <= 884) && (e.clientY >= 646 && e.clientY <= 747)) {
         if (click){
-            that.menu = { clicked: true, id: "Goblin", mousemove: false };
+            that.menu = { clicked: true, id: UNIT_CONTROL_CHARACTER[3], mousemove: false };
             MAIN_MENU = false;
         } else {
-            that.menu = { clicked: false, id: "Goblin", mousemove: true };
+            that.menu = { clicked: false, id: UNIT_CONTROL_CHARACTER[3], mousemove: true };
         }
     } else if((e.clientX >= 1280 && e.clientX <= 1406) && (e.clientY >= 751 && e.clientY<= 780)){
         if (click){
@@ -186,7 +188,7 @@ function getSelectedLane(e, that){
 }
 
 GameEngine.prototype.addEntity = function (entity) {
-    console.log('added entity');
+    //console.log('added entity');
     this.entities.push(entity);
 }
 
