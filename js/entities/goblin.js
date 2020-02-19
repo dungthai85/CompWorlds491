@@ -49,8 +49,6 @@ Goblin.prototype.update = function () {
             if(entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
                 this.hp_current -= entity.attackdamage;
-
-
             }
             this.moving = false;
             if (this.hp_current > 0) {
