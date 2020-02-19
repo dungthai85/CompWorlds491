@@ -151,6 +151,10 @@ function getSelectedThing(e, that, click){
         } else {
             that.menu = { clicked: false, id: "Goblin", mousemove: true };
         }
+    } else if((e.clientX >= 1280 && e.clientX <= 1406) && (e.clientY >= 751 && e.clientY<= 780)){
+        if (click){
+            that.menu = { clicked: true, id: "SoundOnOff", mousemove: false };
+        } 
     }
     // 760, 815 | 1420 930
     if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && (GAME_OVER || WIN_GAME)) {
@@ -194,10 +198,6 @@ GameEngine.prototype.removal = function () {
             this.entities.push(entity);
         }
     }
-}
-
-GameEngine.prototype.reset = function(){
-    this.entities.splice(1);
 }
 
 GameEngine.prototype.draw = function () {

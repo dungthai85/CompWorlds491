@@ -386,6 +386,7 @@ AM.queueDownload("./img/Background/BackText.png");
 
 AM.queueDownload("./img/Background/GameOver.png");
 AM.queueDownload("./img/Background/PlayAgain.png");
+AM.queueDownload("./img/Background/PlayAgain1.png");
 
 AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
@@ -401,10 +402,32 @@ AM.queueDownload("./img/Background/NextLevel1.png");
 AM.queueDownload("./img/Background/StartLights1.png");
 AM.queueDownload("./img/Background/StartLights2.png");
 AM.queueDownload("./img/Background/StartLights3.png");
+AM.queueDownload("./img/Background/StartLights4.png");
+AM.queueDownload("./img/Background/StartLights5.png");
+AM.queueDownload("./img/Background/StartLights6.png");
 
-AM.queueDownload("./img/Background/Lights1.png");
-AM.queueDownload("./img/Background/Lights2.png");
-AM.queueDownload("./img/Background/Lights3.png");
+AM.queueDownload("./img/Background/LightsNoDamage1.png");
+AM.queueDownload("./img/Background/LightsNoDamage2.png");
+AM.queueDownload("./img/Background/LightsNoDamage3.png");
+AM.queueDownload("./img/Background/LightsNoDamage4.png");
+
+AM.queueDownload("./img/Background/LightsLeftDamage1.png");
+AM.queueDownload("./img/Background/LightsLeftDamage2.png");
+AM.queueDownload("./img/Background/LightsLeftDamage3.png");
+AM.queueDownload("./img/Background/LightsLeftDamage4.png");
+
+AM.queueDownload("./img/Background/LightsRightDamage1.png");
+AM.queueDownload("./img/Background/LightsRightDamage2.png");
+AM.queueDownload("./img/Background/LightsRightDamage3.png");
+AM.queueDownload("./img/Background/LightsRightDamage4.png");
+
+AM.queueDownload("./img/Background/LightsDoubleDamage1.png");
+AM.queueDownload("./img/Background/LightsDoubleDamage2.png");
+AM.queueDownload("./img/Background/LightsDoubleDamage3.png");
+AM.queueDownload("./img/Background/LightsDoubleDamage4.png");
+
+AM.queueDownload("./img/music/start.mp3");
+AM.addMusic("./img/music/start.mp3");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");

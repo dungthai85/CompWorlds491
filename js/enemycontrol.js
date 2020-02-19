@@ -34,13 +34,25 @@ EnemyControl.prototype.update = function () {
     // Calculate time difference, strip the ms, and round it to the second.
     var curr_elapsed = (checkpoint_time - this.start_time)/1000;
 
-    
+    var whichentity = Math.floor(Math.random() * 3 + 1);
+    //console.log(whichentity);
     //Prevent update too many times
     if (this.difficulty === 1) {
-        if (this.elapsed < curr_elapsed - 10) {
-            this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+        if (this.elapsed < curr_elapsed - 3) {
+            if(whichentity === 1){
+                this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+
+            } 
+            else if (whichentity === 2){
+                this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+
+            }
+            else if (whichentity ===3){
+                this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+            }
+            // this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+            // this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+            // this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
             this.elapsed = curr_elapsed;
         }
     }
