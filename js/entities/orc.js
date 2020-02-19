@@ -51,6 +51,13 @@ Orc.prototype.update = function () {
             console.log('Colliding ' + entity.name);
             if(entity.name === "redhp") {
                 // this.hp_current -= entity.attackdamage;
+            } else if (entity.name === "Fireball"){
+
+            }
+            else if (entity.name === "Arrow"){
+                if(entity.animation.animationComplete()){
+                    this.hp_current -= entity.attackdamage;
+                }
             }
             else if (entity.attackAnimation.animationComplete()) {
                 // debugger;
