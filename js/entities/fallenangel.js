@@ -50,7 +50,7 @@ FallenAngel.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             console.log('Colliding ' + entity.name);
             if(entity.name === "redhp") {
-                this.hp -= entity.attackdamage;
+                // this.hp_current -= entity.attackdamage;
             }
             else if (entity.attackAnimation.animationComplete()) {
                 // debugger;
