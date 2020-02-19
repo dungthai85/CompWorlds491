@@ -49,22 +49,6 @@ FallenAngel.prototype.update = function () {
 
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             console.log('Colliding ' + entity.name);
-            if(entity.name === "redhp") {
-                // this.hp_current -= entity.attackdamage;
-            } else if (entity.name === "Fireball"){
-
-            }
-            else if (entity.name === "Arrow"){
-                if(entity.animation.animationComplete()){
-                    this.hp_current -= entity.attackdamage;
-                }
-            }
-            else if (entity.attackAnimation.animationComplete()) {
-                // debugger;
-                this.hp_current -= entity.attackdamage;
-
-
-            }
             this.moving = false;
             if (this.hp_current > 0) {
                 this.attacking = true;
@@ -72,6 +56,23 @@ FallenAngel.prototype.update = function () {
                 this.attacking = false;
 
             }
+            if(entity.name === "redhp") {
+                // this.hp_current -= entity.attackdamage;
+            } else if (entity.name === "Fireball"){
+
+            }
+            else if (entity.name === "Arrow"){
+                // if(entity.animation.animationComplete()){
+                    this.hp_current -= entity.attackdamage;
+                    this.moving = true;
+                    this.attacking = false;
+                // }
+            }
+            else if (entity.attackAnimation.animationComplete()) {
+                // debugger;
+                this.hp_current -= entity.attackdamage;
+            }
+            // this.moving = false;
             break;
         }
     }
