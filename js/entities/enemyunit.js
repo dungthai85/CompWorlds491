@@ -1,55 +1,37 @@
-/**
-*
-*This function is the entity Orc that is part of the enemy troops.
-*/
+function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
+    var ENEMY = Enemy_Generator(ENTITY_NAME);
+    
+    this.walk_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 0, 300, 300, 0.05, 24, true, false);
+    this.attack_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 300, 300, 300, 0.05, 12, true, false);
+    this.dead_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 600, 300, 300, 0.05, 12, false, false);
+    
+    this.moving = true;
+    this.attacking = false;
+    this.finished = false;
+    this.dead = false;
 
-function EnemyUnit(game, spritesheet, POSITION, LEVEL) {
-    this.animation = {
-        moving = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false),
-        attacking = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false),
-        dead = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false)
-    };
-    // this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
-    // this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
-    // this.dead_animation = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false);
-    this.action = {
-        moving = true,
-        attacking = false,
-        finished = false,
-        dead = false   
-    }
-    // this.moving = true;
-    // this.attacking = false;
-    // this.finished = false;
-    // this.dead = false;
-
-    this.stats = {
-        hp = Orc_attributes.HP * LEVEL,
-        attack_damage = Orc_attributes.DAMAGE, // TODO: Change name
-        speed = Orc_attributes.SPEED * LEVEL
-    }
-    // this.hp = Orc_attributes.HP * LEVEL; 
-    // this.attackdamage = Orc_attributes.DAMAGE;
-    // this.speed = Orc_attributes.SPEED * LEVEL;
+    this.hp = ENEMY.HP * LEVEL; 
+    this.attack_damage = ENEMY.DAMAGE;
+    this.speed = ENEMY.SPEED * LEVEL;
 
     this.type = "enemy";
-    if (is_castle_under_attack) this.x = POSITION[0] + 50;
-    else this.x = POSITION[0];
-    this.y = POSITION[1];
-    this.endLane = getEndPointEnemy(this.y);
 
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
-    this.hp_current = Orc_attributes.HP * LEVEL;
+    this.hp_current = this.hp;
     this.hp_scale = 35;
 
-    this.attack_sound =  AM.getMusic("./img/music/sword_swipe.mp3");
-    
+    if (is_castle_under_attack) this.x = POSITION[0] + 50;
+    else this.x = POSITION[0];
+    this.y = POSITION[1];
+    this.attack_sound =  AM.getMusic("./img/music/sword_swipe_2.mp3");
+    this.endLane = getEndPointEnemy(this.y);
+
     this.ctx = game.ctx;
     Entity.call(this, game, this.x, this.y);
 }
 
-EnemyUnit.prototype = new EnemyUnit();
+EnemyUnit.prototype = new Entity();
 EnemyUnit.prototype.constructor = EnemyUnit;
 
 EnemyUnit.prototype.update = function () {
@@ -66,28 +48,34 @@ EnemyUnit.prototype.update = function () {
         }
 
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+            console.log('Colliding ' + entity.name);
             this.moving = false;
             if (this.hp_current > 0) {
+                this.attack_sound.play();
                 this.attacking = true;
             } else {
                 this.attacking = false;
+
             }
 
             if (this.attack_animation.animationComplete()) this.attack_sound.play();
-
             if(entity.name === "redhp") {
                 // this.hp_current -= entity.attackdamage;
             } else if (entity.name === "Fireball"){
 
             }
             else if (entity.name === "Arrow"){
+                // if(entity.animation.animationComplete()){
                     this.hp_current -= entity.attackdamage;
                     this.moving = true;
                     this.attacking = false;
+                // }
             }
             else if (entity.attackAnimation.animationComplete()) {
+                // debugger;
                 this.hp_current -= entity.attackdamage;
             }
+            // this.moving = false;
             break;
         }
     }
@@ -120,8 +108,6 @@ EnemyUnit.prototype.update = function () {
 
 
 EnemyUnit.prototype.draw = function () {
-
-
     // Draw animation and boundingbow
     if (this.moving && this.hp_current > 0 ) {
         //bounding box test
@@ -164,3 +150,31 @@ EnemyUnit.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
+
+function Enemy_Generator(ENTITY_NAME) {
+    var enemy;
+    if (ENTITY_NAME === "Orc") {
+        enemy = {
+            sprite_sheet : AM.getAsset("./img/enemy_team/orc/orc.png"),
+            HP : 130,
+            DAMAGE : 15,
+            SPEED : -35
+        }
+    } else if (ENTITY_NAME === "FallenAngel") {
+        enemy = {
+            sprite_sheet : AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"),
+            HP : 150,
+            DAMAGE : 20,
+            SPEED : -25
+        }
+    } else if (ENTITY_NAME === "ReaperMan") {
+        enemy = {
+            sprite_sheet : AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"),
+            HP : 120,
+            DAMAGE : 15,
+            SPEED : -40
+        }
+    }
+
+    return enemy
+}
