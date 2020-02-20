@@ -1,3 +1,7 @@
+// TODO:
+// 1. Add sound in battle
+// 2. Balance game
+// 3. Add Big boss
 var Orc_attributes = {
     HP : 130,
     DAMAGE : 15,
