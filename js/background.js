@@ -124,7 +124,9 @@ Background.prototype.draw = function () {
     //     this.frameHeight * scaleBy);
     // in game draw head here
     if (this.inGame){
-        this.ctx.drawImage(AM.getAsset("./img/Background/LightsDoubleDamage4.png"), 0, 0);
+
+        // 421 650 , 106, 101
+        this.ctx.drawImage(AM.getAsset("./img/Background/HeroIcons.png"), 430, 655, 516, 88, 88, 86, 1, 1);
     }
 
 

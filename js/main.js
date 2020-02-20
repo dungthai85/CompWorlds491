@@ -426,6 +426,9 @@ AM.queueDownload("./img/Background/LightsDoubleDamage2.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage3.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage4.png");
 
+AM.queueDownload("./img/Background/HeroIcons.png");
+
+
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");
 
