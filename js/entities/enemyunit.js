@@ -1,42 +1,58 @@
 /**
 *
-*This function is the entity ReaperMan that is part of the enemy troops.
+*This function is the entity Orc that is part of the enemy troops.
 */
 
-function ReaperMan(game, spritesheet, POSITION, LEVEL) {
-    this.ctx = game.ctx;
-    this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
-    this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
-    this.dead_animation = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false);
-    this.moving = true;
-    this.attacking = false;
-    this.finished = false;
-    this.dead = false;
+function EnemyUnit(game, spritesheet, POSITION, LEVEL) {
+    this.animation = {
+        moving = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false),
+        attacking = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false),
+        dead = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false)
+    };
+    // this.walk_animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.05, 24, true, false);
+    // this.attack_animation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.05, 12, true, false);
+    // this.dead_animation = new MyAnimation(spritesheet, 0, 600, 300, 300, 0.05, 12, false, false);
+    this.action = {
+        moving = true,
+        attacking = false,
+        finished = false,
+        dead = false   
+    }
+    // this.moving = true;
+    // this.attacking = false;
+    // this.finished = false;
+    // this.dead = false;
 
-    this.hp = ReaperMan_attributes.HP * LEVEL; 
-    this.attackdamage = ReaperMan_attributes.DAMAGE;
-    this.speed = ReaperMan_attributes.SPEED * LEVEL;
+    this.stats = {
+        hp = Orc_attributes.HP * LEVEL,
+        attack_damage = Orc_attributes.DAMAGE, // TODO: Change name
+        speed = Orc_attributes.SPEED * LEVEL
+    }
+    // this.hp = Orc_attributes.HP * LEVEL; 
+    // this.attackdamage = Orc_attributes.DAMAGE;
+    // this.speed = Orc_attributes.SPEED * LEVEL;
 
-    // this.hp_full = true;
-    // this.hp_half = false;
-    // this.hp_quarter = false;
     this.type = "enemy";
-    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
-    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
-    this.hp_current = ReaperMan_attributes.HP * LEVEL;
-    this.hp_scale = 35;
     if (is_castle_under_attack) this.x = POSITION[0] + 50;
     else this.x = POSITION[0];
     this.y = POSITION[1];
-    this.attack_sound =  AM.getMusic("./img/music/sword_swipe.mp3");
     this.endLane = getEndPointEnemy(this.y);
+
+    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
+    this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
+    this.hp_current = Orc_attributes.HP * LEVEL;
+    this.hp_scale = 35;
+
+    this.attack_sound =  AM.getMusic("./img/music/sword_swipe.mp3");
+    
+    this.ctx = game.ctx;
     Entity.call(this, game, this.x, this.y);
 }
 
-ReaperMan.prototype = new Entity();
-ReaperMan.prototype.constructor = ReaperMan;
+EnemyUnit.prototype = new EnemyUnit();
+EnemyUnit.prototype.constructor = EnemyUnit;
 
-ReaperMan.prototype.update = function () {
+EnemyUnit.prototype.update = function () {
     // Update boundingbox
     var entity;
     for(var i = 0; i < this.game.entities.length; i ++){
@@ -50,34 +66,28 @@ ReaperMan.prototype.update = function () {
         }
 
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            console.log('Colliding ' + entity.name);
             this.moving = false;
             if (this.hp_current > 0) {
-                this.attack_sound.play();
                 this.attacking = true;
             } else {
                 this.attacking = false;
-
             }
 
             if (this.attack_animation.animationComplete()) this.attack_sound.play();
+
             if(entity.name === "redhp") {
                 // this.hp_current -= entity.attackdamage;
             } else if (entity.name === "Fireball"){
 
             }
             else if (entity.name === "Arrow"){
-                // if(entity.animation.animationComplete()){
                     this.hp_current -= entity.attackdamage;
                     this.moving = true;
                     this.attacking = false;
-                // }
             }
             else if (entity.attackAnimation.animationComplete()) {
-                // debugger;
                 this.hp_current -= entity.attackdamage;
             }
-            // this.moving = false;
             break;
         }
     }
@@ -109,7 +119,7 @@ ReaperMan.prototype.update = function () {
 }
 
 
-ReaperMan.prototype.draw = function () {
+EnemyUnit.prototype.draw = function () {
 
 
     // Draw animation and boundingbow

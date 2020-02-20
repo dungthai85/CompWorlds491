@@ -1,7 +1,10 @@
 // TODO:
-// 1. Add sound in battle
+// 1. Add sound in battle *
 // 2. Balance game
-// 3. Add Big boss
+// 3. Add 6 characters and Big boss
+// 4. Fix coordinate *
+var is_castle_under_attack = false;
+
 var Orc_attributes = {
     HP : 130,
     DAMAGE : 15,
@@ -26,7 +29,7 @@ function EnemyControl (game, difficulty){
     this.start_time = new Date();
     this.elapsed = 0;
     this.difficulty = difficulty;
-    this.spawn_lane_position = [[1100, 370], [1125, 455], [1150, 535]];
+    this.spawn_lane_position = [[1100, 370], [1120, 455], [1130, 535]];
 }
 
 EnemyControl.prototype = new Entity();
@@ -89,4 +92,14 @@ function EnemyHP(x ,y, width, height){
     this.y = y;
     this.width = width;
     this.height = height;
+}
+
+function getEndPointEnemy(yValue) {
+    if (yValue === 370) { // lane 1
+        return 270;
+    } else if (yValue === 455) { // lane 2
+        return 250;
+    } else if (yValue === 535) { // lane 3
+        return 240;
+    }
 }

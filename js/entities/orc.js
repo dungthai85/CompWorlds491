@@ -25,8 +25,10 @@ function Orc(game, spritesheet, POSITION, LEVEL) {
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
     this.hp_current = Orc_attributes.HP * LEVEL;
     this.hp_scale = 35;
-    this.x = POSITION[0];
+    if (is_castle_under_attack) this.x = POSITION[0] + 50;
+    else this.x = POSITION[0];
     this.y = POSITION[1];
+    this.attack_sound =  AM.getMusic("./img/music/sword_swipe.mp3");
     this.endLane = getEndPointEnemy(this.y);
     Entity.call(this, game, this.x, this.y);
 }
@@ -48,31 +50,28 @@ Orc.prototype.update = function () {
         }
 
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            console.log('Colliding ' + entity.name);
             this.moving = false;
             if (this.hp_current > 0) {
                 this.attacking = true;
             } else {
                 this.attacking = false;
-
             }
+
+            if (this.attack_animation.animationComplete()) this.attack_sound.play();
+
             if(entity.name === "redhp") {
                 // this.hp_current -= entity.attackdamage;
             } else if (entity.name === "Fireball"){
 
             }
             else if (entity.name === "Arrow"){
-                // if(entity.animation.animationComplete()){
                     this.hp_current -= entity.attackdamage;
                     this.moving = true;
                     this.attacking = false;
-                // }
             }
             else if (entity.attackAnimation.animationComplete()) {
-                // debugger;
                 this.hp_current -= entity.attackdamage;
             }
-            // this.moving = false;
             break;
         }
     }
@@ -149,12 +148,3 @@ Orc.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
-function getEndPointEnemy(yValue) {
-    if (yValue === 370) { // lane 1
-        return 270;
-    } else if (yValue === 455) { // lane 2
-        return 250;
-    } else if (yValue === 535) { // lane 3
-        return 170;
-    }
-}
