@@ -426,8 +426,12 @@ AM.queueDownload("./img/Background/LightsDoubleDamage2.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage3.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage4.png");
 
-AM.queueDownload("./img/Background/HeroIcons.png");
-
+AM.queueDownload("./img/Background/1KnightIcon.png");
+AM.queueDownload("./img/Background/2BanditIcon.png");
+AM.queueDownload("./img/Background/3SamuraiIcon.png");
+AM.queueDownload("./img/Background/4GoblinIcon.png");
+AM.queueDownload("./img/Background/5ArcherIcon.png");
+AM.queueDownload("./img/Background/FireballIcon.png");
 
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");

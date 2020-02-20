@@ -126,7 +126,11 @@ Background.prototype.draw = function () {
     if (this.inGame){
 
         // 421 650 , 106, 101
-        this.ctx.drawImage(AM.getAsset("./img/Background/HeroIcons.png"), 430, 655, 516, 88, 88, 86, 1, 1);
+        this.ctx.drawImage(AM.getAsset("./img/Background/" + UNIT_CONTROL_CHARACTER[0] + "Icon.png"), 430, 655);
+        this.ctx.drawImage(AM.getAsset("./img/Background/" + UNIT_CONTROL_CHARACTER[1] + "Icon.png"), 550, 655);
+        this.ctx.drawImage(AM.getAsset("./img/Background/" + UNIT_CONTROL_CHARACTER[2] + "Icon.png"), 670, 655);
+        this.ctx.drawImage(AM.getAsset("./img/Background/" + UNIT_CONTROL_CHARACTER[3] + "Icon.png"), 790, 655);
+        this.ctx.drawImage(AM.getAsset("./img/Background/FireballIcon.png"), 915, 655);
     }
 
 
