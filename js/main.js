@@ -456,6 +456,8 @@ AM.queueDownload("./img/Background/ok1.png");
 
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");
+AM.queueDownload("./img/music/Cant_Stop_Winning_MP3.mp3");
+AM.addMusic("./img/music/Cant_Stop_Winning_MP3.mp3");
 
 // Archer
 AM.queueDownload("./img/music/arrow1.mp3");

@@ -143,6 +143,9 @@ Background.prototype.draw = function () {
 
     // Draw win level
     if (WIN_LEVEL){
+        if (PLAY_MUSIC){
+            AM.getMusic("./img/music/Cant_Stop_Winning_MP3.mp3").play();
+        } 
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
@@ -150,6 +153,8 @@ Background.prototype.draw = function () {
         this.ctx.restore();
         this.ctx.drawImage(AM.getAsset("./img/Background/Victory1.png"), 450, 270);
         this.ctx.drawImage(AM.getAsset("./img/Background/NextLevel.png"), 500, 450);
+    } else {
+        AM.getMusic("./img/music/Cant_Stop_Winning_MP3.mp3").pause();
     }
 
     // Draw win game
@@ -410,7 +415,12 @@ Background.prototype.update = function () {
         PLAY_MUSIC = !PLAY_MUSIC;
     }
     if (PLAY_MUSIC){
-        this.startmusic.play();
+        if (!WIN_GAME && !GAME_OVER && !WIN_LEVEL ){
+            //debugger;
+            this.startmusic.play();
+        } else if (WIN_GAME || GAME_OVER || WIN_LEVEL ){
+            this.startmusic.pause();
+        }
     } else if(!PLAY_MUSIC){
         this.startmusic.pause();
     }
