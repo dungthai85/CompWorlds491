@@ -1,7 +1,7 @@
 // TODO:
 // 1. Add sound in battle *
 // 2. Balance game
-// 3. Add 3 characters and Big boss
+// 3. Refactor EnemyUnit and add Big boss
 // 4. Fix coordinate *
 var is_castle_under_attack = false;
 function EnemyControl (game, difficulty){
