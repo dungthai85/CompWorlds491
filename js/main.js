@@ -435,7 +435,7 @@ AM.queueDownload("./img/Background/5GoblinIcon.png");
 AM.queueDownload("./img/Background/6ArcherIcon.png");
 AM.queueDownload("./img/Background/FireballIcon.png");
 AM.queueDownload("./img/Background/SelectScreen.png");
-
+AM.queueDownload("./img/Background/ok1.png");
 
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");

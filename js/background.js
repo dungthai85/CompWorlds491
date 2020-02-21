@@ -29,92 +29,95 @@ Background.prototype.draw = function () {
     this.ctx.drawImage(this.spritesheet,this.x, this.y);
 
     // hover over main screen
-    if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
+    if (MAIN_MENU && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/EasyText.png"), 584, 481, 200, 100);
     }
-    if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 602 && this.game.mouseXY.x <= 863) && (this.game.mouseXY.y >= 579 && this.game.mouseXY.y <= 629)) {
+    if (MAIN_MENU && this.game.mouseXY != null && (this.game.mouseXY.x >= 602 && this.game.mouseXY.x <= 863) && (this.game.mouseXY.y >= 579 && this.game.mouseXY.y <= 629)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/MediumText.png"), 583, 551, 300, 100);
     }
-    if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 603 && this.game.mouseXY.x <= 777) && (this.game.mouseXY.y >= 649 && this.game.mouseXY.y <= 699)) {
+    if (MAIN_MENU && this.game.mouseXY != null && (this.game.mouseXY.x >= 603 && this.game.mouseXY.x <= 777) && (this.game.mouseXY.y >= 649 && this.game.mouseXY.y <= 699)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/HardText.png"), 591, 620, 200, 100);
     }
-    if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 614 && this.game.mouseXY.x <= 881) && (this.game.mouseXY.y >= 711 && this.game.mouseXY.y <= 771)) {
+    if (MAIN_MENU && this.game.mouseXY != null && (this.game.mouseXY.x >= 614 && this.game.mouseXY.x <= 881) && (this.game.mouseXY.y >= 711 && this.game.mouseXY.y <= 771)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/TutorialText.png"), 601, 690, 300, 100);
     }
     if (this.game.mouseXY != null && (this.game.mouseXY.x >= 1280 && this.game.mouseXY.x <= 1406) && (this.game.mouseXY.y >= 751 && this.game.mouseXY.y <= 780)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/SoundText.png"), 1272, 739, 140, 50);
     } 
-    if (!START && this.game.mouseXY != null && (this.game.mouseXY.x >= 20 && this.game.mouseXY.x <= 182) && (this.game.mouseXY.y >=  12 && this.game.mouseXY.y <= 64)) {
+    if (!MAIN_MENU && this.game.mouseXY != null && (this.game.mouseXY.x >= 20 && this.game.mouseXY.x <= 182) && (this.game.mouseXY.y >=  12 && this.game.mouseXY.y <= 64)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/BackText.png"), 18, 1, 180, 80);
+    } 
+    if (SELECT_MENU && this.game.mouseXY != null && (this.game.mouseXY.x >= 650 && this.game.mouseXY.x <= 790) && (this.game.mouseXY.y >=  685 && this.game.mouseXY.y <= 775)) {
+        this.ctx.drawImage(AM.getAsset("./img/Background/ok1.png"), 642, 685, 154, 95);
     } 
     
     // main page lights
-    if (START && this.one < 10 && this.one > 1) {
+    if (MAIN_MENU && this.one < 10 && this.one > 1) {
         this.ctx.drawImage(AM.getAsset("./img/Background/StartLights3.png"), 0, 0);
     }
-    if (START && this.one < 20 && this.one > 9){
+    if (MAIN_MENU && this.one < 20 && this.one > 9){
         this.ctx.drawImage(AM.getAsset("./img/Background/StartLights4.png"), 0, 0);
     } 
-    if (START && this.one < 30 && this.one > 19) {
+    if (MAIN_MENU && this.one < 30 && this.one > 19) {
         this.ctx.drawImage(AM.getAsset("./img/Background/StartLights5.png"), 0, 0);
     }
-    if (START && this.one < 40 && this.one > 29) {
+    if (MAIN_MENU && this.one < 40 && this.one > 29) {
         this.ctx.drawImage(AM.getAsset("./img/Background/StartLights6.png"), 0, 0);
     }
     // no damage lights
-    if (this.damage === "noDamage" && !START && this.one < 10 && this.one > 1) {
+    if (this.damage === "noDamage" && !MAIN_MENU && this.one < 10 && this.one > 1) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsNoDamage1.png"), 0, 0);
     }
-    if (this.damage === "noDamage" && !START && this.one < 20 && this.one > 9){
+    if (this.damage === "noDamage" && !MAIN_MENU && this.one < 20 && this.one > 9){
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsNoDamage2.png"), 0, 0);
     } 
-    if (this.damage === "noDamage" && !START && this.one < 30 && this.one > 19) {
+    if (this.damage === "noDamage" && !MAIN_MENU && this.one < 30 && this.one > 19) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsNoDamage3.png"), 0, 0);
     }
-    if (this.damage === "noDamage" && !START && this.one < 40 && this.one > 29) {
+    if (this.damage === "noDamage" && !MAIN_MENU && this.one < 40 && this.one > 29) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsNoDamage4.png"), 0, 0);
     }
 
     // left damage lights
-    if (this.damage === "leftDamage" && !START && this.one < 10 && this.one > 1) {
+    if (this.damage === "leftDamage" && !MAIN_MENU && this.one < 10 && this.one > 1) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsLeftDamage1.png"), 0, 0);
     }
-    if (this.damage === "leftDamage" && !START && this.one < 20 && this.one > 9){
+    if (this.damage === "leftDamage" && !MAIN_MENU && this.one < 20 && this.one > 9){
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsLeftDamage2.png"), 0, 0);
     } 
-    if (this.damage === "leftDamage" && !START && this.one < 30 && this.one > 19) {
+    if (this.damage === "leftDamage" && !MAIN_MENU && this.one < 30 && this.one > 19) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsLeftDamage3.png"), 0, 0);
     } 
-    if (this.damage === "leftDamage" && !START && this.one < 40 && this.one > 29) {
+    if (this.damage === "leftDamage" && !MAIN_MENU && this.one < 40 && this.one > 29) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsLeftDamage4.png"), 0, 0);
     }
 
 
     // right damage lights
-    if (this.damage === "rightDamage" && !START && this.one < 10 && this.one > 1) {
+    if (this.damage === "rightDamage" && !MAIN_MENU && this.one < 10 && this.one > 1) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsRightDamage1.png"), 0, 0);
     }
-    if (this.damage === "rightDamage" && !START && this.one < 20 && this.one > 9){
+    if (this.damage === "rightDamage" && !MAIN_MENU && this.one < 20 && this.one > 9){
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsRightDamage2.png"), 0, 0);
     } 
-    if (this.damage === "rightDamage" && !START && this.one < 30 && this.one > 19) {
+    if (this.damage === "rightDamage" && !MAIN_MENU && this.one < 30 && this.one > 19) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsRightDamage3.png"), 0, 0);
     }
-    if (this.damage === "rightDamage" && !START && this.one < 40 && this.one > 29) {
+    if (this.damage === "rightDamage" && !MAIN_MENU && this.one < 40 && this.one > 29) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsRightDamage4.png"), 0, 0);
     }
 
     // double damage lights
-    if (this.damage === "doubleDamage" && !START && this.one < 10 && this.one > 1) {
+    if (this.damage === "doubleDamage" && !MAIN_MENU && this.one < 10 && this.one > 1) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsDoubleDamage1.png"), 0, 0);
     }
-    if (this.damage === "doubleDamage" && !START && this.one < 20 && this.one > 9){
+    if (this.damage === "doubleDamage" && !MAIN_MENU && this.one < 20 && this.one > 9){
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsDoubleDamage2.png"), 0, 0);
     } 
-    if (this.damage === "doubleDamage" && !START && this.one < 30 && this.one > 19) {
+    if (this.damage === "doubleDamage" && !MAIN_MENU && this.one < 30 && this.one > 19) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsDoubleDamage3.png"), 0, 0);
     }
-    if (this.damage === "doubleDamage" && !START && this.one < 40 && this.one > 29) {
+    if (this.damage === "doubleDamage" && !MAIN_MENU && this.one < 40 && this.one > 29) {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsDoubleDamage4.png"), 0, 0);
     }
 
@@ -193,39 +196,44 @@ Background.prototype.update = function () {
     }
     if(this.game.menu.clicked && this.game.menu.id === "easy") {
         this.level = 1;
-        START = false;
+        MAIN_MENU = false;
         SELECT_MENU = true;
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.level = 2;
-        START = false;
+        MAIN_MENU = false;
         SELECT_MENU = true;
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.level = 3;
-        START = false;
+        MAIN_MENU = false;
         SELECT_MENU = true;
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.level = 0;
         this.spritesheet = AM.getAsset("./img/Background/Tutorial.png");;
-        START = false;
+        MAIN_MENU = false;
         this.damage = "noDamage";
         this.inGame = false;
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
+        debugger;
         this.level = 0;
-        START = true;
+        MAIN_MENU = true;
         GAME_OVER = false;
         WIN_GAME = false;
         WIN_LEVEL = false;
+        SELECT_MENU = false;
+        UNIT_CONTROL_CHARACTER = [];
         var len = this.game.entities.length;
+        this.damage = null;
         for (var i = 1; i < len; i ++){
             this.game.entities[i].removeFromWorld = true;
         }
-        this.damage = "noDamage";
+        this.damage = null;
         console.log("clicked back");
         this.inGame = false;
     } 
     if (SELECT_MENU){
         //debugger;
         this.spritesheet = AM.getAsset("./img/Background/SelectScreen.png");
+        MAIN_MENU = false;
         if (this.game.menu.clicked && this.game.menu.id === "ok"){
             if (UNIT_CONTROL_CHARACTER.length < 4){
 
@@ -239,7 +247,6 @@ Background.prototype.update = function () {
                     this.spritesheet = AM.getAsset("./img/Background/Map 3/NoDamage.png");
                 }
                 this.damage = "noDamage";
-                START = false;
                 this.inGame = true;
                 SELECT_MENU = false;
                 this.game.addEntity(new RedHP(this.game));
@@ -375,9 +382,8 @@ Background.prototype.update = function () {
         FIRE_ON = false;
     }
 
-    if (START) {
+    if (MAIN_MENU) {
         this.spritesheet = this.backgroundstart;
-        START = true;
     }
 
     //Entity.prototype.update.call(this);

@@ -117,14 +117,15 @@ function getSelectedThing(e, that, click){
         }
     }  else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)) {
         if (click){
+            //debugger;
             that.menu = { clicked: true, id: "back", mousemove: false };
-            MAIN_MENU = true;
+            //MAIN_MENU = true;
         } else {
             that.menu = { clicked: false, id: "back", mousemove: true };
         }
     } else if((e.clientX >= 650 && e.clientX <= 790) && (e.clientY >= 685 && e.clientY <= 775) && SELECT_MENU){
         if (click){
-            debugger;
+            //debugger;
             that.menu = { clicked: true, id: "ok", mousemove: false };
             console.log(UNIT_CONTROL_CHARACTER);
         }
@@ -142,7 +143,7 @@ function getSelectedThing(e, that, click){
         }
     } else if((e.clientX >= 810 && e.clientX <= 990) && (e.clientY >= 570 && e.clientY <= 740) && SELECT_MENU){
         if (click){
-            debugger;
+            //debugger;
             if (!UNIT_CONTROL_CHARACTER.includes("2Mage")){
                 UNIT_CONTROL_CHARACTER.push("2Mage");
             } else {
