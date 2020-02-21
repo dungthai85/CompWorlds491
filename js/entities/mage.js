@@ -86,7 +86,7 @@ Mage.prototype.update = function () {
             this.projectileFire = true;
             this.game.addEntity(new Lightning(this.game, AM.getAsset("./img/Mage/Lightning.png"), this.x, this.y));
             if (PLAY_MUSIC) {
-                AM.get("./img/music/lightning.ogg").play();
+                AM.getMusic("./img/music/lightning.ogg").play();
             }
             /*
             var spellChosen = Math.floor(Math.random() * 2);

@@ -114,7 +114,19 @@ UnitsControl.prototype.update = function () {
                 AM.getMusic("./img/music/KnightDeploy.wav").play();
 
             }
-        } else if (laneY && this.unitName === "3Bandit") {
+        }  else if (laneY && this.unitName === "2Mage") {
+            this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
+            this.unitName = null;
+            this.lane = null;
+            is_enemy_spawn_2 = true;
+            if (this.x - this.oneElixir * 3 < 0) {
+                this.x = 0
+            } else {
+                this.x = this.x - this.oneElixir * 3;
+            }
+
+        }
+        else if (laneY && this.unitName === "3Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
