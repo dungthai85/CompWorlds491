@@ -46,7 +46,7 @@ Bandit.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             // console.log('Colliding ' + entity.type);
             if(entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
-                this.hp_current -= entity.attackdamage;
+                this.hp_current -= entity.attack_damage;
             }
             this.moving = false;
             if (this.hp_current > 0) {

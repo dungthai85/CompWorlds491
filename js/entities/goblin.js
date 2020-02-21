@@ -48,7 +48,7 @@ Goblin.prototype.update = function () {
             // console.log('Colliding ' + entity.type);
             if(entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
-                this.hp_current -= entity.attackdamage;
+                this.hp_current -= entity.attack_damage;
             }
             this.moving = false;
             if (this.hp_current > 0) {
