@@ -104,7 +104,7 @@ UnitsControl.prototype.update = function () {
                 this.x = this.x - this.oneElixir * 4;
             }
             AM.getMusic("./img/music/KnightDeploy.wav").play();
-        } else if (laneY && this.unitName === "2Bandit") {
+        } else if (laneY && this.unitName === "3Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -115,7 +115,7 @@ UnitsControl.prototype.update = function () {
                 this.x = this.x - this.oneElixir * 3;
             }
 
-        } else if (laneY && this.unitName === "3Samurai") {
+        } else if (laneY && this.unitName === "4Samurai") {
             this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -125,7 +125,7 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 3;
             }
-        } else if (laneY && this.unitName === "5Archer") {
+        } else if (laneY && this.unitName === "6Archer") {
             this.game.addEntity(new Archer(this.game, AM.getAsset("./img/Archer/Archer.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -135,7 +135,7 @@ UnitsControl.prototype.update = function () {
                 this.x = this.x - this.oneElixir * 2;
             }
             AM.getMusic("./img/music/ArcherDeploy.wav").play();
-        } else if (laneY && this.unitName === "4Goblin") {
+        } else if (laneY && this.unitName === "5Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -168,22 +168,27 @@ UnitsControl.prototype.draw = function () {
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Knight/Knight_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
-    } else if (this.unitName === "2Bandit" && this.shadow) {
+    } else if (this.unitName === "2Mage" && this.shadow) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.drawImage(AM.getAsset("./img/Mage/Mage_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.restore();
+    } else if (this.unitName === "3Bandit" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Bandit/Bandit_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
-    } else if (this.unitName === "3Samurai" && this.shadow) {
+    } else if (this.unitName === "4Samurai" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Samurai/Samurai_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
-    } else if (this.unitName === "4Goblin" && this.shadow) {
+    } else if (this.unitName === "5Goblin" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Goblin/Goblin_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
-    } else if (this.unitName === "5Archer" && this.shadow) {
+    } else if (this.unitName === "6Archer" && this.shadow) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Archer/Archer_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);

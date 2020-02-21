@@ -26,7 +26,7 @@ EnemyControl.prototype.update = function () {
     //console.log(whichentity);
     //Prevent update too many times
     if (this.difficulty === 1) {
-        if (this.elapsed < curr_elapsed - 3) {
+        if (this.elapsed < curr_elapsed - 2) {
             if(whichentity === 1){
                 this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
 
