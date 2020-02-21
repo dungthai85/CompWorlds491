@@ -5,7 +5,7 @@ function Archer(game, spritesheet, X, Y) {
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.playSound = true;
     this.hp = 100;
-    this.attackdamage = 0;
+    this.attackdamage = 15;
     this.range = 300;
     this.moving = true;
     this.attacking = false;
@@ -50,8 +50,6 @@ Archer.prototype.update = function () {
             if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
                 this.hp_current -= entity.attackdamage;
-
-
             }
             this.moving = false;
             if (this.hp_current > 0) {

@@ -5,7 +5,8 @@ function Arrow(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 320, 128, 0.15, 1, true, false);
     this.speed = 100;
     this.ctx = game.ctx;
-    this.attackdamage = 5;
+    this.attackdamage = 20;
+
     this.x = X;
     this.y = Y;
     this.type = "hero";
