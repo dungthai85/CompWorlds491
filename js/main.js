@@ -16,6 +16,8 @@ function getLaneEnd(yValue) {
 function RedHP(game){
     this.game = game;
     this.ctx = game.ctx;
+    this.playSound = true;
+    this.alert = AM.getMusic("./img/music/dunderattack1.wav");
     this.full = true;
     this.half = false;
     this.quarter = false;
@@ -81,6 +83,15 @@ RedHP.prototype.update = function () {
         }
         this.game.defense = false;
     }
+
+    if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
+        this.playSound = !this.playSound;
+    }
+
+    if (this.game.defense && this.playSound) {
+        this.alert.play();
+
+    } 
     this.hpbar = 296 - (1 - (this.hp/1000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
@@ -125,6 +136,7 @@ function BlueHP(game){
     this.type = "enemy";
     this.name ="bluehp";
     this.hp = 1000;
+    this.hp_current = this.hp;
     this.hpbar = 296;
     this.boundingbox = new BoundingBox(1140, 403, 1, 65);
     this.boundingbox1 = new BoundingBox(1140 , 403, 1, 65);
@@ -149,17 +161,17 @@ BlueHP.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
+        // this.hp_prev = this.hp_current;
         this.boundingbox = this.boundingbox1;
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if (entity.name === "Fireball"){
-                //debugger
-                this.hp -= FIREBALL_DAMAGE;
+                this.hp_current -= FIREBALL_DAMAGE;
             } else if (entity.name === "Arrow") {
-                this.hp -= ARROW_DAMAGE;
+                this.hp_current -= ARROW_DAMAGE;
             } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
-                this.hp -= 10;
+                this.hp_current -= 10;
             }
             break;
         }
@@ -167,11 +179,12 @@ BlueHP.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             if (entity.name === "Fireball"){
                 //debugger
-                this.hp -= FIREBALL_DAMAGE;
+                this.hp_current -= FIREBALL_DAMAGE;
             } else if (entity.name === "Arrow") {
-                this.hp -= ARROW_DAMAGE;
+                this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-                this.hp -= 10;
+                this.hp_current -= 10;
+                // is_castle_under_attack = true;
             }
             break;
         }
@@ -179,24 +192,28 @@ BlueHP.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             if (entity.name === "Fireball"){
                 //debugger
-                this.hp -= FIREBALL_DAMAGE;
+                this.hp_current -= FIREBALL_DAMAGE;
             } else if (entity.name === "Arrow") {
-                this.hp -= ARROW_DAMAGE;
+                this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-                this.hp -= 10;
+                this.hp_current -= 10;
+                // is_castle_under_attack = true;
             }
             break;
         }
     }
-    this.hpbar = 296 - (1 - (this.hp/1000))*296;
+    if (this.hp_current < this.hp) is_castle_under_attack = true;
+    // else is_castle_under_attack = false;
+    // console.log(is_castle_under_attack);
+    this.hpbar = 296 - (1 - (this.hp_current/1000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
     }
-    else if(this.hp < 500 && this.hp > 250){
+    else if(this.hp_current < 500 && this.hp_current > 250){
         this.full = false;
         this.half = true;
     }
-    else if(this.hp <= 250){
+    else if(this.hp_current <= 250){
         this.half = false;
         this.quarter = true;
     }
@@ -321,9 +338,9 @@ SuperBar.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
-function Firework(game) {
-    this.firework_animation = new MyAnimation(AM.getAsset("./img/Others/Firework.png"), 0, 0, 255, 250, 0.07, 28, true, false);
-    Entity.call(this, game, 300, 150);
+function Firework(game, X, Y) {
+    this.firework_animation = new MyAnimation(AM.getAsset("./img/Others/Firework.png"), 0, 0, 255, 250, 0.04, 28, true, true);
+    Entity.call(this, game, X, Y);
 }
 
 Firework.prototype = new Firework();
@@ -334,7 +351,7 @@ Firework.prototype.update = function () {
 }
 
 Firework.prototype.draw = function (ctx) {
-    this.firework_animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 3.5);
+    this.firework_animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 2.5);
     // this.removeFromWorld = true;
     Entity.prototype.draw.call(this);
 }
@@ -386,6 +403,7 @@ AM.queueDownload("./img/Background/BackText.png");
 
 AM.queueDownload("./img/Background/GameOver.png");
 AM.queueDownload("./img/Background/PlayAgain.png");
+AM.queueDownload("./img/Background/PlayAgain1.png");
 
 AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
@@ -424,6 +442,37 @@ AM.queueDownload("./img/Background/LightsDoubleDamage1.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage2.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage3.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage4.png");
+
+AM.queueDownload("./img/music/start.mp3");
+AM.addMusic("./img/music/start.mp3");
+
+// Archer
+AM.queueDownload("./img/music/arrow1.mp3");
+AM.addMusic("./img/music/arrow1.mp3");
+AM.queueDownload("./img/music/ArcherDeploy.wav");
+AM.addMusic("./img/music/ArcherDeploy.wav");
+AM.queueDownload("./img/music/ArcherDeath.wav");
+AM.addMusic("./img/music/ArcherDeath.wav");
+
+// Knight
+AM.queueDownload("./img/music/KnightDeploy.wav");
+AM.addMusic("./img/music/KnightDeploy.wav");
+AM.queueDownload("./img/music/KnightDeath.wav");
+AM.addMusic("./img/music/KnightDeath.wav");
+
+
+// Not sure if necessary
+// AM.queueDownload("./img/music/SwordClank1.mp3")
+// AM.addMusic("./img/music/SwordClank1.mp3")
+
+AM.queueDownload("./img/music/sword_swipe.mp3");
+AM.addMusic("./img/music/sword_swipe.mp3");
+AM.queueDownload("./img/music/sword_swipe_2.mp3");
+AM.addMusic("./img/music/sword_swipe_2.mp3");
+
+// Alert sound effect
+AM.queueDownload("./img/music/dunderattack1.wav");
+AM.addMusic("./img/music/dunderattack1.wav");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");

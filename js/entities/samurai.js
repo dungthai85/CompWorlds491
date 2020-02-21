@@ -46,12 +46,9 @@ Samurai.prototype.update = function () {
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             // console.log('Colliding ' + entity.type);
-            if(entity.name === "bluehp") {
-                this.hp -= entity.attackdamage;
-            }
-            else if (entity.attack_animation.animationComplete()) {
+            if(entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
-                this.hp_current -= entity.attackdamage;
+                this.hp_current -= entity.attack_damage;
 
 
             }
