@@ -1,4 +1,4 @@
-var FIREBALL_DAMAGE = 2000;
+var FIREBALL_DAMAGE = 500;
 var ARROW_DAMAGE = 5;
 var MAIN_MENU = true;
 var GAME_OVER = false;
@@ -6,4 +6,6 @@ var START = true;
 var WIN_LEVEL = false;
 var WIN_GAME = false;
 var FIRE_ON = true;
-var UNIT_CONTROL_CHARACTER = ["1Knight", "2Bandit", "3Samurai", "5Archer"];
+var SELECT_MENU = false;
+var UNIT_CONTROL_CHARACTER = [];
+var PLAY_MUSIC = true;
