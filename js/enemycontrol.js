@@ -43,6 +43,7 @@ EnemyControl.prototype.update = function () {
     }
 
     if (this.difficulty === 2) {
+
         if (this.elapsed < curr_elapsed - 2.5) {
             if(whichentity === 1){
                 this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
