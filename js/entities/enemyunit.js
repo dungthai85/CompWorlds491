@@ -47,36 +47,47 @@ EnemyUnit.prototype.update = function () {
             continue;
         }
 
+        
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             console.log('Colliding ' + entity.name);
-            this.moving = false;
-            if (this.hp_current > 0) {
-                this.attack_sound.play();
-                this.attacking = true;
-            } else {
-                this.attacking = false;
-
-            }
+            // this.moving = false;
+            
 
             if (this.attack_animation.animationComplete()) this.attack_sound.play();
-            if(entity.name === "redhp") {
-                // this.hp_current -= entity.attackdamage;
-            } else if (entity.name === "Fireball"){
-
-            }
-            else if (entity.name === "Arrow"){
-                // if(entity.animation.animationComplete()){
+            if (entity.name !== "redhp" && entity.name !== "Fireball") {
+   
+                if (entity.name === "Arrow") {
+                    // if(entity.animation.animationComplete()){
                     this.hp_current -= entity.attackdamage;
                     this.moving = true;
                     this.attacking = false;
-                // }
-            }
-            else if (entity.attackAnimation.animationComplete()) {
-                // debugger;
-                this.hp_current -= entity.attackdamage;
+                    // }
+                } else {
+                    debugger;
+                    if (entity.death) {
+                        this.moving = true;
+                        this.attacking = false;
+                    } else {
+                        this.moving = false;
+                        this.attacking = true;
+                        if (entity.attackAnimation.animationComplete()) {
+                            this.hp_current -= entity.attackdamage;
+                        }
+
+                        if (this.hp_current > 0) {
+                            this.attack_sound.play();
+                            this.attacking = true;
+                        } else {
+                            this.attacking = false;
+                            this.moving = false;
+                        }
+                        break;
+                    }
+                    
+                }
             }
             // this.moving = false;
-            break;
+            
         }
     }
     // Update animation
