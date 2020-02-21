@@ -75,7 +75,9 @@ EnemyUnit.prototype.update = function () {
                         }
 
                         if (this.hp_current > 0) {
-                            this.attack_sound.play();
+                            if (PLAY_MUSIC) {
+                                this.attack_sound.play();
+                            }
                             this.attacking = true;
                         } else {
                             this.attacking = false;

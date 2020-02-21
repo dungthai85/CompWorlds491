@@ -142,7 +142,11 @@ Bandit.prototype.draw = function () {
 
 
         if (!this.death) {
+
             this.death = true;
+            if (PLAY_MUSIC) {
+                AM.getMusic("./img/music/BanditDeath.wav").play();
+            }
         } else if (this.death && this.deathAnimation.currentFrame() === 8) {
             this.removeFromWorld = true;
         }

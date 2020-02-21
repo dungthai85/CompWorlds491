@@ -78,9 +78,9 @@ UnitsControl.prototype.update = function () {
         this.unitName = UNIT_CONTROL_CHARACTER[2];
         this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === UNIT_CONTROL_CHARACTER[3]&& this.x > 67.6) {
-        // this.unitName = UNIT_CONTROL_CHARACTER[3];
+        this.unitName = UNIT_CONTROL_CHARACTER[3];
         // this.unitName = "Goblin";
-        this.unitName = "Mage";
+        // this.unitName = "Mage";
         this.shadow = true;
     }
     if (this.game.lane !== 0 && this.unitName != null){
@@ -108,7 +108,10 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 4;
             }
-            AM.getMusic("./img/music/KnightDeploy.wav").play();
+
+            if (PLAY_MUSIC) {
+                AM.getMusic("./img/music/KnightDeploy.wav").play();
+            }
         } else if (laneY && this.unitName === "3Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
             this.unitName = null;
@@ -118,6 +121,10 @@ UnitsControl.prototype.update = function () {
                 this.x = 0
             } else {
                 this.x = this.x - this.oneElixir * 3;
+            }
+
+            if (PLAY_MUSIC) {
+                AM.getMusic("./img/music/BanditDeploy.wav").play();
             }
 
         } else if (laneY && this.unitName === "4Samurai") {
@@ -130,6 +137,9 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 3;
             }
+            if (PLAY_MUSIC) {
+                AM.getMusic("./img/music/SamuraiDeploy.wav").play();
+            }
         } else if (laneY && this.unitName === "6Archer") {
             this.game.addEntity(new Archer(this.game, AM.getAsset("./img/Archer/Archer.png"), laneX, laneY));
             this.unitName = null;
@@ -139,7 +149,9 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 2;
             }
-            AM.getMusic("./img/music/ArcherDeploy.wav").play();
+            if (PLAY_MUSIC) {
+                AM.getMusic("./img/music/ArcherDeploy.wav").play();
+            }
         } else if (laneY && this.unitName === "5Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));
             this.unitName = null;
@@ -149,6 +161,8 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 2;
             }
+            
+
         } else if (laneY && this.unitName === "Mage") {
             this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
             this.unitName = null;

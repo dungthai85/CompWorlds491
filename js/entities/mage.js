@@ -3,7 +3,6 @@ function Mage(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.15, 24, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2,12, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
-    this.playSound = true;
     this.hp = 100;
     this.attackdamage = 0;
     this.range = 300;
@@ -86,7 +85,9 @@ Mage.prototype.update = function () {
         if (this.attackAnimation.currentFrame() === 4 && !this.projectileFire) {
             this.projectileFire = true;
             this.game.addEntity(new Lightning(this.game, AM.getAsset("./img/Mage/Lightning.png"), this.x, this.y));
-
+            if (PLAY_MUSIC) {
+                AM.get("./img/music/lightning.ogg").play();
+            }
             /*
             var spellChosen = Math.floor(Math.random() * 2);
             if (spellChosen === 1) {

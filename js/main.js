@@ -84,11 +84,9 @@ RedHP.prototype.update = function () {
         this.game.defense = false;
     }
 
-    if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
-        this.playSound = !this.playSound;
-    }
+   
 
-    if (this.game.defense && this.playSound) {
+    if (this.game.defense && PLAY_MUSIC) {
         this.alert.play();
 
     } 
@@ -475,9 +473,25 @@ AM.queueDownload("./img/music/KnightDeath.wav");
 AM.addMusic("./img/music/KnightDeath.wav");
 
 
+// Bandit
+AM.queueDownload("./img/music/BanditDeploy.wav");
+AM.addMusic("./img/music/BanditDeploy.wav");
+AM.queueDownload("./img/music/BanditDeath.wav");
+AM.addMusic("./img/music/BanditDeath.wav");
+
+
+// Samurai
+AM.queueDownload("./img/music/SamuraiDeploy.wav");
+AM.addMusic("./img/music/SamuraiDeploy.wav");
+AM.queueDownload("./img/music/SamuraiDeath.wav");
+AM.addMusic("./img/music/SamuraiDeath.wav");
+
 // Not sure if necessary
 // AM.queueDownload("./img/music/SwordClank1.mp3")
 // AM.addMusic("./img/music/SwordClank1.mp3")
+
+AM.queueDownload("./img/music/lightning.ogg");
+AM.addMusic("./img/music/lightning.ogg");
 
 AM.queueDownload("./img/music/sword_swipe.mp3");
 AM.addMusic("./img/music/sword_swipe.mp3");
