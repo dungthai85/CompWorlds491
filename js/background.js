@@ -130,11 +130,6 @@ Background.prototype.draw = function () {
         this.ctx.drawImage(AM.getAsset("./img/Background/FireballIcon.png"), 915, 655);
     }
 
-
-
-
-
-
     // draw game over
     if (GAME_OVER){
         this.ctx.save();
@@ -178,6 +173,50 @@ Background.prototype.draw = function () {
     if ((GAME_OVER || WIN_GAME) && this.game.mouseXY != null && (this.game.mouseXY.x >= 480 && this.game.mouseXY.x <= 890) && (this.game.mouseXY.y >=  510 && this.game.mouseXY.y <= 580)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain1.png"), 480, 500);
     }  
+
+    // Draw hover select menu
+    if (UNIT_CONTROL_CHARACTER.includes("1Knight") && SELECT_MENU){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(10, 100, 145, 165);
+        this.ctx.restore();
+    }
+    if (UNIT_CONTROL_CHARACTER.includes("2Mage") && SELECT_MENU){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(810, 570, 180, 170);
+        this.ctx.restore();
+    }
+    if (UNIT_CONTROL_CHARACTER.includes("3Bandit") && SELECT_MENU){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(810, 328, 165, 157);
+        this.ctx.restore();
+    }
+    if (UNIT_CONTROL_CHARACTER.includes("4Samurai") && SELECT_MENU){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(10, 350, 130, 150);
+        this.ctx.restore();
+    }
+    if (UNIT_CONTROL_CHARACTER.includes("5Goblin") && SELECT_MENU){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(820, 115, 160, 145);
+        this.ctx.restore();
+    }
+    if (UNIT_CONTROL_CHARACTER.includes("6Archer") && SELECT_MENU){
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
+        this.ctx.fillRect(10, 600, 130, 155);
+        this.ctx.restore();
+    }
     Entity.prototype.draw.call(this);
 };
 
@@ -237,7 +276,7 @@ Background.prototype.update = function () {
         if (this.game.menu.clicked && this.game.menu.id === "ok"){
             if (UNIT_CONTROL_CHARACTER.length < 4){
 
-            } else {
+            } else if (UNIT_CONTROL_CHARACTER.length === 4){
                 UNIT_CONTROL_CHARACTER.sort();
                 if (this.level === 1){
                     this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
@@ -370,9 +409,9 @@ Background.prototype.update = function () {
     if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
         PLAY_MUSIC = !PLAY_MUSIC;
     }
-    if (this.playMusic){
+    if (PLAY_MUSIC){
         this.startmusic.play();
-    } else if(!this.playMusic){
+    } else if(!PLAY_MUSIC){
         this.startmusic.pause();
     }
 

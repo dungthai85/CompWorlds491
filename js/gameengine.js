@@ -132,7 +132,7 @@ function getSelectedThing(e, that, click){
     } else if((e.clientX >= 10 && e.clientX <= 155) && (e.clientY >= 100 && e.clientY <= 265) && SELECT_MENU){
         if (click){
             //debugger;
-            if (!UNIT_CONTROL_CHARACTER.includes("1Knight")){
+            if (!UNIT_CONTROL_CHARACTER.includes("1Knight") && UNIT_CONTROL_CHARACTER.length < 4){
                 UNIT_CONTROL_CHARACTER.push("1Knight");
             } else {
                 var index = UNIT_CONTROL_CHARACTER.indexOf("1Knight");
@@ -144,7 +144,7 @@ function getSelectedThing(e, that, click){
     } else if((e.clientX >= 810 && e.clientX <= 990) && (e.clientY >= 570 && e.clientY <= 740) && SELECT_MENU){
         if (click){
             //debugger;
-            if (!UNIT_CONTROL_CHARACTER.includes("2Mage")){
+            if (!UNIT_CONTROL_CHARACTER.includes("2Mage") && UNIT_CONTROL_CHARACTER.length < 4){
                 UNIT_CONTROL_CHARACTER.push("2Mage");
             } else {
                 var index = UNIT_CONTROL_CHARACTER.indexOf("2Mage");
@@ -155,7 +155,7 @@ function getSelectedThing(e, that, click){
         }
     } else if((e.clientX >= 810 && e.clientX <= 975) && (e.clientY >= 328 && e.clientY <= 485) && SELECT_MENU){
         if (click){
-            if (!UNIT_CONTROL_CHARACTER.includes("3Bandit")){
+            if (!UNIT_CONTROL_CHARACTER.includes("3Bandit") && UNIT_CONTROL_CHARACTER.length < 4){
                 UNIT_CONTROL_CHARACTER.push("3Bandit");
             } else {
                 var index = UNIT_CONTROL_CHARACTER.indexOf("3Bandit");
@@ -166,7 +166,7 @@ function getSelectedThing(e, that, click){
         }
     } else if((e.clientX >= 10 && e.clientX <= 140) && (e.clientY >= 350 && e.clientY <= 500) && SELECT_MENU){
         if (click){
-            if (!UNIT_CONTROL_CHARACTER.includes("4Samurai")){
+            if (!UNIT_CONTROL_CHARACTER.includes("4Samurai") && UNIT_CONTROL_CHARACTER.length < 4){
                 UNIT_CONTROL_CHARACTER.push("4Samurai");
             } else {
                 var index = UNIT_CONTROL_CHARACTER.indexOf("4Samurai");
@@ -177,7 +177,7 @@ function getSelectedThing(e, that, click){
         }
     } else if((e.clientX >= 820 && e.clientX <= 980) && (e.clientY >= 115 && e.clientY <= 260) && SELECT_MENU){
         if (click){
-            if (!UNIT_CONTROL_CHARACTER.includes("5Goblin")){
+            if (!UNIT_CONTROL_CHARACTER.includes("5Goblin")  && UNIT_CONTROL_CHARACTER.length < 4){
                 UNIT_CONTROL_CHARACTER.push("5Goblin");
             } else {
                 var index = UNIT_CONTROL_CHARACTER.indexOf("5Goblin");
@@ -188,7 +188,7 @@ function getSelectedThing(e, that, click){
         }
     } else if((e.clientX >= 10 && e.clientX <= 140) && (e.clientY >= 600 && e.clientY <= 755) && SELECT_MENU){
         if (click){
-            if (!UNIT_CONTROL_CHARACTER.includes("6Archer")){
+            if (!UNIT_CONTROL_CHARACTER.includes("6Archer")  && UNIT_CONTROL_CHARACTER.length < 4){
                 UNIT_CONTROL_CHARACTER.push("6Archer");
             } else {
                 var index = UNIT_CONTROL_CHARACTER.indexOf("6Archer");

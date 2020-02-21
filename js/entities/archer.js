@@ -88,9 +88,12 @@ Archer.prototype.update = function () {
             this.game.addEntity(new Arrow(this.game, AM.getAsset("./img/Archer/Arrow.png"), this.x, this.y));
 
 
-            if (this.playSound) {
+            if (PLAY_MUSIC) {
                 this.arrowSound.play();
+            } else {
+                this.arrowSound.pause();
             }
+
         }
 
         if (this.attackAnimation.currentFrame() === 8) {
@@ -191,7 +194,11 @@ Archer.prototype.draw = function () {
         debugger;
         if (!this.death) {
             this.death = true;
-            AM.getMusic("./img/music/ArcherDeath.wav").play();
+            if (PLAY_MUSIC){
+                AM.getMusic("./img/music/ArcherDeath.wav").play();
+            } else {
+                AM.getMusic("./img/music/ArcherDeath.wav").pause();
+            }
         } else if (this.death && this.deathAnimation.currentFrame() === 14) {
             this.removeFromWorld = true;
         }
