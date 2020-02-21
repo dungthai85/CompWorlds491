@@ -415,18 +415,8 @@ Background.prototype.update = function () {
         PLAY_MUSIC = !PLAY_MUSIC;
     }
     if (PLAY_MUSIC){
-<<<<<<< HEAD
         this.startmusic.play();
     } else {
-=======
-        if (!WIN_GAME && !GAME_OVER && !WIN_LEVEL ){
-            //debugger;
-            this.startmusic.play();
-        } else if (WIN_GAME || GAME_OVER || WIN_LEVEL ){
-            this.startmusic.pause();
-        }
-    } else if(!PLAY_MUSIC){
->>>>>>> 233b7c6af6535b924d59e3c1a0ff373727640d57
         this.startmusic.pause();
     }
 
