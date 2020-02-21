@@ -16,6 +16,8 @@ function getLaneEnd(yValue) {
 function RedHP(game){
     this.game = game;
     this.ctx = game.ctx;
+    this.playSound = true;
+    this.alert = AM.getMusic("./img/music/dunderattack1.wav");
     this.full = true;
     this.half = false;
     this.quarter = false;
@@ -81,6 +83,15 @@ RedHP.prototype.update = function () {
         }
         this.game.defense = false;
     }
+
+    if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
+        this.playSound = !this.playSound;
+    }
+
+    if (this.game.defense && this.playSound) {
+        this.alert.play();
+
+    } 
     this.hpbar = 296 - (1 - (this.hp/1000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
@@ -434,15 +445,34 @@ AM.queueDownload("./img/Background/LightsDoubleDamage4.png");
 
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");
+
+// Archer
 AM.queueDownload("./img/music/arrow1.mp3");
 AM.addMusic("./img/music/arrow1.mp3");
-AM.queueDownload("./img/music/SwordClank1.mp3")
-AM.addMusic("./img/music/SwordClank1.mp3")
+AM.queueDownload("./img/music/ArcherDeploy.wav");
+AM.addMusic("./img/music/ArcherDeploy.wav");
+AM.queueDownload("./img/music/ArcherDeath.wav");
+AM.addMusic("./img/music/ArcherDeath.wav");
+
+// Knight
+AM.queueDownload("./img/music/KnightDeploy.wav");
+AM.addMusic("./img/music/KnightDeploy.wav");
+AM.queueDownload("./img/music/KnightDeath.wav");
+AM.addMusic("./img/music/KnightDeath.wav");
+
+
+// Not sure if necessary
+// AM.queueDownload("./img/music/SwordClank1.mp3")
+// AM.addMusic("./img/music/SwordClank1.mp3")
 
 AM.queueDownload("./img/music/sword_swipe.mp3");
 AM.addMusic("./img/music/sword_swipe.mp3");
 AM.queueDownload("./img/music/sword_swipe_2.mp3");
 AM.addMusic("./img/music/sword_swipe_2.mp3");
+
+// Alert sound effect
+AM.queueDownload("./img/music/dunderattack1.wav");
+AM.addMusic("./img/music/dunderattack1.wav");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");

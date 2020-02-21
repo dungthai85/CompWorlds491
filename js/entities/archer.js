@@ -191,6 +191,7 @@ Archer.prototype.draw = function () {
         debugger;
         if (!this.death) {
             this.death = true;
+            AM.getMusic("./img/music/ArcherDeath.wav").play();
         } else if (this.death && this.deathAnimation.currentFrame() === 14) {
             this.removeFromWorld = true;
         }
