@@ -56,7 +56,7 @@ EnemyUnit.prototype.update = function () {
             if (this.attack_animation.animationComplete()) this.attack_sound.play();
             if (entity.name !== "redhp" && entity.name !== "Fireball") {
    
-                if (entity.name === "Arrow") {
+                if (entity.name === "Arrow" || entity.name === "Spell") {
                     // if(entity.animation.animationComplete()){
                     this.hp_current -= entity.attackdamage;
                     this.moving = true;

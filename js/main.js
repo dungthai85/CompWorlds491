@@ -168,7 +168,7 @@ BlueHP.prototype.update = function () {
             //console.log('Colliding ' + entity.type);
             if (entity.name === "Fireball"){
                 this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow") {
+            } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
                 this.hp_current -= 10;
@@ -180,7 +180,7 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow") {
+            } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp_current -= 10;
@@ -193,7 +193,7 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow") {
+            } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp_current -= 10;
@@ -364,7 +364,9 @@ AM.queueDownload("./img/Samurai/Samurai_icon.png");
 AM.queueDownload("./img/Goblin/Goblin_icon.png");
 AM.queueDownload("./img/Bandit/Bandit_icon.png");
 AM.queueDownload("./img/Archer/Archer_icon.png");
-AM.queueDownload("./img/Archer/Archer_Full_Walk.png");
+AM.queueDownload("./img/Mage/Mage_icon.png");
+AM.queueDownload("./img/Mage/Mage.png");
+AM.queueDownload("./img/Mage/Lightning.png");
 AM.queueDownload("./img/Archer/Arrow.png");
 AM.queueDownload("./img/Knight/Knight.png");
 AM.queueDownload("./img/Samurai/Samurai.png");

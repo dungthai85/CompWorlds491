@@ -18,6 +18,10 @@ var Goblin_attributes = {
     HP: 100
 };
 
+var Mage_attributes = {
+    HP: 100
+};
+
 /**
 *
 *This function is to draw the hover for the lanes, the shadow of the characters,
@@ -74,8 +78,9 @@ UnitsControl.prototype.update = function () {
         this.unitName = UNIT_CONTROL_CHARACTER[2];
         this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === UNIT_CONTROL_CHARACTER[3]&& this.x > 67.6) {
-        this.unitName = UNIT_CONTROL_CHARACTER[3];
+        // this.unitName = UNIT_CONTROL_CHARACTER[3];
         // this.unitName = "Goblin";
+        this.unitName = "Mage";
         this.shadow = true;
     }
     if (this.game.lane !== 0 && this.unitName != null){
@@ -144,6 +149,15 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 2;
             }
+        } else if (laneY && this.unitName === "Mage") {
+            this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
+            this.unitName = null;
+            this.lane = null;
+            if (this.x - this.oneElixir * 2 < 0) {
+                this.x = 0
+            } else {
+                this.x = this.x - this.oneElixir * 2;
+            }
         }
     }
     
@@ -188,6 +202,12 @@ UnitsControl.prototype.draw = function () {
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Archer/Archer_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
+    } else if (this.unitName === "Mage" && this.shadow) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.drawImage(AM.getAsset("./img/Mage/Mage_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.restore();
+
     }
     // hover lane 1
     if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  410 && this.game.mouseXY.y <= 482)){

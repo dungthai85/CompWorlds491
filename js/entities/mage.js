@@ -1,7 +1,7 @@
 
-function Archer(game, spritesheet, X, Y) {
+function Mage(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.15, 24, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2, 9, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2,12, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.playSound = true;
     this.hp = 100;
@@ -11,28 +11,28 @@ function Archer(game, spritesheet, X, Y) {
     this.attacking = false;
     this.finished = false;
     this.death = false;
-    this.arrowFire = false;
+    this.projectileFire = false;
     this.speed = 100;
     this.ctx = game.ctx;
     this.laneEnd = getLaneEnd(Y);
     this.x = X;
     this.y = Y;
     this.type = "hero";
-    this.arrowSound = AM.getMusic("./img/music/arrow1.mp3");
+    
     this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);
-    this.hp_current = Archer_attributes.HP;
+    this.hp_current = Mage_attributes.HP;
     this.hp_scale = 35;
 
     // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);
 }
 
-Archer.prototype = new Entity();
-Archer.prototype.constructor = Archer;
+Mage.prototype = new Entity();
+Mage.prototype.constructor = Mage;
 
-Archer.prototype.update = function () {
+Mage.prototype.update = function () {
     var entity;
     for (var i = 0; i < this.game.entities.length; i++) {
         entity = this.game.entities[i];
@@ -60,7 +60,7 @@ Archer.prototype.update = function () {
             }
             break;
 
-            
+
         } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
@@ -83,18 +83,27 @@ Archer.prototype.update = function () {
         // }
     }
     if (this.attacking) {
-        if (this.attackAnimation.currentFrame() === 4 && !this.arrowFire) {
-            this.arrowFire = true;
-            this.game.addEntity(new Arrow(this.game, AM.getAsset("./img/Archer/Arrow.png"), this.x, this.y));
+        if (this.attackAnimation.currentFrame() === 4 && !this.projectileFire) {
+            this.projectileFire = true;
+            this.game.addEntity(new Lightning(this.game, AM.getAsset("./img/Mage/Lightning.png"), this.x, this.y));
 
+            /*
+            var spellChosen = Math.floor(Math.random() * 2);
+            if (spellChosen === 1) {
+                
 
-            if (this.playSound) {
-                this.arrowSound.play();
+            } else {
+                this.game.addEntity(new MageFireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), this.x, this.y));
+
             }
+            
+            */ 
+
+            
         }
 
         if (this.attackAnimation.currentFrame() === 8) {
-            this.arrowFire = false;
+            this.projectileFire = false;
         }
 
         if (entity.removeFromWorld) {
@@ -129,10 +138,8 @@ function determineLane(y) {
 
 }
 
-Archer.prototype.draw = function () {
-    if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
-        this.playSound = !this.playSound;
-    }
+Mage.prototype.draw = function () {
+    
 
     var offset = 0;
     if (determineLane(this.y) === 1) {
@@ -162,7 +169,7 @@ Archer.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
         this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + offset, this.hp_bar.width, this.hp_bar.height);
     }
-    debugger;
+   
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
@@ -191,7 +198,6 @@ Archer.prototype.draw = function () {
         debugger;
         if (!this.death) {
             this.death = true;
-            AM.getMusic("./img/music/ArcherDeath.wav").play();
         } else if (this.death && this.deathAnimation.currentFrame() === 14) {
             this.removeFromWorld = true;
         }
