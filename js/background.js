@@ -11,10 +11,9 @@ function Background(game, spritesheet) {
     this.game = game;
     this.ctx = game.ctx;
     this.one = 0;
-    this.damage = "noDamage";
+    this.damage = null;
     this.level = 0;
     this.up = true;
-    this.playMusic = true;
     this.inGame = false;
     this.backgroundstart = AM.getAsset("./img/Background/Start.png");
     this.startmusic =  AM.getMusic("./img/music/start.mp3");
@@ -28,6 +27,8 @@ function Background(game, spritesheet) {
 
 Background.prototype.draw = function () {
     this.ctx.drawImage(this.spritesheet,this.x, this.y);
+
+    // hover over main screen
     if (START && this.game.mouseXY != null && (this.game.mouseXY.x >= 610 && this.game.mouseXY.x <= 765) && (this.game.mouseXY.y >= 502 && this.game.mouseXY.y <= 555)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/EasyText.png"), 584, 481, 200, 100);
     }
@@ -45,7 +46,9 @@ Background.prototype.draw = function () {
     } 
     if (!START && this.game.mouseXY != null && (this.game.mouseXY.x >= 20 && this.game.mouseXY.x <= 182) && (this.game.mouseXY.y >=  12 && this.game.mouseXY.y <= 64)) {
         this.ctx.drawImage(AM.getAsset("./img/Background/BackText.png"), 18, 1, 180, 80);
-    }  
+    } 
+    
+    // main page lights
     if (START && this.one < 10 && this.one > 1) {
         this.ctx.drawImage(AM.getAsset("./img/Background/StartLights3.png"), 0, 0);
     }
@@ -115,17 +118,8 @@ Background.prototype.draw = function () {
         this.ctx.drawImage(AM.getAsset("./img/Background/LightsDoubleDamage4.png"), 0, 0);
     }
 
-
-    // ctx.drawImage(this.spriteSheet,
-    //     index * this.frameWidth + offset, vindex * this.frameHeight + this.startY,  // source from sheet
-    //     this.frameWidth, this.frameHeight,
-    //     locX, locY,
-    //     this.frameWidth * scaleBy,
-    //     this.frameHeight * scaleBy);
     // in game draw head here
     if (this.inGame){
-
-        // 421 650 , 106, 101
         this.ctx.drawImage(AM.getAsset("./img/Background/" + UNIT_CONTROL_CHARACTER[0] + "Icon.png"), 430, 655);
         this.ctx.drawImage(AM.getAsset("./img/Background/" + UNIT_CONTROL_CHARACTER[1] + "Icon.png"), 550, 655);
         this.ctx.drawImage(AM.getAsset("./img/Background/" + UNIT_CONTROL_CHARACTER[2] + "Icon.png"), 670, 655);
@@ -174,13 +168,11 @@ Background.prototype.draw = function () {
 
     // Hover-over next level text
     if (WIN_LEVEL && this.game.mouseXY != null && (this.game.mouseXY.x >= 490 && this.game.mouseXY.x <= 920) && (this.game.mouseXY.y >=  460 && this.game.mouseXY.y <= 530)) {
-        //debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/NextLevel1.png"), 500, 450);
     }  
 
     // hover-over play again text
     if ((GAME_OVER || WIN_GAME) && this.game.mouseXY != null && (this.game.mouseXY.x >= 480 && this.game.mouseXY.x <= 890) && (this.game.mouseXY.y >=  510 && this.game.mouseXY.y <= 580)) {
-        debugger;
         this.ctx.drawImage(AM.getAsset("./img/Background/PlayAgain1.png"), 480, 500);
     }  
     Entity.prototype.draw.call(this);
@@ -201,18 +193,16 @@ Background.prototype.update = function () {
     }
     if(this.game.menu.clicked && this.game.menu.id === "easy") {
         this.level = 1;
-        this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
-        this.damage = "noDamage";
-        this.inGame = true;
+        START = false;
+        SELECT_MENU = true;
     } else if(this.game.menu.clicked && this.game.menu.id === "medium") {
         this.level = 2;
-        this.spritesheet = AM.getAsset("./img/Background/Map 2/NoDamage.png");
-        this.damage = "noDamage";
-        this.inGame = true;
+        START = false;
+        SELECT_MENU = true;
     } else if(this.game.menu.clicked && this.game.menu.id === "hard") {
         this.level = 3;
-        this.spritesheet = AM.getAsset("./img/Background/Map 3/NoDamage.png");
-        this.inGame = true;
+        START = false;
+        SELECT_MENU = true;
     } else if(this.game.menu.clicked && this.game.menu.id === "tutorial") {
         this.level = 0;
         this.spritesheet = AM.getAsset("./img/Background/Tutorial.png");;
@@ -233,6 +223,35 @@ Background.prototype.update = function () {
         console.log("clicked back");
         this.inGame = false;
     } 
+    if (SELECT_MENU){
+        //debugger;
+        this.spritesheet = AM.getAsset("./img/Background/SelectScreen.png");
+        if (this.game.menu.clicked && this.game.menu.id === "ok"){
+            if (UNIT_CONTROL_CHARACTER.length < 4){
+
+            } else {
+                UNIT_CONTROL_CHARACTER.sort();
+                if (this.level === 1){
+                    this.spritesheet = AM.getAsset("./img/Background/Map 1/NoDamage.png");
+                } else if(this.level === 2){
+                    this.spritesheet = AM.getAsset("./img/Background/Map 2/NoDamage.png");
+                } else if(this.level === 3){
+                    this.spritesheet = AM.getAsset("./img/Background/Map 3/NoDamage.png");
+                }
+                this.damage = "noDamage";
+                START = false;
+                this.inGame = true;
+                SELECT_MENU = false;
+                this.game.addEntity(new RedHP(this.game));
+                this.game.addEntity(new BlueHP(this.game));
+                this.game.addEntity(new SuperBar(this.game));
+                this.game.addEntity(new UnitsControl(this.game));
+                this.game.addEntity(new EnemyControl(this.game, this.level));
+            }
+
+        }
+    }
+
     if (WIN_LEVEL && this.game.menu.clicked && this.game.menu.id === "NextLevel"){
         this.level++;
         if (this.level === 1){
@@ -254,15 +273,15 @@ Background.prototype.update = function () {
         this.game.addEntity(new EnemyControl(this.game, this.level));
     }
 
-    if (this.level !== 0 && START){
-        this.game.addEntity(new RedHP(this.game));
-        this.game.addEntity(new BlueHP(this.game));
-        this.game.addEntity(new SuperBar(this.game));
-        this.game.addEntity(new UnitsControl(this.game));
-        this.game.addEntity(new EnemyControl(this.game, this.level));
-        START = false;
-        this.inGame = true;
-    }
+    // if (this.level !== 0 && START ){
+    //     this.game.addEntity(new RedHP(this.game));
+    //     this.game.addEntity(new BlueHP(this.game));
+    //     this.game.addEntity(new SuperBar(this.game));
+    //     this.game.addEntity(new UnitsControl(this.game));
+    //     this.game.addEntity(new EnemyControl(this.game, this.level));
+    //     START = false;
+    //     this.inGame = true;
+    // }
     if ((GAME_OVER || WIN_GAME) && this.game.menu.clicked && this.game.menu.id === "PlayAgain"){
         var len = this.game.entities.length;
         for (var i = 1; i < len; i ++){
@@ -289,7 +308,7 @@ Background.prototype.update = function () {
         FIRE_ON = true;
     }
 
-    if (this.level !== 0){
+    if (this.level !== 0 && !SELECT_MENU){
         this.inGame = true;
         var len = this.game.entities.length;
         var temp = 0; 
@@ -342,7 +361,7 @@ Background.prototype.update = function () {
     }
 
     if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
-        this.playMusic = !this.playMusic;
+        PLAY_MUSIC = !PLAY_MUSIC;
     }
     if (this.playMusic){
         this.startmusic.play();

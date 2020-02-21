@@ -347,6 +347,7 @@ AM.queueDownload("./img/Samurai/Samurai_icon.png");
 AM.queueDownload("./img/Goblin/Goblin_icon.png");
 AM.queueDownload("./img/Bandit/Bandit_icon.png");
 AM.queueDownload("./img/Archer/Archer_icon.png");
+AM.queueDownload("./img/Mage/Mage_icon.png");
 AM.queueDownload("./img/Archer/Archer_Full_Walk.png");
 AM.queueDownload("./img/Archer/Arrow.png");
 AM.queueDownload("./img/Knight/Knight.png");
@@ -427,11 +428,14 @@ AM.queueDownload("./img/Background/LightsDoubleDamage3.png");
 AM.queueDownload("./img/Background/LightsDoubleDamage4.png");
 
 AM.queueDownload("./img/Background/1KnightIcon.png");
-AM.queueDownload("./img/Background/2BanditIcon.png");
-AM.queueDownload("./img/Background/3SamuraiIcon.png");
-AM.queueDownload("./img/Background/4GoblinIcon.png");
-AM.queueDownload("./img/Background/5ArcherIcon.png");
+AM.queueDownload("./img/Background/2MageIcon.png");
+AM.queueDownload("./img/Background/3BanditIcon.png");
+AM.queueDownload("./img/Background/4SamuraiIcon.png");
+AM.queueDownload("./img/Background/5GoblinIcon.png");
+AM.queueDownload("./img/Background/6ArcherIcon.png");
 AM.queueDownload("./img/Background/FireballIcon.png");
+AM.queueDownload("./img/Background/SelectScreen.png");
+
 
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");

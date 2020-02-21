@@ -6,4 +6,6 @@ var START = true;
 var WIN_LEVEL = false;
 var WIN_GAME = false;
 var FIRE_ON = true;
-var UNIT_CONTROL_CHARACTER = ["1Knight", "2Bandit", "3Samurai", "5Archer"];
+var SELECT_MENU = false;
+var UNIT_CONTROL_CHARACTER = [];
+var PLAY_MUSIC = true;
