@@ -109,8 +109,10 @@ UnitsControl.prototype.update = function () {
                 this.x = this.x - this.oneElixir * 4;
             }
 
+
             if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/KnightDeploy.wav").play();
+
             }
         } else if (laneY && this.unitName === "3Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
@@ -149,8 +151,10 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 2;
             }
+
             if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/ArcherDeploy.wav").play();
+
             }
         } else if (laneY && this.unitName === "5Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));

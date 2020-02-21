@@ -53,7 +53,12 @@ EnemyUnit.prototype.update = function () {
             // this.moving = false;
             
 
-            if (this.attack_animation.animationComplete()) this.attack_sound.play();
+            if (this.attack_animation.animationComplete()) 
+                if (PLAY_MUSIC){
+                    this.attack_sound.play();
+                } else{
+                    this.attack_sound.pause();
+                }
             if (entity.name !== "redhp" && entity.name !== "Fireball") {
    
                 if (entity.name === "Arrow" || entity.name === "Spell") {

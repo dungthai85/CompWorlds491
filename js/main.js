@@ -16,7 +16,6 @@ function getLaneEnd(yValue) {
 function RedHP(game){
     this.game = game;
     this.ctx = game.ctx;
-    this.playSound = true;
     this.alert = AM.getMusic("./img/music/dunderattack1.wav");
     this.full = true;
     this.half = false;
@@ -84,12 +83,13 @@ RedHP.prototype.update = function () {
         this.game.defense = false;
     }
 
-   
+
 
     if (this.game.defense && PLAY_MUSIC) {
         this.alert.play();
-
-    } 
+    } else if(this.game.defense && !PLAY_MUSIC) {
+        this.alert.pause();
+    }
     this.hpbar = 296 - (1 - (this.hp/1000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
@@ -457,6 +457,8 @@ AM.queueDownload("./img/Background/ok1.png");
 
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");
+AM.queueDownload("./img/music/Cant_Stop_Winning_MP3.mp3");
+AM.addMusic("./img/music/Cant_Stop_Winning_MP3.mp3");
 
 // Archer
 AM.queueDownload("./img/music/arrow1.mp3");

@@ -89,7 +89,10 @@ Archer.prototype.update = function () {
 
             if (PLAY_MUSIC) {
                 this.arrowSound.play();
+            } else {
+                this.arrowSound.pause();
             }
+
         }
 
         if (this.attackAnimation.currentFrame() === 8) {
@@ -188,6 +191,7 @@ Archer.prototype.draw = function () {
         debugger;
         if (!this.death) {
             this.death = true;
+
             if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/ArcherDeath.wav").play();
             }
