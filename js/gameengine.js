@@ -86,6 +86,7 @@ GameEngine.prototype.startInput = function () {
     console.log('Input started');
 }
 function getSelectedThing(e, that, click){
+
     if ((e.clientX >= 610 && e.clientX <= 765) && (e.clientY >= 502 && e.clientY <= 555) && MAIN_MENU) {
         if (click){
             that.menu = { clicked: true, id: "easy", mousemove: false };
@@ -114,19 +115,87 @@ function getSelectedThing(e, that, click){
         } else {
             that.menu = { clicked: false, id: "tutorial", mousemove: true };
         }
-    } else if ((e.clientX >= 904 && e.clientX <= 1010) && (e.clientY >= 647 && e.clientY <= 747)) {
+    }  else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)) {
         if (click){
-            that.menu = { clicked: true, id: "Fireball", mousemove: false };
-    
-        } else {
-            that.menu = { clicked: false, id: "Fireball", mousemove: true };
-        }
-    } else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)) {
-        if (click){
+            //debugger;
             that.menu = { clicked: true, id: "back", mousemove: false };
-            MAIN_MENU = true;
+            //MAIN_MENU = true;
         } else {
             that.menu = { clicked: false, id: "back", mousemove: true };
+        }
+    } else if((e.clientX >= 650 && e.clientX <= 790) && (e.clientY >= 685 && e.clientY <= 775) && SELECT_MENU){
+        if (click){
+            //debugger;
+            that.menu = { clicked: true, id: "ok", mousemove: false };
+            console.log(UNIT_CONTROL_CHARACTER);
+        }
+    } else if((e.clientX >= 10 && e.clientX <= 155) && (e.clientY >= 100 && e.clientY <= 265) && SELECT_MENU){
+        if (click){
+            //debugger;
+            if (!UNIT_CONTROL_CHARACTER.includes("1Knight") && UNIT_CONTROL_CHARACTER.length < 4){
+                UNIT_CONTROL_CHARACTER.push("1Knight");
+            } else {
+                var index = UNIT_CONTROL_CHARACTER.indexOf("1Knight");
+                if (index >= 0) {
+                    UNIT_CONTROL_CHARACTER.splice( index, 1 );
+                }
+            }
+        }
+    } else if((e.clientX >= 810 && e.clientX <= 990) && (e.clientY >= 570 && e.clientY <= 740) && SELECT_MENU){
+        if (click){
+            //debugger;
+            if (!UNIT_CONTROL_CHARACTER.includes("2Mage") && UNIT_CONTROL_CHARACTER.length < 4){
+                UNIT_CONTROL_CHARACTER.push("2Mage");
+            } else {
+                var index = UNIT_CONTROL_CHARACTER.indexOf("2Mage");
+                if (index >= 0) {
+                    UNIT_CONTROL_CHARACTER.splice( index, 1 );
+                }
+            }
+        }
+    } else if((e.clientX >= 810 && e.clientX <= 975) && (e.clientY >= 328 && e.clientY <= 485) && SELECT_MENU){
+        if (click){
+            if (!UNIT_CONTROL_CHARACTER.includes("3Bandit") && UNIT_CONTROL_CHARACTER.length < 4){
+                UNIT_CONTROL_CHARACTER.push("3Bandit");
+            } else {
+                var index = UNIT_CONTROL_CHARACTER.indexOf("3Bandit");
+                if (index >= 0) {
+                    UNIT_CONTROL_CHARACTER.splice( index, 1 );
+                }
+            }
+        }
+    } else if((e.clientX >= 10 && e.clientX <= 140) && (e.clientY >= 350 && e.clientY <= 500) && SELECT_MENU){
+        if (click){
+            if (!UNIT_CONTROL_CHARACTER.includes("4Samurai") && UNIT_CONTROL_CHARACTER.length < 4){
+                UNIT_CONTROL_CHARACTER.push("4Samurai");
+            } else {
+                var index = UNIT_CONTROL_CHARACTER.indexOf("4Samurai");
+                if (index >= 0) {
+                    UNIT_CONTROL_CHARACTER.splice( index, 1 );
+                }
+            }
+        }
+    } else if((e.clientX >= 820 && e.clientX <= 980) && (e.clientY >= 115 && e.clientY <= 260) && SELECT_MENU){
+        if (click){
+            if (!UNIT_CONTROL_CHARACTER.includes("5Goblin")  && UNIT_CONTROL_CHARACTER.length < 4){
+                UNIT_CONTROL_CHARACTER.push("5Goblin");
+            } else {
+                var index = UNIT_CONTROL_CHARACTER.indexOf("5Goblin");
+                if (index >= 0) {
+                    UNIT_CONTROL_CHARACTER.splice( index, 1 );
+                }
+            }
+        }
+    } else if((e.clientX >= 10 && e.clientX <= 140) && (e.clientY >= 600 && e.clientY <= 755) && SELECT_MENU){
+        if (click){
+            if (!UNIT_CONTROL_CHARACTER.includes("6Archer")  && UNIT_CONTROL_CHARACTER.length < 4){
+                UNIT_CONTROL_CHARACTER.push("6Archer");
+            } else {
+                var index = UNIT_CONTROL_CHARACTER.indexOf("6Archer");
+                if (index >= 0) {
+                    UNIT_CONTROL_CHARACTER.splice( index, 1 );
+                }
+            }
         }
     } else if ((e.clientX >= 421 && e.clientX <= 526) && (e.clientY >= 650 && e.clientY <= 751)) {
         if (click){
@@ -153,26 +222,29 @@ function getSelectedThing(e, that, click){
         } else {
             that.menu = { clicked: false, id: UNIT_CONTROL_CHARACTER[3], mousemove: true };
         }
+    } else if ((e.clientX >= 904 && e.clientX <= 1010) && (e.clientY >= 647 && e.clientY <= 747)) {
+        if (click){
+            that.menu = { clicked: true, id: "Fireball", mousemove: false };
+    
+        } else {
+            that.menu = { clicked: false, id: "Fireball", mousemove: true };
+        }
     } else if((e.clientX >= 1280 && e.clientX <= 1406) && (e.clientY >= 751 && e.clientY<= 780)){
         if (click){
             that.menu = { clicked: true, id: "SoundOnOff", mousemove: false };
         } 
-    }
-    // 760, 815 | 1420 930
-    if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && (GAME_OVER || WIN_GAME)) {
+    } else if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && (GAME_OVER || WIN_GAME)) {
         //debugger;
         if (click){
             that.menu = { clicked: true, id: "PlayAgain", mousemove: false };
         }
-    }
-    if ((e.clientX >= 490 && e.clientX <= 920) && (e.clientY >= 460 && e.clientY <= 530) && WIN_LEVEL) {
+    } else if ((e.clientX >= 490 && e.clientX <= 920) && (e.clientY >= 460 && e.clientY <= 530) && WIN_LEVEL) {
         //debugger;
         if (click){
             that.menu = { clicked: true, id: "NextLevel", mousemove: false };
         }
-    }
-
-
+    } 
+    
     return that.menu;
 }
 

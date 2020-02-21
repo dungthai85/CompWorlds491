@@ -26,7 +26,7 @@ EnemyControl.prototype.update = function () {
     //console.log(whichentity);
     //Prevent update too many times
     if (this.difficulty === 1) {
-        if (this.elapsed < curr_elapsed - 3) {
+        if (this.elapsed < curr_elapsed - 2) {
             if(whichentity === 1){
                 this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
 
@@ -43,25 +43,36 @@ EnemyControl.prototype.update = function () {
     }
 
     if (this.difficulty === 2) {
+
         if (this.elapsed < curr_elapsed - 2.5) {
-            this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            //this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            //this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            //this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+            if(whichentity === 1){
+                this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+
+            } 
+            else if (whichentity === 2){
+                this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+
+            }
+            else if (whichentity ===3){
+                this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+            }
             this.elapsed = curr_elapsed;
         }
     }
 
     if (this.difficulty === 3) {
         if (this.elapsed < curr_elapsed - 3) {
-            this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            //this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            //this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-            //this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+            if(whichentity === 1){
+                this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+
+            } 
+            else if (whichentity === 2){
+                this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+
+            }
+            else if (whichentity ===3){
+                this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+            }
             this.elapsed = curr_elapsed;
         }
     }
