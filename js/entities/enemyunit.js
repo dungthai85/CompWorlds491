@@ -57,13 +57,11 @@ EnemyUnit.prototype.update = function () {
             if (entity.name !== "redhp" && entity.name !== "Fireball") {
    
                 if (entity.name === "Arrow") {
-                    // if(entity.animation.animationComplete()){
                     this.hp_current -= entity.attackdamage;
                     this.moving = true;
                     this.attacking = false;
-                    // }
                 } else {
-                    debugger;
+                    // debugger;
                     if (entity.death) {
                         this.moving = true;
                         this.attacking = false;
@@ -109,7 +107,6 @@ EnemyUnit.prototype.update = function () {
     }
     // Update the boundingbox
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
-
     // hp after scaled formula:
     // hp_scale = 250, hp_total = 1000 => ratio: 1/4
     // hp_after_scale = hp_scale - ((total_hp - current_hp) * ratio)
@@ -167,23 +164,23 @@ function Enemy_Generator(ENTITY_NAME) {
     if (ENTITY_NAME === "Orc") {
         enemy = {
             sprite_sheet : AM.getAsset("./img/enemy_team/orc/orc.png"),
-            HP : 130,
+            HP : 300,
             DAMAGE : 15,
             SPEED : -35
         }
     } else if (ENTITY_NAME === "FallenAngel") {
         enemy = {
             sprite_sheet : AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"),
-            HP : 150,
+            HP : 350,
             DAMAGE : 20,
             SPEED : -25
         }
     } else if (ENTITY_NAME === "ReaperMan") {
         enemy = {
             sprite_sheet : AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"),
-            HP : 120,
+            HP : 300,
             DAMAGE : 15,
-            SPEED : -40
+            SPEED : -30
         }
     }
 
