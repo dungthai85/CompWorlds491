@@ -3,6 +3,7 @@ function Archer(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.15, 24, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2, 9, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
+    this.playSound = true;
     this.hp = 100;
     this.attackdamage = 0;
     this.range = 300;
@@ -17,6 +18,7 @@ function Archer(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.type = "hero";
+    this.arrowSound = AM.getMusic("./img/music/arrow1.mp3");
     this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);
@@ -87,6 +89,10 @@ Archer.prototype.update = function () {
             this.arrowFire = true;
             this.game.addEntity(new Arrow(this.game, AM.getAsset("./img/Archer/Arrow.png"), this.x, this.y));
 
+
+            if (this.playSound) {
+                this.arrowSound.play();
+            }
         }
 
         if (this.attackAnimation.currentFrame() === 8) {
@@ -126,6 +132,10 @@ function determineLane(y) {
 }
 
 Archer.prototype.draw = function () {
+    if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
+        this.playSound = !this.playSound;
+    }
+
     var offset = 0;
     if (determineLane(this.y) === 1) {
         offset = -14;

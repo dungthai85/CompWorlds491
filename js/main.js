@@ -428,6 +428,10 @@ AM.queueDownload("./img/Background/LightsDoubleDamage4.png");
 
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");
+AM.queueDownload("./img/music/arrow1.mp3");
+AM.addMusic("./img/music/arrow1.mp3");
+AM.queueDownload("./img/music/SwordClank1.mp3")
+AM.addMusic("./img/music/SwordClank1.mp3")
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
