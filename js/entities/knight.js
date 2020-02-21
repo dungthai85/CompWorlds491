@@ -148,7 +148,11 @@ Knight.prototype.draw = function () {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
         if (!this.death) {
             this.death = true;
-            AM.getMusic("./img/music/KnightDeath.wav").play();
+            if (PLAY_MUSIC){
+                AM.getMusic("./img/music/KnightDeath.wav").play();
+            } else {
+                AM.getMusic("./img/music/KnightDeath.wav").pause();
+            }
         } else if (this.death && this.deathAnimation.currentFrame() === 8) {
             this.removeFromWorld = true;
         }

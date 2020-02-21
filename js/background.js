@@ -409,9 +409,9 @@ Background.prototype.update = function () {
     if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
         PLAY_MUSIC = !PLAY_MUSIC;
     }
-    if (this.playMusic){
+    if (PLAY_MUSIC){
         this.startmusic.play();
-    } else if(!this.playMusic){
+    } else if(!PLAY_MUSIC){
         this.startmusic.pause();
     }
 
