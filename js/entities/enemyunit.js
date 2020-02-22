@@ -35,9 +35,8 @@ EnemyUnit.prototype = new Entity();
 EnemyUnit.prototype.constructor = EnemyUnit;
 
 EnemyUnit.prototype.update = function () {
-    // Update boundingbox
     var entity;
-    for(var i = 0; i < this.game.entities.length; i ++){
+    for (var i = 0; i < this.game.entities.length; i++) {
         entity = this.game.entities[i];
         if (entity === this) {
             continue;
@@ -47,55 +46,37 @@ EnemyUnit.prototype.update = function () {
             continue;
         }
 
-        
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             console.log('Colliding ' + entity.name);
-            // this.moving = false;
-            
-
-            if (this.attack_animation.animationComplete()) 
-                if (PLAY_MUSIC){
+            this.moving = false;
+            if (this.hp_current > 0) {
+                if (PLAY_MUSIC) {
                     this.attack_sound.play();
-                } else{
+                } else {
                     this.attack_sound.pause();
                 }
-            if (entity.name !== "redhp" && entity.name !== "Fireball") {
-   
-                if (entity.name === "Arrow" || entity.name === "Spell") {
-                    // if(entity.animation.animationComplete()){
-                    this.hp_current -= entity.attackdamage;
-                    this.moving = true;
-                    this.attacking = false;
-                    // }
-                } else {
-                    debugger;
-                    if (entity.death) {
-                        this.moving = true;
-                        this.attacking = false;
-                    } else {
-                        this.moving = false;
-                        this.attacking = true;
-                        if (entity.attackAnimation.animationComplete()) {
-                            this.hp_current -= entity.attackdamage;
-                        }
+                this.attacking = true;
+            } else {
+                this.attacking = false;
 
-                        if (this.hp_current > 0) {
-                            if (PLAY_MUSIC) {
-                                this.attack_sound.play();
-                            }
-                            this.attacking = true;
-                        } else {
-                            this.attacking = false;
-                            this.moving = false;
-                        }
-                        break;
-                    }
-                    
-                }
+            }
+
+            if (this.attack_animation.animationComplete()) this.attack_sound.play();
+            if (entity.name === "redhp") {
+
+            } else if (entity.name === "Fireball") {
+
+            } else if (entity.name === "Arrow" || entity.name === "Spell") {
+                this.hp_current -= entity.attackdamage;
+                this.moving = true;
+                this.attacking = false;
+            } else if (entity.attackAnimation.animationComplete()) {
+                this.hp_current -= entity.attackdamage;
             }
             // this.moving = false;
-            
+            break;
         }
+
     }
     // Update animation
     if (this.moving) {
@@ -106,7 +87,7 @@ EnemyUnit.prototype.update = function () {
         }
 
     } else if (this.attacking) {
-        if(entity.removeFromWorld){
+        if (entity.removeFromWorld) {
             this.attacking = false;
             this.moving = true;
             this.attack_animation.elapsedTime = 0;
@@ -115,7 +96,7 @@ EnemyUnit.prototype.update = function () {
 
     }
     // Update the boundingbox
-    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
+    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight * .20);
 
     // hp after scaled formula:
     // hp_scale = 250, hp_total = 1000 => ratio: 1/4
