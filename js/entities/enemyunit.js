@@ -53,12 +53,7 @@ EnemyUnit.prototype.update = function () {
             // this.moving = false;
             
 
-            if (this.attack_animation.animationComplete()) 
-                if (PLAY_MUSIC){
-                    this.attack_sound.play();
-                } else{
-                    this.attack_sound.pause();
-                }
+            if (this.attack_animation.animationComplete()) this.attack_sound.play();
             if (entity.name !== "redhp" && entity.name !== "Fireball") {
    
                 if (entity.name === "Arrow") {
@@ -78,11 +73,7 @@ EnemyUnit.prototype.update = function () {
                         }
 
                         if (this.hp_current > 0) {
-                            if (PLAY_MUSIC){
-                                this.attack_sound.play();
-                            } else {
-                                this.attack_sound.pause();
-                            }
+                            this.attack_sound.play();
                             this.attacking = true;
                         } else {
                             this.attacking = false;
@@ -116,6 +107,7 @@ EnemyUnit.prototype.update = function () {
     }
     // Update the boundingbox
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
+
     // hp after scaled formula:
     // hp_scale = 250, hp_total = 1000 => ratio: 1/4
     // hp_after_scale = hp_scale - ((total_hp - current_hp) * ratio)

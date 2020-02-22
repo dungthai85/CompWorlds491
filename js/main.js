@@ -27,7 +27,7 @@ function RedHP(game){
     this.boundingbox = new BoundingBox(290, 400, 1, 65);
     this.boundingbox1 = new BoundingBox(290, 400, 1, 65);
     this.boundingbox2 = new BoundingBox(290, 480, 1, 65);
-    this.boundingbox3 = new BoundingBox(250, 550, 1, 65);
+    this.boundingbox3 = new BoundingBox(255, 550, 1, 65);
     this.x = 288;
   
 }
@@ -43,39 +43,35 @@ RedHP.prototype.update = function () {
         if (entity === this) {
             continue;
         }
-
         if (entity.boundingbox == null) {
             continue;
         }
         this.boundingbox = this.boundingbox1;
-        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
             this.game.defense = true;
         }
-
-
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type === "enemy") {
             //console.log('Colliding ' + entity.type);
             if(entity.attack_animation.animationComplete()){
-                this.hp -= 10;
+                this.hp -= entity.attack_damage;
             }
             this.game.defense = true;
             break;
         }
         this.boundingbox = this.boundingbox2;
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type === "enemy") {
             //console.log('Colliding ' + entity.type);
             if(entity.attack_animation.animationComplete()){
-                this.hp -= 10;
+                this.hp -= entity.attack_damage;
             }
             this.game.defense = true;
             break;
         }
         this.boundingbox = this.boundingbox3;
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== entity.type === "enemy") {
             //console.log('Colliding ' + entity.type);
-            if(entity.attack_animation.animationComplete()){
-                this.hp -= 10;
+            if(entity.type === "enemy" && entity.attack_animation.animationComplete()){
+                this.hp -= entity.attack_damage;
             }
             this.game.defense = true;
             break;
@@ -171,7 +167,7 @@ BlueHP.prototype.update = function () {
             } else if (entity.name === "Arrow") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
-                this.hp_current -= 10;
+                this.hp_current -= entity.attackdamage;
             }
             break;
         }
@@ -183,7 +179,7 @@ BlueHP.prototype.update = function () {
             } else if (entity.name === "Arrow") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-                this.hp_current -= 10;
+                this.hp_current -= entity.attackdamage;
                 // is_castle_under_attack = true;
             }
             break;
@@ -196,7 +192,7 @@ BlueHP.prototype.update = function () {
             } else if (entity.name === "Arrow") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-                this.hp_current -= 10;
+                this.hp_current -= entity.attackdamage;
                 // is_castle_under_attack = true;
             }
             break;

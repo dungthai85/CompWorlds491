@@ -22,7 +22,7 @@ EnemyControl.prototype.update = function () {
     // Calculate time difference, strip the ms, and round it to the second.
     var curr_elapsed = (checkpoint_time - this.start_time)/1000;
 
-    var whichentity = Math.floor(Math.random() * 3 + 1);
+    var whichentity = Math.floor(Math.random() * 5 + 1);
     //console.log(whichentity);
     //Prevent update too many times
     if (this.difficulty === 1) {
