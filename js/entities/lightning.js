@@ -50,7 +50,7 @@ Lightning.prototype.update = function () {
     }
     if (this.x < 1135) {
         this.x += this.game.clockTick * this.speed;
-        this.boundingbox = new BoundingBox(this.x + 67, this.y + 8, 1, this.animation.frameHeight * .35);
+        this.boundingbox = new BoundingBox(this.x + 150, this.y + 8, 1, this.animation.frameHeight * .35);
         Entity.prototype.update.call(this);
     }
 }

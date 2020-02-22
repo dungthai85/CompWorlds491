@@ -196,7 +196,7 @@ Mage.prototype.draw = function () {
 
     } else if (this.hp_current <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
-        debugger;
+        //debugger;
         if (!this.death) {
             this.death = true;
         } else if (this.death && this.deathAnimation.currentFrame() === 14) {
