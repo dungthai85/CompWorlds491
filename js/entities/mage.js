@@ -17,7 +17,7 @@ function Mage(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.type = "hero";
-    
+    this.name = "mage";
     this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);

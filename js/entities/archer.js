@@ -17,6 +17,7 @@ function Archer(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.type = "hero";
+    this.name = "archer";
     this.arrowSound = AM.getMusic("./img/music/arrow1.mp3");
     this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
