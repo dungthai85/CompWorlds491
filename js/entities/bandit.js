@@ -3,7 +3,7 @@ function Bandit(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 207, 190, 0.4, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 207, 207, 190, 0.2, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 621, 207, 190, 0.2, 8, false, false);
-    this.hp = 130;
+    this.hp = 130*MULTIPLY_HERO;
     this.attackdamage = 15;
     this.moving = true;
     this.attacking = false;
@@ -18,7 +18,7 @@ function Bandit(game, spritesheet, X, Y) {
     this.boundingbox = new BoundingBox(this.x + 63, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 60, 35, 5);
-    this.hp_current = Bandit_attributes.HP;
+    this.hp_current = Bandit_attributes.HP*MULTIPLY_HERO;
     this.hp_scale = 35;
 
 

@@ -156,7 +156,7 @@ EnemyUnit.prototype.draw = function () {
 
 function Enemy_Generator(ENTITY_NAME) {
     var enemy;
-    var MULTIPLY = 4;
+    var MULTIPLY = 6;
     if (ENTITY_NAME === "Orc") {
         enemy = {
             sprite_sheet : AM.getAsset("./img/enemy_team/orc/orc.png"),

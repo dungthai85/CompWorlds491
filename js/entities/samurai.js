@@ -5,7 +5,7 @@ function Samurai(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 246, 204, 0.4, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 246, 246, 204, 0.2, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 738, 246, 204, 0.2, 8, false, false);
-    this.hp = 130;
+    this.hp = 130*MULTIPLY_HERO;
     this.attackdamage = 15;
     this.moving = true;
     this.finished = false;
@@ -20,7 +20,7 @@ function Samurai(game, spritesheet, X, Y) {
     this.boundingbox = new BoundingBox(this.x + 73, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
 
     this.hp_bar = new EnemyHP(this.x + 35, this.y + 65.5, 35, 5);
-    this.hp_current = Bandit_attributes.HP;
+    this.hp_current = Bandit_attributes.HP*MULTIPLY_HERO;
     this.hp_scale = 35;
 
     // Entity.call(this, game, 248, 469);
