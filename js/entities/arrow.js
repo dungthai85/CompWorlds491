@@ -39,12 +39,9 @@ Arrow.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-
                 this.removeFromWorld = true;
-            
             break;
         }
     }

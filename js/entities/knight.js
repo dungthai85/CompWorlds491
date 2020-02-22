@@ -1,8 +1,8 @@
 
 
 function Knight(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 184, 200, 0.4, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 200, 184, 200, 0.2, 8, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 184, 200, 0.1, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 200, 184, 200, 0.1, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 600, 184, 200, 0.2, 8, false, false);
     this.hp = 150*MULTIPLY_HERO;
     this.attackdamage = 20;

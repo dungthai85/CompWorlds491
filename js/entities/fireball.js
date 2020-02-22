@@ -2,7 +2,7 @@
 
 
 function Fireball(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 160, 160, 0.15, 12, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 160, 160, 0.10, 12, true, false);
     this.speed = 100;
     this.ctx = game.ctx;
     this.x = X;

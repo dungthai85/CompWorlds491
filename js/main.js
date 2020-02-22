@@ -57,7 +57,7 @@ RedHP.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if(entity.attack_animation.animationComplete()){
-                this.hp -= 10;
+                this.hp -= entity.attack_damage;
             }
             this.game.defense = true;
             break;
@@ -66,7 +66,7 @@ RedHP.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if(entity.attack_animation.animationComplete()){
-                this.hp -= 10;
+                this.hp -= entity.attack_damage;
             }
             this.game.defense = true;
             break;
@@ -75,7 +75,7 @@ RedHP.prototype.update = function () {
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             if(entity.attack_animation.animationComplete()){
-                this.hp -= 10;
+                this.hp -= entity.attack_damage;
             }
             this.game.defense = true;
             break;
@@ -117,11 +117,11 @@ RedHP.prototype.draw = function () {
     //bounding box test
     
     this.ctx.fillRect(288, 137, this.hpbar, 34);
-    this.ctx.strokeStyle = "red";
-    //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-    this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
-    this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
-    this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
+    // this.ctx.strokeStyle = "red";
+    // //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    // this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
+    // this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
+    // this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
     Entity.prototype.draw.call(this);
 }
 
@@ -169,7 +169,7 @@ BlueHP.prototype.update = function () {
             } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
-                this.hp_current -= 10;
+                this.hp_current -= entity.attackdamage;
             }
             break;
         }
@@ -181,7 +181,7 @@ BlueHP.prototype.update = function () {
             } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-                this.hp_current -= 10;
+                this.hp_current -= entity.attackdamage;
                 // is_castle_under_attack = true;
             }
             break;
@@ -194,7 +194,7 @@ BlueHP.prototype.update = function () {
             } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-                this.hp_current -= 10;
+                this.hp_current -= entity.attackdamage;
                 // is_castle_under_attack = true;
             }
             break;

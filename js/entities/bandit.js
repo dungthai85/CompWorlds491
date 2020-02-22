@@ -1,7 +1,7 @@
 
 function Bandit(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 207, 190, 0.4, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 207, 207, 190, 0.2, 8, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 207, 190, 0.1, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 207, 207, 190, 0.1, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 621, 207, 190, 0.2, 8, false, false);
     this.hp = 130*MULTIPLY_HERO;
     this.attackdamage = 15;

@@ -1,7 +1,7 @@
 
 function Mage(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.15, 24, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2,12, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.1, 24, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.1,12, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.hp = 100;
     this.attackdamage = 0;

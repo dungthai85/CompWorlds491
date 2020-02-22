@@ -2,8 +2,8 @@
 
 
 function Samurai(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 246, 204, 0.4, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 246, 246, 204, 0.2, 8, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 246, 204, 0.1, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 246, 246, 204, 0.1, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 738, 246, 204, 0.2, 8, false, false);
     this.hp = 130*MULTIPLY_HERO;
     this.attackdamage = 15;

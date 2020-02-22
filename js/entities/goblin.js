@@ -2,8 +2,8 @@
 
 
 function Goblin(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 175, 197, 0.4, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 197, 175, 197, 0.2, 8, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 175, 197, 0.1, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 197, 175, 197, 0.1, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 591, 175, 197, 0.2, 8, false, false);
     this.hp = 100*MULTIPLY_HERO;
     this.death = false;
