@@ -114,13 +114,13 @@ EnemyUnit.prototype.draw = function () {
     // Draw animation and boundingbow
     if (this.moving && this.hp_current > 0 ) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
     } else if (this.attacking && this.hp_current > 0 ) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
         if (this.attack_animation.animationComplete() && !this.finished) {
             this.finished = true;
@@ -156,7 +156,7 @@ EnemyUnit.prototype.draw = function () {
 
 function Enemy_Generator(ENTITY_NAME) {
     var enemy;
-    var MULTIPLY = 6;
+    var MULTIPLY = 3;
     if (ENTITY_NAME === "Orc") {
         enemy = {
             sprite_sheet : AM.getAsset("./img/enemy_team/orc/orc.png"),

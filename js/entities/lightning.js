@@ -67,8 +67,8 @@ Lightning.prototype.draw = function () {
     if (this.x < 1135) {
         //bounding box test
        // debugger;
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x + 21, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x + 21, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x + (390 * 0.25), this.y + 46 + offset, 0.25);
 
         // this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 82.5 + offset, 0.75);

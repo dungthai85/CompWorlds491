@@ -22,7 +22,7 @@ var Mage_attributes = {
     HP: 100
 };
 
-var MULTIPLY_HERO = 8;
+var MULTIPLY_HERO = 3;
 /**
 *
 *This function is to draw the hover for the lanes, the shadow of the characters,

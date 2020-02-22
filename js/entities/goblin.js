@@ -100,7 +100,7 @@ Goblin.prototype.update = function () {
 Goblin.prototype.draw = function () {
     // Draw hp bar background
     this.ctx.fillStyle = "rgb(255,255,255)";
-    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, 35, this.hp_bar.height);
+    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + 8, 35, this.hp_bar.height);
     // Draw hp bar
     if (!this.death) {
         // if (this.hp_full){
@@ -114,19 +114,19 @@ Goblin.prototype.draw = function () {
         // } 
 
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, this.hp_bar.width, this.hp_bar.height);
+        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + 8, this.hp_bar.width, this.hp_bar.height);
     }
 
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y , 0.40);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y , 0.40);
         if (this.attackAnimation.animationComplete() && !this.finished) {
             this.hp_current -= 10;
         }
@@ -140,7 +140,7 @@ Goblin.prototype.draw = function () {
         }
 
     } else if (this.hp_current <= 0) {
-        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y , 0.40);
         if (!this.death) {
             this.death = true;
         } else if (this.death && this.deathAnimation.currentFrame() === 8) {

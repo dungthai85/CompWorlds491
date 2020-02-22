@@ -22,7 +22,7 @@ function RedHP(game){
     this.quarter = false;
     this.type = "hero";
     this.name ="redhp";
-    this.hp = 1000;
+    this.hp = 2000;
     this.hpbar = 296;
     this.boundingbox = new BoundingBox(290, 400, 1, 65);
     this.boundingbox1 = new BoundingBox(290, 400, 1, 65);
@@ -90,15 +90,15 @@ RedHP.prototype.update = function () {
     } else if(this.game.defense && !PLAY_MUSIC) {
         this.alert.pause();
     }
-    this.hpbar = 296 - (1 - (this.hp/1000))*296;
+    this.hpbar = 296 - (1 - (this.hp/2000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
     }
-    if(this.hp < 500 && this.hp > 250){
+    if(this.hp < 1000 && this.hp > 500){
         this.full = false;
         this.half = true;
     }
-    else if(this.hp <= 250){
+    else if(this.hp <= 500){
         this.half = false;
         this.quarter = true;
     }
@@ -133,7 +133,7 @@ function BlueHP(game){
     this.quarter = false;
     this.type = "enemy";
     this.name ="bluehp";
-    this.hp = 10000;
+    this.hp = 3000;
     this.hp_current = this.hp;
     this.hpbar = 296;
     this.boundingbox = new BoundingBox(1140, 403, 1, 65);
@@ -203,15 +203,15 @@ BlueHP.prototype.update = function () {
     if (this.hp_current < this.hp) is_castle_under_attack = true;
     // else is_castle_under_attack = false;
     // console.log(is_castle_under_attack);
-    this.hpbar = 296 - (1 - (this.hp_current/10000))*296;
+    this.hpbar = 296 - (1 - (this.hp_current/3000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
     }
-    else if(this.hp_current < 5000 && this.hp_current > 2500){
+    else if(this.hp_current < 1500 && this.hp_current > 750){
         this.full = false;
         this.half = true;
     }
-    else if(this.hp_current <= 2500){
+    else if(this.hp_current <= 750){
         this.half = false;
         this.quarter = true;
     }
@@ -231,11 +231,11 @@ BlueHP.prototype.draw = function () {
     }
     //console.log("draw" + this.hpbar);
     this.ctx.fillRect(856, 137, this.hpbar, 34);
-    this.ctx.strokeStyle = "red";
-    //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-    this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
-    this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
-    this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
+    // this.ctx.strokeStyle = "red";
+    // //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    // this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
+    // this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
+    // this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
     // this.ctx.fillRect(856, 137, this.hpbar, 34);
     Entity.prototype.draw.call(this);
 }
