@@ -4,7 +4,7 @@ function Knight(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 184, 200, 0.4, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 200, 184, 200, 0.2, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 600, 184, 200, 0.2, 8, false, false);
-    this.hp = 150;
+    this.hp = 150*8;
     this.attackdamage = 20;
     this.moving = true;
     this.attacking = false;
@@ -22,7 +22,7 @@ function Knight(game, spritesheet, X, Y) {
     // Entity.call(this, game, 248, 469);
 
     this.hp_bar = new EnemyHP(this.x + 12.5, this.y + 65, 35, 5);
-    this.hp_current = Knight_attributes.HP;
+    this.hp_current = Knight_attributes.HP * 8;
     this.hp_scale = 35;
 
 
