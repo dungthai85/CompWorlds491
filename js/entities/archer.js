@@ -162,7 +162,7 @@ Archer.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
         this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + offset, this.hp_bar.width, this.hp_bar.height);
     }
-    debugger;
+    //debugger;
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
         this.ctx.strokeStyle = "red";
@@ -188,7 +188,7 @@ Archer.prototype.draw = function () {
 
     } else if (this.hp_current <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
-        debugger;
+        //debugger;
         if (!this.death) {
             this.death = true;
 

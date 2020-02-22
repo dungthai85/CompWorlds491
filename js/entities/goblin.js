@@ -5,7 +5,7 @@ function Goblin(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 175, 197, 0.4, 8, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 197, 175, 197, 0.2, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 591, 175, 197, 0.2, 8, false, false);
-    this.hp = 100;
+    this.hp = 100*MULTIPLY_HERO;
     this.death = false;
     this.attackdamage = 10;
     this.moving = true;
@@ -21,7 +21,7 @@ function Goblin(game, spritesheet, X, Y) {
 
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 60, 35, 5);
-    this.hp_current = Goblin_attributes.HP;
+    this.hp_current = Goblin_attributes.HP*MULTIPLY_HERO;
     this.hp_scale = 35;
     // Entity.call(this, game, 248, 469);
     Entity.call(this, game, X, Y);

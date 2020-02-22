@@ -257,7 +257,7 @@ Background.prototype.update = function () {
         this.damage = "noDamage";
         this.inGame = false;
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
-        debugger;
+        //debugger;
         this.level = 0;
         MAIN_MENU = true;
         GAME_OVER = false;

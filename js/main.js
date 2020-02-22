@@ -27,7 +27,7 @@ function RedHP(game){
     this.boundingbox = new BoundingBox(290, 400, 1, 65);
     this.boundingbox1 = new BoundingBox(290, 400, 1, 65);
     this.boundingbox2 = new BoundingBox(290, 480, 1, 65);
-    this.boundingbox3 = new BoundingBox(250, 550, 1, 65);
+    this.boundingbox3 = new BoundingBox(260, 550, 1, 65);
     this.x = 288;
   
 }
@@ -133,7 +133,7 @@ function BlueHP(game){
     this.quarter = false;
     this.type = "enemy";
     this.name ="bluehp";
-    this.hp = 1000;
+    this.hp = 10000;
     this.hp_current = this.hp;
     this.hpbar = 296;
     this.boundingbox = new BoundingBox(1140, 403, 1, 65);
@@ -203,15 +203,15 @@ BlueHP.prototype.update = function () {
     if (this.hp_current < this.hp) is_castle_under_attack = true;
     // else is_castle_under_attack = false;
     // console.log(is_castle_under_attack);
-    this.hpbar = 296 - (1 - (this.hp_current/1000))*296;
+    this.hpbar = 296 - (1 - (this.hp_current/10000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
     }
-    else if(this.hp_current < 500 && this.hp_current > 250){
+    else if(this.hp_current < 5000 && this.hp_current > 2500){
         this.full = false;
         this.half = true;
     }
-    else if(this.hp_current <= 250){
+    else if(this.hp_current <= 2500){
         this.half = false;
         this.quarter = true;
     }

@@ -50,7 +50,7 @@ Lightning.prototype.update = function () {
     }
     if (this.x < 1135) {
         this.x += this.game.clockTick * this.speed;
-        this.boundingbox = new BoundingBox(this.x + 67, this.y + 8, 1, this.animation.frameHeight * .35);
+        this.boundingbox = new BoundingBox(this.x + 150, this.y + 8, 1, this.animation.frameHeight * .35);
         Entity.prototype.update.call(this);
     }
 }
@@ -66,7 +66,7 @@ Lightning.prototype.draw = function () {
     }
     if (this.x < 1135) {
         //bounding box test
-        debugger;
+       // debugger;
         this.ctx.strokeStyle = "red";
         this.ctx.strokeRect(this.boundingbox.x + 21, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x + (390 * 0.25), this.y + 46 + offset, 0.25);
