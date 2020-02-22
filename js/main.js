@@ -27,7 +27,7 @@ function RedHP(game){
     this.boundingbox = new BoundingBox(290, 400, 1, 65);
     this.boundingbox1 = new BoundingBox(290, 400, 1, 65);
     this.boundingbox2 = new BoundingBox(290, 480, 1, 65);
-    this.boundingbox3 = new BoundingBox(250, 550, 1, 65);
+    this.boundingbox3 = new BoundingBox(260, 550, 1, 65);
     this.x = 288;
   
 }
