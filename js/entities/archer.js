@@ -3,9 +3,8 @@ function Archer(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.15, 24, true, false);
     this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2, 9, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
-    this.playSound = true;
     this.hp = 100;
-    this.attackdamage = 15;
+    this.attackdamage = 0;
     this.range = 300;
     this.moving = true;
     this.attacking = false;
@@ -133,9 +132,7 @@ function determineLane(y) {
 }
 
 Archer.prototype.draw = function () {
-    if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
-        this.playSound = !this.playSound;
-    }
+    
 
     var offset = 0;
     if (determineLane(this.y) === 1) {
@@ -194,10 +191,9 @@ Archer.prototype.draw = function () {
         debugger;
         if (!this.death) {
             this.death = true;
-            if (PLAY_MUSIC){
+
+            if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/ArcherDeath.wav").play();
-            } else {
-                AM.getMusic("./img/music/ArcherDeath.wav").pause();
             }
         } else if (this.death && this.deathAnimation.currentFrame() === 14) {
             this.removeFromWorld = true;

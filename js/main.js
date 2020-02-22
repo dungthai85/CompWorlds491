@@ -79,9 +79,7 @@ RedHP.prototype.update = function () {
         this.game.defense = false;
     }
 
-    // if (this.game.menu.clicked && this.game.menu.id === "SoundOnOff") {
-    //     PLAY_MUSIC = !PLAY_MUSIC;
-    // }
+
 
     if (this.game.defense && PLAY_MUSIC) {
         this.alert.play();
@@ -164,7 +162,7 @@ BlueHP.prototype.update = function () {
             //console.log('Colliding ' + entity.type);
             if (entity.name === "Fireball"){
                 this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow") {
+            } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
                 this.hp_current -= entity.attackdamage;
@@ -176,7 +174,7 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow") {
+            } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp_current -= entity.attackdamage;
@@ -189,7 +187,7 @@ BlueHP.prototype.update = function () {
             if (entity.name === "Fireball"){
                 //debugger
                 this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow") {
+            } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= ARROW_DAMAGE;
             } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
                 this.hp_current -= entity.attackdamage;
@@ -361,7 +359,10 @@ AM.queueDownload("./img/Goblin/Goblin_icon.png");
 AM.queueDownload("./img/Bandit/Bandit_icon.png");
 AM.queueDownload("./img/Archer/Archer_icon.png");
 AM.queueDownload("./img/Mage/Mage_icon.png");
-AM.queueDownload("./img/Archer/Archer_Full_Walk.png");
+
+AM.queueDownload("./img/Mage/Mage.png");
+AM.queueDownload("./img/Mage/Lightning.png");
+
 AM.queueDownload("./img/Archer/Arrow.png");
 AM.queueDownload("./img/Knight/Knight.png");
 AM.queueDownload("./img/Samurai/Samurai.png");
@@ -452,6 +453,8 @@ AM.queueDownload("./img/Background/ok1.png");
 
 AM.queueDownload("./img/music/start.mp3");
 AM.addMusic("./img/music/start.mp3");
+AM.queueDownload("./img/music/Cant_Stop_Winning_MP3.mp3");
+AM.addMusic("./img/music/Cant_Stop_Winning_MP3.mp3");
 
 // Archer
 AM.queueDownload("./img/music/arrow1.mp3");
@@ -468,9 +471,25 @@ AM.queueDownload("./img/music/KnightDeath.wav");
 AM.addMusic("./img/music/KnightDeath.wav");
 
 
+// Bandit
+AM.queueDownload("./img/music/BanditDeploy.wav");
+AM.addMusic("./img/music/BanditDeploy.wav");
+AM.queueDownload("./img/music/BanditDeath.wav");
+AM.addMusic("./img/music/BanditDeath.wav");
+
+
+// Samurai
+AM.queueDownload("./img/music/SamuraiDeploy.wav");
+AM.addMusic("./img/music/SamuraiDeploy.wav");
+AM.queueDownload("./img/music/SamuraiDeath.wav");
+AM.addMusic("./img/music/SamuraiDeath.wav");
+
 // Not sure if necessary
 // AM.queueDownload("./img/music/SwordClank1.mp3")
 // AM.addMusic("./img/music/SwordClank1.mp3")
+
+AM.queueDownload("./img/music/lightning.ogg");
+AM.addMusic("./img/music/lightning.ogg");
 
 AM.queueDownload("./img/music/sword_swipe.mp3");
 AM.addMusic("./img/music/sword_swipe.mp3");

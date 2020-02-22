@@ -18,6 +18,10 @@ var Goblin_attributes = {
     HP: 100
 };
 
+var Mage_attributes = {
+    HP: 100
+};
+
 /**
 *
 *This function is to draw the hover for the lanes, the shadow of the characters,
@@ -76,6 +80,7 @@ UnitsControl.prototype.update = function () {
     } else if (this.game.menu.clicked && this.game.menu.id === UNIT_CONTROL_CHARACTER[3]&& this.x > 67.6) {
         this.unitName = UNIT_CONTROL_CHARACTER[3];
         // this.unitName = "Goblin";
+        // this.unitName = "Mage";
         this.shadow = true;
     }
     if (this.game.lane !== 0 && this.unitName != null){
@@ -103,12 +108,25 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 4;
             }
-            if (PLAY_MUSIC){
+
+
+            if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/KnightDeploy.wav").play();
-            } else {
-                AM.getMusic("./img/music/KnightDeploy.wav").pause();
+
             }
-        } else if (laneY && this.unitName === "3Bandit") {
+        }  else if (laneY && this.unitName === "2Mage") {
+            this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
+            this.unitName = null;
+            this.lane = null;
+            is_enemy_spawn_2 = true;
+            if (this.x - this.oneElixir * 3 < 0) {
+                this.x = 0
+            } else {
+                this.x = this.x - this.oneElixir * 3;
+            }
+
+        }
+        else if (laneY && this.unitName === "3Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -117,6 +135,10 @@ UnitsControl.prototype.update = function () {
                 this.x = 0
             } else {
                 this.x = this.x - this.oneElixir * 3;
+            }
+
+            if (PLAY_MUSIC) {
+                AM.getMusic("./img/music/BanditDeploy.wav").play();
             }
 
         } else if (laneY && this.unitName === "4Samurai") {
@@ -129,6 +151,9 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 3;
             }
+            if (PLAY_MUSIC) {
+                AM.getMusic("./img/music/SamuraiDeploy.wav").play();
+            }
         } else if (laneY && this.unitName === "6Archer") {
             this.game.addEntity(new Archer(this.game, AM.getAsset("./img/Archer/Archer.png"), laneX, laneY));
             this.unitName = null;
@@ -138,13 +163,24 @@ UnitsControl.prototype.update = function () {
             } else {
                 this.x = this.x - this.oneElixir * 2;
             }
-            if (PLAY_MUSIC){
+
+            if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/ArcherDeploy.wav").play();
-            } else {
-                AM.getMusic("./img/music/ArcherDeploy.wav").pause();
+
             }
         } else if (laneY && this.unitName === "5Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));
+            this.unitName = null;
+            this.lane = null;
+            if (this.x - this.oneElixir * 2 < 0) {
+                this.x = 0
+            } else {
+                this.x = this.x - this.oneElixir * 2;
+            }
+            
+
+        } else if (laneY && this.unitName === "Mage") {
+            this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
             if (this.x - this.oneElixir * 2 < 0) {
@@ -201,6 +237,12 @@ UnitsControl.prototype.draw = function () {
         this.ctx.globalAlpha = 0.5;
         this.ctx.drawImage(AM.getAsset("./img/Archer/Archer_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
         this.ctx.restore();
+    } else if (this.unitName === "Mage" && this.shadow) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.drawImage(AM.getAsset("./img/Mage/Mage_icon.png"), this.game.mouseXY.x - 50, this.game.mouseXY.y - 50, 85.5, 80);
+        this.ctx.restore();
+
     }
     // hover lane 1
     if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  410 && this.game.mouseXY.y <= 482)){
