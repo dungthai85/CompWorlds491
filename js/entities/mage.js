@@ -42,7 +42,23 @@ Mage.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-
+        if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox1, this.range)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
+         else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox2, this.range)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        } else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox3, this.range)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
@@ -59,20 +75,11 @@ Mage.prototype.update = function () {
             break;
 
 
-        } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type) {
-            // console.log('Colliding ' + entity.type);
+        } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
             this.moving = false;
             this.attacking = true;
             break;
-        } 
-        // else if (entity.boundingbox.x - this.boundingbox.right > this.range){
-        //     var absy = this.y - entity.y;
-        //     if (Math.abs(absy) < 10){
-        //         this.moving = true;
-        //         this.attacking = false;
-        //     }
-          
-        // }
+        }
 
         // if (!entity.removeFromWorld) {
         //     this.moving = true;

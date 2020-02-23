@@ -3,7 +3,7 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
 
     if (is_castle_under_attack) {
         if (POSITION[1] === 535) this.x = POSITION[0] + 150;
-        else this.x = POSITION[0] + 50;
+        else this.x = POSITION[0] + 55;
     }
     else this.x = POSITION[0];
     this.y = POSITION[1];
@@ -50,8 +50,8 @@ EnemyUnit.prototype.update = function () {
             continue;
         }
 
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            console.log('Colliding ' + entity.name);
+        if (entity.type !== this.type && this.boundingbox.collide(entity.boundingbox)) {
+            // console.log('Colliding ' + entity.name);
             this.moving = false;
             if (this.hp_current > 0) {
                 if (PLAY_MUSIC) {
@@ -62,7 +62,6 @@ EnemyUnit.prototype.update = function () {
                 this.attacking = true;
             } else {
                 this.attacking = false;
-
             }
             if (this.attack_animation.animationComplete()) this.attack_sound.play();
             if (entity.name === "redhp") {
@@ -73,6 +72,7 @@ EnemyUnit.prototype.update = function () {
                 this.hp_current -= entity.attackdamage;
                 this.moving = true;
                 this.attacking = false;
+                entity.removeFromWorld = true;
             } else if (entity.attackAnimation.animationComplete()) {
                 this.hp_current -= entity.attackdamage;
             }

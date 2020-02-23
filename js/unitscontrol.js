@@ -11,7 +11,7 @@ var Samurai_attributes = {
 };
 
 var Archer_attributes = {
-    HP: 100
+    HP: 120
 };
 
 var Goblin_attributes = {
@@ -19,7 +19,7 @@ var Goblin_attributes = {
 };
 
 var Mage_attributes = {
-    HP: 100
+    HP: 130
 };
 
 var MULTIPLY_HERO = 3;
@@ -54,11 +54,11 @@ function defenseAdjustment(game, lane) {
     var result = 305;
     if (game.defense === true) {
         if (lane === 1) {
-            result -= 70;
+            result -= 90;
         } else if (lane === 2) {
-            result -= 91.5;
+            result -= 99.5;
         } else {
-            result -= 190;
+            result -= 160;
         }
     }
     return result;

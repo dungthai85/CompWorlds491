@@ -44,7 +44,23 @@ Archer.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-
+        if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox1, this.range)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
+         else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox2, this.range)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        } else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox3, this.range)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
@@ -58,15 +74,13 @@ Archer.prototype.update = function () {
                 this.attacking = false;
 
             }
-            break;
-
-            
-        } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type) {
-            // console.log('Colliding ' + entity.type);
+            break; 
+        } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
             this.moving = false;
             this.attacking = true;
             break;
         }
+
 
         // if (!entity.removeFromWorld) {
         //     this.moving = true;

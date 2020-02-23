@@ -127,11 +127,11 @@ Goblin.prototype.draw = function () {
         // this.ctx.strokeStyle = "red";
         // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y , 0.40);
-        if (this.attackAnimation.animationComplete() && !this.finished) {
-            this.hp_current -= 10;
-        }
+        // if (this.attackAnimation.animationComplete() && !this.finished) {
+        //     this.hp_current -= 10;
+        // }
 
-        else if (this.finished && this.attackAnimation.currentFrame() === 0) {
+        if (this.finished && this.attackAnimation.currentFrame() === 0) {
             this.finished = false;
         }
 

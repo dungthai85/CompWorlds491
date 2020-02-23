@@ -12,7 +12,7 @@ function getLaneEnd(yValue) {
     }
 }
 
-//Enemy Health bar
+//Hero Health bar
 function RedHP(game){
     this.game = game;
     this.ctx = game.ctx;
@@ -22,7 +22,7 @@ function RedHP(game){
     this.quarter = false;
     this.type = "hero";
     this.name ="redhp";
-    this.hp = 2000;
+    this.hp = 1500;
     this.hpbar = 296;
     this.boundingbox = new BoundingBox(290, 400, 1, 65);
     this.boundingbox1 = new BoundingBox(290, 400, 1, 65);
@@ -46,30 +46,41 @@ RedHP.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-        this.boundingbox = this.boundingbox1;
-        if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
+        
+   
+        if (this.boundingbox1.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
             this.game.defense = true;
         }
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type === "enemy") {
+        else if (this.boundingbox2.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
+            this.game.defense = true;
+        }
+        else if (this.boundingbox3.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
+            this.game.defense = true;
+        }
+        if (entity.boundingbox.collide(this.boundingbox1) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
+            entity.attacking = true;
+            entity.moving = false;
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
             this.game.defense = true;
             break;
         }
-        this.boundingbox = this.boundingbox2;
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type === "enemy") {
+        else if (entity.boundingbox.collide(this.boundingbox2) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
+            entity.attacking = true;
+            entity.moving = false;
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
             this.game.defense = true;
             break;
         }
-        this.boundingbox = this.boundingbox3;
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== entity.type === "enemy") {
+        else if (entity.boundingbox.collide(this.boundingbox3) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
+            entity.attacking = true;
+            entity.moving = false;
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
@@ -77,6 +88,43 @@ RedHP.prototype.update = function () {
             break;
         }
         this.game.defense = false;
+        // this.boundingbox = this.boundingbox1;
+        // if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
+        //     this.game.defense = true;
+        // }
+        // if (this.boundingbox.collide(entity.boundingbox) && entity.type === "enemy") {
+        //     //console.log('Colliding ' + entity.type);
+        //     if(entity.attack_animation.animationComplete()){
+        //         this.hp -= entity.attack_damage;
+        //     }
+        //     this.game.defense = true;
+        //     break;
+        // }
+        // this.boundingbox = this.boundingbox2;
+        // if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
+        //     this.game.defense = true;
+        // }
+        // if (this.boundingbox.collide(entity.boundingbox) && entity.type === "enemy") {
+        //     //console.log('Colliding ' + entity.type);
+        //     if(entity.attack_animation.animationComplete()){
+        //         this.hp -= entity.attack_damage;
+        //     }
+        //     this.game.defense = true;
+        //     break;
+        // }
+        // this.boundingbox = this.boundingbox3;
+        // if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
+        //     this.game.defense = true;
+        // }
+        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== entity.type === "enemy") {
+        //     //console.log('Colliding ' + entity.type);
+        //     if(entity.attack_animation.animationComplete()){
+        //         this.hp -= entity.attack_damage;
+        //     }
+        //     this.game.defense = true;
+        //     break;
+        // }
+        // this.game.defense = false;
     }
 
 
@@ -86,15 +134,15 @@ RedHP.prototype.update = function () {
     } else if(this.game.defense && !PLAY_MUSIC) {
         this.alert.pause();
     }
-    this.hpbar = 296 - (1 - (this.hp/2000))*296;
+    this.hpbar = 296 - (1 - (this.hp/1500))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
     }
-    if(this.hp < 1000 && this.hp > 500){
+    if(this.hp < 750 && this.hp > 375){
         this.full = false;
         this.half = true;
     }
-    else if(this.hp <= 500){
+    else if(this.hp <= 375){
         this.half = false;
         this.quarter = true;
     }
@@ -111,7 +159,6 @@ RedHP.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
     }
     //bounding box test
-    
     this.ctx.fillRect(288, 137, this.hpbar, 34);
     // this.ctx.strokeStyle = "red";
     // //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
@@ -129,7 +176,7 @@ function BlueHP(game){
     this.quarter = false;
     this.type = "enemy";
     this.name ="bluehp";
-    this.hp = 3000;
+    this.hp = 2000;
     this.hp_current = this.hp;
     this.hpbar = 296;
     this.boundingbox = new BoundingBox(1140, 403, 1, 65);
@@ -140,7 +187,7 @@ function BlueHP(game){
 
 }
 
-//Hero side health bar
+//Enemy side health bar
 BlueHP.prototype = new Entity();
 BlueHP.prototype.constructor = BlueHP;
 
@@ -154,60 +201,122 @@ BlueHP.prototype.update = function () {
 
         if (entity.boundingbox == null) {
             continue;
-        }
+        }   
         // this.hp_prev = this.hp_current;
-        this.boundingbox = this.boundingbox1;
-        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            //console.log('Colliding ' + entity.type);
-            if (entity.name === "Fireball"){
-                this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow" || entity.name === "Spell") {
-                this.hp_current -= ARROW_DAMAGE;
-            } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
-                this.hp_current -= entity.attackdamage;
+        if (entity.boundingbox.collide(this.boundingbox1) && entity.type !== this.type) {
+                //console.log('Colliding ' + entity.type);
+                if (entity.name === "Fireball"){
+                    this.hp_current -= FIREBALL_DAMAGE;
+                    entity.removeFromWorld = true;
+                } else if (entity.name === "Arrow") {
+                    this.hp_current -= entity.attackdamage;
+                    entity.removeFromWorld = true;
+                } else if (entity.name === "Spell"){
+                    this.hp_current -= entity.attackdamage;
+                    entity.removeFromWorld = true;
+                } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
+                    this.hp_current -= entity.attackdamage;
+                    entity.attacking = true;
+                    entity.moving = false;
+                }
+                break;
             }
-            break;
-        }
-        this.boundingbox = this.boundingbox2;
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            if (entity.name === "Fireball"){
-                //debugger
-                this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow" || entity.name === "Spell") {
-                this.hp_current -= ARROW_DAMAGE;
-            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-                this.hp_current -= entity.attackdamage;
-                // is_castle_under_attack = true;
+            else if (entity.boundingbox.collide(this.boundingbox2) && entity.type !== this.type) {
+                //console.log('Colliding ' + entity.type);
+                if (entity.name === "Fireball"){
+                    this.hp_current -= FIREBALL_DAMAGE;
+                    entity.removeFromWorld = true;
+                } else if (entity.name === "Arrow") {
+                    this.hp_current -= entity.attackdamage;
+                    entity.removeFromWorld = true;
+                } else if (entity.name === "Spell"){
+                    this.hp_current -= entity.attackdamage;
+                    entity.removeFromWorld = true;
+                } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
+                    this.hp_current -= entity.attackdamage;
+                    entity.attacking = true;
+                    entity.moving = false;
+                }
+                break;
             }
-            break;
-        }
-        this.boundingbox = this.boundingbox3;
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            if (entity.name === "Fireball"){
-                //debugger
-                this.hp_current -= FIREBALL_DAMAGE;
-            } else if (entity.name === "Arrow" || entity.name === "Spell") {
-                this.hp_current -= ARROW_DAMAGE;
-            } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-                this.hp_current -= entity.attackdamage;
-                // is_castle_under_attack = true;
+            else if (entity.boundingbox.collide(this.boundingbox3) && entity.type !== this.type) {
+                //console.log('Colliding ' + entity.type);
+                if (entity.name === "Fireball"){
+                    this.hp_current -= FIREBALL_DAMAGE;
+                    entity.removeFromWorld = true;
+                } else if (entity.name === "Arrow") {
+                    this.hp_current -= entity.attackdamage;
+                    entity.removeFromWorld = true;
+                } else if (entity.name === "Spell"){
+                    this.hp_current -= entity.attackdamage;
+                    entity.removeFromWorld = true;
+                } 
+                // else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
+                //     this.hp_current -= entity.attackdamage;
+                //     entity.attacking = true;
+                //     entity.moving = false;
+                // }
+                break;
             }
-            break;
-        }
+        // this.boundingbox = this.boundingbox1;
+        // //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+        //     //console.log('Colliding ' + entity.type);
+        //     if (entity.name === "Fireball"){
+        //         this.hp_current -= FIREBALL_DAMAGE;
+        //         entity.removeFromWorld = true;
+        //     } else if (entity.name === "Arrow" || entity.name === "Spell") {
+        //         this.hp_current -= entity.attackdamage;
+        //         entity.removeFromWorld = true;
+        //     } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
+        //         this.hp_current -= entity.attackdamage;
+        //     }
+        //     break;
+        // }
+        // this.boundingbox = this.boundingbox2;
+        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+        //     if (entity.name === "Fireball"){
+        //         //debugger
+        //         this.hp_current -= FIREBALL_DAMAGE;
+        //         entity.removeFromWorld = true;
+        //     } else if (entity.name === "Arrow" || entity.name === "Spell") {
+        //         this.hp_current -= entity.attackdamage;
+        //         entity.removeFromWorld = true;
+        //     } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
+        //         this.hp_current -= entity.attackdamage;
+        //         // is_castle_under_attack = true;
+        //     }
+        //     break;
+        // }
+        // this.boundingbox = this.boundingbox3;
+        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+        //     if (entity.name === "Fireball"){
+        //         //debugger
+        //         this.hp_current -= FIREBALL_DAMAGE;
+        //         entity.removeFromWorld = true;
+        //     } else if (entity.name === "Arrow" || entity.name === "Spell") {
+        //         this.hp_current -= entity.attackdamage;
+        //         entity.removeFromWorld = true;
+        //         // this.hp_current -= ARROW_DAMAGE;
+        //     } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
+        //         this.hp_current -= entity.attackdamage;
+        //         // is_castle_under_attack = true;
+        //     }
+        //     break;
+        // }
     }
     if (this.hp_current < this.hp) is_castle_under_attack = true;
     // else is_castle_under_attack = false;
     // console.log(is_castle_under_attack);
-    this.hpbar = 296 - (1 - (this.hp_current/3000))*296;
+    this.hpbar = 296 - (1 - (this.hp_current/2000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;
     }
-    else if(this.hp_current < 1500 && this.hp_current > 750){
+    else if(this.hp_current < 1000 && this.hp_current > 500){
         this.full = false;
         this.half = true;
     }
-    else if(this.hp_current <= 750){
+    else if(this.hp_current <= 500){
         this.half = false;
         this.quarter = true;
     }

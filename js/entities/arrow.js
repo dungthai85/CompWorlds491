@@ -3,7 +3,7 @@
 function Arrow(game, spritesheet, X, Y) {
 
     this.animation = new MyAnimation(spritesheet, 0, 0, 320, 128, 0.15, 1, true, false);
-    this.speed = 100;
+    this.speed = 200;
     this.ctx = game.ctx;
     this.attackdamage = 100;
     this.x = X;
@@ -11,6 +11,7 @@ function Arrow(game, spritesheet, X, Y) {
     this.orginalx = X;
     this.type = "hero";
     this.name = "Arrow";
+    this.hit = false;
     this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.animation.frameHeight * .35);
     Entity.call(this, game, X, Y);
 }
@@ -30,20 +31,23 @@ function determineLane(y) {
 }
 
 Arrow.prototype.update = function () {
-    for (var i = 0; i < this.game.entities.length; i++) {
-        entity = this.game.entities[i];
-        if (entity === this) {
-            continue;
-        }
+    // for (var i = 0; i < this.game.entities.length; i++) {
+    //     entity = this.game.entities[i];
+    //     if (entity === this) {
+    //         continue;
+    //     }
 
-        if (entity.boundingbox == null) {
-            continue;
-        }
-        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type || this.x - this.orginalx > 302) {
-                this.removeFromWorld = true;
-            break;
-        }
+    //     if (entity.boundingbox == null) {
+    //         continue;
+    //     }
+    //     //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+    //     // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type || this.x - this.orginalx > 302) {
+    //     //         // this.removeFromWorld = true;
+    //     //     break;
+    //     // }
+    // }
+    if (this.x - this.orginalx > 325){
+        this.removeFromWorld = true;
     }
     if (this.x < 1135) {
         this.x += this.game.clockTick * this.speed;

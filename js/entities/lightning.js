@@ -2,7 +2,7 @@
 
 function Lightning(game, spritesheet, X, Y) {
 
-    this.animation = new MyAnimation(spritesheet, 0, 0, 209, 125, 0.10, 9, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 209, 125, 0.05, 9, true, false);
     this.speed = 300;
     this.ctx = game.ctx;
     this.attackdamage = 150;
@@ -30,23 +30,26 @@ function determineLane(y) {
 }
 
 Lightning.prototype.update = function () {
-    for (var i = 0; i < this.game.entities.length; i++) {
-        entity = this.game.entities[i];
-        if (entity === this) {
-            continue;
-        }
+    // for (var i = 0; i < this.game.entities.length; i++) {
+    //     entity = this.game.entities[i];
+    //     if (entity === this) {
+    //         continue;
+    //     }
 
-        if (entity.boundingbox == null) {
-            continue;
-        }
+    //     if (entity.boundingbox == null) {
+    //         continue;
+    //     }
 
-        //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type || this.x - this.orginalx > 202) {
+    //     //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
+    //     if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type || this.x - this.orginalx > 202) {
            
-            this.removeFromWorld = true;
+    //         this.removeFromWorld = true;
 
-            break;
-        }
+    //         break;
+    //     }
+    // }
+    if (this.x - this.orginalx > 250){
+        this.removeFromWorld = true;
     }
     if (this.x < 1135) {
         this.x += this.game.clockTick * this.speed;
@@ -67,8 +70,8 @@ Lightning.prototype.draw = function () {
     if (this.x < 1135) {
         //bounding box test
        // debugger;
-        // this.ctx.strokeStyle = "red";
-        // this.ctx.strokeRect(this.boundingbox.x + 21, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.ctx.strokeStyle = "red";
+        this.ctx.strokeRect(this.boundingbox.x + 21, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x + (390 * 0.25), this.y + 46 + offset, 0.25);
 
         // this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 82.5 + offset, 0.75);
