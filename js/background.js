@@ -415,7 +415,7 @@ Background.prototype.update = function () {
         PLAY_MUSIC = !PLAY_MUSIC;
     }
     if (PLAY_MUSIC){
-        debugger;
+        // debugger;
         if (!WIN_GAME && !WIN_LEVEL && !GAME_OVER){
             this.startmusic.play();
         } else {

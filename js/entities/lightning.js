@@ -2,11 +2,11 @@
 
 function Lightning(game, spritesheet, X, Y) {
 
-    this.animation = new MyAnimation(spritesheet, 0, 0, 209, 125, 0.15, 9, true, false);
-    this.speed = 100;
+    this.animation = new MyAnimation(spritesheet, 0, 0, 209, 125, 0.10, 9, true, false);
+    this.speed = 300;
     this.ctx = game.ctx;
-    this.attackdamage = 40;
-
+    this.attackdamage = 150;
+    this.orginalx = X;
     this.x = X;
     this.y = Y;
     this.type = "hero";
@@ -41,8 +41,8 @@ Lightning.prototype.update = function () {
         }
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type || this.x - this.orginalx > 202) {
+           
             this.removeFromWorld = true;
 
             break;

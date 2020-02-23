@@ -52,38 +52,6 @@ EnemyUnit.prototype.update = function () {
 
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             console.log('Colliding ' + entity.name);
-            // this.moving = false;
-            
-
-            if (this.attack_animation.animationComplete()) this.attack_sound.play();
-            if (entity.name !== "redhp" && entity.name !== "Fireball") {
-   
-                if (entity.name === "Arrow") {
-                    this.hp_current -= entity.attackdamage;
-                    this.moving = true;
-                    this.attacking = false;
-                } else {
-                    // debugger;
-                    if (entity.death) {
-                        this.moving = true;
-                        this.attacking = false;
-                    } else {
-                        this.moving = false;
-                        this.attacking = true;
-                        if (entity.name !== "archer" && entity.name !== "mage" && entity.attackAnimation.animationComplete()) {
-                            this.hp_current -= entity.attackdamage;
-                        }
-
-                        if (this.hp_current > 0) {
-                            this.attack_sound.play();
-                            this.attacking = true;
-                        } else {
-                            this.attacking = false;
-                            this.moving = false;
-                        }
-                        break;
-                    }
-                    
             this.moving = false;
             if (this.hp_current > 0) {
                 if (PLAY_MUSIC) {
@@ -96,7 +64,6 @@ EnemyUnit.prototype.update = function () {
                 this.attacking = false;
 
             }
-
             if (this.attack_animation.animationComplete()) this.attack_sound.play();
             if (entity.name === "redhp") {
 
@@ -208,9 +175,9 @@ function Enemy_Generator(ENTITY_NAME) {
             sprite_sheet : AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"),
             HP : 120 * MULTIPLY,
             DAMAGE : 15,
-            SPEED : -30
+            SPEED : -40
         }
     }
 
-    return enemy;
+    return enemy
 }

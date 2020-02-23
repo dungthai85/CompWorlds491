@@ -64,7 +64,15 @@ Mage.prototype.update = function () {
             this.moving = false;
             this.attacking = true;
             break;
-        }
+        } 
+        // else if (entity.boundingbox.x - this.boundingbox.right > this.range){
+        //     var absy = this.y - entity.y;
+        //     if (Math.abs(absy) < 10){
+        //         this.moving = true;
+        //         this.attacking = false;
+        //     }
+          
+        // }
 
         // if (!entity.removeFromWorld) {
         //     this.moving = true;
@@ -101,12 +109,10 @@ Mage.prototype.update = function () {
 
             
         }
-
         if (this.attackAnimation.currentFrame() === 8) {
             this.projectileFire = false;
         }
-
-        if (entity.removeFromWorld) {
+        if (entity.removeFromWorld && !this.projectileFire) {
             this.attacking = false;
             this.moving = true;
             this.attackAnimation.elapsedTime = 0;

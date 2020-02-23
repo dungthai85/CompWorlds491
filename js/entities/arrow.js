@@ -6,9 +6,9 @@ function Arrow(game, spritesheet, X, Y) {
     this.speed = 100;
     this.ctx = game.ctx;
     this.attackdamage = 100;
-
     this.x = X;
     this.y = Y;
+    this.orginalx = X;
     this.type = "hero";
     this.name = "Arrow";
     this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.animation.frameHeight * .35);
@@ -40,7 +40,7 @@ Arrow.prototype.update = function () {
             continue;
         }
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
+        if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type || this.x - this.orginalx > 302) {
                 this.removeFromWorld = true;
             break;
         }
