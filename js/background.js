@@ -257,7 +257,7 @@ Background.prototype.update = function () {
         this.damage = "noDamage";
         this.inGame = false;
     } else if(this.game.menu.clicked && this.game.menu.id === "back") {
-        debugger;
+        //debugger;
         this.level = 0;
         MAIN_MENU = true;
         GAME_OVER = false;
@@ -415,9 +415,15 @@ Background.prototype.update = function () {
         PLAY_MUSIC = !PLAY_MUSIC;
     }
     if (PLAY_MUSIC){
-        this.startmusic.play();
+        debugger;
+        if (!WIN_GAME && !WIN_LEVEL && !GAME_OVER){
+            this.startmusic.play();
+        } else {
+            this.startmusic.pause(); 
+        }
     } else {
         this.startmusic.pause();
+        AM.getMusic("./img/music/Cant_Stop_Winning_MP3.mp3").pause();
     }
 
     if (WIN_GAME && FIRE_ON) {

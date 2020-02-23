@@ -5,7 +5,7 @@ function Arrow(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 320, 128, 0.15, 1, true, false);
     this.speed = 100;
     this.ctx = game.ctx;
-    this.attackdamage = 20;
+    this.attackdamage = 100;
 
     this.x = X;
     this.y = Y;
@@ -39,12 +39,9 @@ Arrow.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-
                 this.removeFromWorld = true;
-            
             break;
         }
     }
@@ -66,8 +63,8 @@ Arrow.prototype.draw = function () {
     }
     if (this.x < 1135) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x + 21, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x + 21, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x + (390 * 0.125), this.y + 46 + offset, 0.125);
         Entity.prototype.draw.call(this);
     }

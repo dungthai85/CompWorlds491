@@ -1,9 +1,9 @@
 
 function Bandit(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 207, 190, 0.4, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 207, 207, 190, 0.2, 8, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 207, 190, 0.1, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 207, 207, 190, 0.1, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 621, 207, 190, 0.2, 8, false, false);
-    this.hp = 130;
+    this.hp = 130*MULTIPLY_HERO;
     this.attackdamage = 15;
     this.moving = true;
     this.attacking = false;
@@ -18,7 +18,7 @@ function Bandit(game, spritesheet, X, Y) {
     this.boundingbox = new BoundingBox(this.x + 63, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 60, 35, 5);
-    this.hp_current = Bandit_attributes.HP;
+    this.hp_current = Bandit_attributes.HP*MULTIPLY_HERO;
     this.hp_scale = 35;
 
 
@@ -96,7 +96,7 @@ Bandit.prototype.update = function () {
 Bandit.prototype.draw = function () {
     // Draw hp bar background
     this.ctx.fillStyle = "rgb(255,255,255)";
-    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, 35, this.hp_bar.height);
+    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + 6, 35, this.hp_bar.height);
     // Draw hp bar
     if (!this.death) {
         // if (this.hp_full){
@@ -110,19 +110,19 @@ Bandit.prototype.draw = function () {
         // } 
 
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y, this.hp_bar.width, this.hp_bar.height);
+        this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + 6, this.hp_bar.width, this.hp_bar.height);
     }
 
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 4, 0.45);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 4, 0.45);
         if (this.attackAnimation.animationComplete() && !this.finished) {
             this.finished = true;
         }
@@ -137,7 +137,7 @@ Bandit.prototype.draw = function () {
         }
 
     } else if (this.hp_current <= 0) {
-        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
+        this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 4, 0.45);
 
 
 

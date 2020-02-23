@@ -1,7 +1,7 @@
 
 function Archer(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.15, 24, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.2, 9, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 300, 300, 0.10, 24, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.1, 9, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.hp = 100;
     this.attackdamage = 0;
@@ -163,16 +163,16 @@ Archer.prototype.draw = function () {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
         this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y + offset, this.hp_bar.width, this.hp_bar.height);
     }
-    debugger;
+    //debugger;
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
         if (this.attackAnimation.animationComplete() && !this.finished) {
             // this.hp -= 10;
@@ -189,7 +189,7 @@ Archer.prototype.draw = function () {
 
     } else if (this.hp_current <= 0) {
         this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
-        debugger;
+        //debugger;
         if (!this.death) {
             this.death = true;
 

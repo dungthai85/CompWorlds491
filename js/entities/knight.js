@@ -1,10 +1,10 @@
 
 
 function Knight(game, spritesheet, X, Y) {
-    this.animation = new MyAnimation(spritesheet, 0, 0, 184, 200, 0.4, 8, true, false);
-    this.attackAnimation = new MyAnimation(spritesheet, 0, 200, 184, 200, 0.2, 8, true, false);
+    this.animation = new MyAnimation(spritesheet, 0, 0, 184, 200, 0.1, 8, true, false);
+    this.attackAnimation = new MyAnimation(spritesheet, 0, 200, 184, 200, 0.1, 8, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 600, 184, 200, 0.2, 8, false, false);
-    this.hp = 150;
+    this.hp = 150*MULTIPLY_HERO;
     this.attackdamage = 20;
     this.moving = true;
     this.attacking = false;
@@ -22,7 +22,7 @@ function Knight(game, spritesheet, X, Y) {
     // Entity.call(this, game, 248, 469);
 
     this.hp_bar = new EnemyHP(this.x + 12.5, this.y + 65, 35, 5);
-    this.hp_current = Knight_attributes.HP;
+    this.hp_current = Knight_attributes.HP * MULTIPLY_HERO;
     this.hp_scale = 35;
 
 
@@ -122,13 +122,13 @@ Knight.prototype.draw = function () {
     }
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, 1, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.375);
         // if (this.attackAnimation.animationComplete() && !this.finished) {
         //     this.attackAnimation.elapsedTime = 0;

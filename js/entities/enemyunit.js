@@ -1,5 +1,12 @@
 function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
     var ENEMY = Enemy_Generator(ENTITY_NAME);
+
+    if (is_castle_under_attack) {
+        if (POSITION[1] === 535) this.x = POSITION[0] + 150;
+        else this.x = POSITION[0] + 50;
+    }
+    else this.x = POSITION[0];
+    this.y = POSITION[1];
     
     this.walk_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 0, 300, 300, 0.05, 24, true, false);
     this.attack_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 300, 300, 300, 0.05, 12, true, false);
@@ -8,7 +15,7 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
     this.moving = true;
     this.attacking = false;
     this.finished = false;
-    this.dead = false;
+    this.death = false;
 
     this.hp = ENEMY.HP * LEVEL; 
     this.attack_damage = ENEMY.DAMAGE;
@@ -18,12 +25,9 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
 
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
-    this.hp_current = this.hp;
+    this.hp_current = ENEMY.HP * LEVEL;
     this.hp_scale = 35;
 
-    if (is_castle_under_attack) this.x = POSITION[0] + 50;
-    else this.x = POSITION[0];
-    this.y = POSITION[1];
     this.attack_sound =  AM.getMusic("./img/music/sword_swipe_2.mp3");
     this.endLane = getEndPointEnemy(this.y);
 
@@ -142,13 +146,13 @@ EnemyUnit.prototype.draw = function () {
     // Draw animation and boundingbow
     if (this.moving && this.hp_current > 0 ) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
     } else if (this.attacking && this.hp_current > 0 ) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
         if (this.attack_animation.animationComplete() && !this.finished) {
             this.finished = true;
@@ -173,7 +177,7 @@ EnemyUnit.prototype.draw = function () {
     this.ctx.fillStyle = "rgb(255,255,255)";
     this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,35,this.hp_bar.height);
     // Draw hp bar
-    if (!this.dead) {
+    if (!this.death) {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
         this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,this.hp_bar.width,this.hp_bar.height);
     }
@@ -184,28 +188,29 @@ EnemyUnit.prototype.draw = function () {
 
 function Enemy_Generator(ENTITY_NAME) {
     var enemy;
+    var MULTIPLY = 3;
     if (ENTITY_NAME === "Orc") {
         enemy = {
             sprite_sheet : AM.getAsset("./img/enemy_team/orc/orc.png"),
-            HP : 300,
+            HP : 130 * MULTIPLY,
             DAMAGE : 15,
             SPEED : -35
         }
     } else if (ENTITY_NAME === "FallenAngel") {
         enemy = {
             sprite_sheet : AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"),
-            HP : 350,
+            HP : 150 * MULTIPLY,
             DAMAGE : 20,
             SPEED : -25
         }
     } else if (ENTITY_NAME === "ReaperMan") {
         enemy = {
             sprite_sheet : AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"),
-            HP : 300,
+            HP : 120 * MULTIPLY,
             DAMAGE : 15,
             SPEED : -30
         }
     }
 
-    return enemy
+    return enemy;
 }
