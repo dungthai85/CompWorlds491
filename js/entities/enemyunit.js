@@ -23,7 +23,7 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
 
     this.type = "enemy";
 
-    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight*.20);
+    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 3, this.attack_animation.frameHeight*.20);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
     this.hp_current = ENEMY.HP * LEVEL;
     this.hp_scale = 35;
@@ -68,11 +68,18 @@ EnemyUnit.prototype.update = function () {
 
             } else if (entity.name === "Fireball") {
 
-            } else if (entity.name === "Arrow" || entity.name === "Spell") {
+            } else if (entity.name === "Arrow") {
                 this.hp_current -= entity.attackdamage;
                 this.moving = true;
                 this.attacking = false;
                 entity.removeFromWorld = true;
+                break;
+            } else if (entity.name === "Spell") {
+                this.hp_current -= entity.attackdamage;
+                this.moving = true;
+                this.attacking = false;
+                entity.removeFromWorld = true;
+                break;
             } else if (entity.attackAnimation.animationComplete()) {
                 this.hp_current -= entity.attackdamage;
             }
@@ -99,7 +106,7 @@ EnemyUnit.prototype.update = function () {
 
     }
     // Update the boundingbox
-    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 1, this.attack_animation.frameHeight * .20);
+    this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 3, this.attack_animation.frameHeight * .20);
 
     // hp after scaled formula:
     // hp_scale = 250, hp_total = 1000 => ratio: 1/4

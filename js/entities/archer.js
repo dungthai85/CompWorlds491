@@ -8,6 +8,7 @@ function Archer(game, spritesheet, X, Y) {
     this.range = 300;
     this.moving = true;
     this.attacking = false;
+    this.targeting = null;
     this.finished = false;
     this.death = false;
     this.arrowFire = false;
@@ -19,7 +20,7 @@ function Archer(game, spritesheet, X, Y) {
     this.type = "hero";
     this.name = "archer";
     this.arrowSound = AM.getMusic("./img/music/arrow1.mp3");
-    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
+    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 3, this.attackAnimation.frameHeight * .1);
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);
     this.hp_current = Archer_attributes.HP;
@@ -44,21 +45,25 @@ Archer.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
+
         if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox1, this.range)) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
+            this.targeting = entity;
             break;
         }
          else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox2, this.range)) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
+            this.targeting = entity;
             break;
         } else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox3, this.range)) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
+            this.targeting = entity;
             break;
         }
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
@@ -67,19 +72,30 @@ Archer.prototype.update = function () {
                 // debugger;
                 this.hp_current -= entity.attack_damage;
             }
-            this.moving = false;
-            if (this.hp_current > 0) {
-                this.attacking = true;
-            } else {
-                this.attacking = false;
+            // this.moving = false;
+            // if (this.hp_current > 0) {
+            //     this.attacking = true;
+            // } else {
+            //     this.attacking = false;
 
-            }
+            // }
             break; 
-        } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
+        } 
+
+        else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
+            console.log('DETECT ENEMY IN RANGE');
             this.moving = false;
             this.attacking = true;
+            this.targeting = entity;
             break;
         }
+        // else
+        // {
+        //     console.log('KEEP GOING');
+        //     this.moving = true;
+        //     this.attacking = false;
+        //     break;
+        // }
 
 
         // if (!entity.removeFromWorld) {
@@ -95,11 +111,19 @@ Archer.prototype.update = function () {
         //         break;
         //     }
         // }
+
+
     }
-    if (this.attacking) {
+
+
+
+
+    if (this.targeting !== null) {
+        // console.log("TARGETING");
+        // console.log("REMOVE FROM WORLD " + entity.removeFromWorld);
         if (this.attackAnimation.currentFrame() === 4 && !this.arrowFire) {
             this.arrowFire = true;
-            this.game.addEntity(new Arrow(this.game, AM.getAsset("./img/Archer/Arrow.png"), this.x, this.y));
+            this.game.addEntity(new Arrow(this.game, AM.getAsset("./img/Archer/Arrow.png"), this.x, this.y ));
 
 
             if (PLAY_MUSIC) {
@@ -110,26 +134,41 @@ Archer.prototype.update = function () {
 
         }
 
-        if (this.attackAnimation.currentFrame() === 8) {
+        else if (this.attackAnimation.currentFrame() === 8) {
             this.arrowFire = false;
         }
 
-        if (entity.removeFromWorld) {
+        // else if (entity.name !== "Arrow" && entity.removeFromWorld) {
+        else if (this.targeting.removeFromWorld) {
+            // console.log("KILLED ENEMY");
             this.attacking = false;
             this.moving = true;
+            this.targeting = null;
             this.attackAnimation.elapsedTime = 0;
             this.animation.elapsedTime = 0;
         }
     }
-    else if (this.moving) {
+    // else if (this.moving) {
+    else {
+        // console.log("NOT TARGETING");
         this.x += this.game.clockTick * this.speed;
-        if (this.x > this.laneEnd) {
-            this.moving = false;
-            this.attacking = true;
-        }
+        // if (this.x > this.laneEnd) {
+        //     this.moving = false;
+        //     this.attacking = true;
+        // }
 
+        // this.attacking = false;
+        // this.moving = true;
     }
-    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.animation.frameHeight * .1);
+    // else{
+    //     console.log("DONE ATTACKING");
+    //     this.attacking = false;
+    //     this.moving = true;
+    //     this.attackAnimation.elapsedTime = 0;
+    //     this.animation.elapsedTime = 0;
+    // }
+
+    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 3, this.animation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
 
     Entity.prototype.update.call(this);

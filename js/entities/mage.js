@@ -6,6 +6,7 @@ function Mage(game, spritesheet, X, Y) {
     this.hp = 100;
     this.attackdamage = 0;
     this.range = 200;
+    this.targeting = null;
     this.moving = true;
     this.attacking = false;
     this.finished = false;
@@ -18,7 +19,7 @@ function Mage(game, spritesheet, X, Y) {
     this.y = Y;
     this.type = "hero";
     this.name = "mage";
-    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.attackAnimation.frameHeight * .1);
+    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 3, this.attackAnimation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);
     this.hp_current = Mage_attributes.HP;
     this.hp_scale = 35;
@@ -46,17 +47,20 @@ Mage.prototype.update = function () {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
+            this.targeting = entity;
             break;
         }
          else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox2, this.range)) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
+            this.targeting = entity;
             break;
         } else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox3, this.range)) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
+            this.targeting = entity;
             break;
         }
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
@@ -65,19 +69,23 @@ Mage.prototype.update = function () {
                 // debugger;
                 this.hp_current -= entity.attack_damage;
             }
-            this.moving = false;
-            if (this.hp_current > 0) {
-                this.attacking = true;
-            } else {
-                this.attacking = false;
-
-            }
             break;
+        }
+        //     this.moving = false;
+        //     if (this.hp_current > 0) {
+        //         this.attacking = true;
+        //     } else {
+        //         this.attacking = false;
 
+        //     }
+        //     break; 
+        // } 
 
-        } else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
+        else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
+            console.log('DETECT ENEMY IN RANGE');
             this.moving = false;
             this.attacking = true;
+            this.targeting = entity;
             break;
         }
 
@@ -95,46 +103,85 @@ Mage.prototype.update = function () {
         //     }
         // }
     }
-    if (this.attacking) {
-        if (this.attackAnimation.currentFrame() === 4 && !this.projectileFire) {
+    if (this.targeting !== null) {
+        // console.log("TARGETING");
+        // console.log("REMOVE FROM WORLD " + entity.removeFromWorld);
+      if (this.attackAnimation.currentFrame() === 4 && !this.projectileFire) {
             this.projectileFire = true;
             this.game.addEntity(new Lightning(this.game, AM.getAsset("./img/Mage/Lightning.png"), this.x, this.y));
+
             if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/lightning.ogg").play();
             }
-            /*
-            var spellChosen = Math.floor(Math.random() * 2);
-            if (spellChosen === 1) {
-                
 
-            } else {
-                this.game.addEntity(new MageFireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), this.x, this.y));
-
-            }
-            
-            */ 
-
-            
         }
+
         if (this.attackAnimation.currentFrame() === 8) {
             this.projectileFire = false;
         }
-        if (entity.removeFromWorld && !this.projectileFire) {
+
+        // else if (entity.name !== "Arrow" && entity.removeFromWorld) {
+        else if (this.targeting.removeFromWorld) {
+            // console.log("KILLED ENEMY");
             this.attacking = false;
             this.moving = true;
+            this.targeting = null;
             this.attackAnimation.elapsedTime = 0;
             this.animation.elapsedTime = 0;
         }
     }
-    else if (this.moving) {
+    // else if (this.moving) {
+    else {
+        // console.log("NOT TARGETING");
         this.x += this.game.clockTick * this.speed;
-        if (this.x > this.laneEnd) {
-            this.moving = false;
-            this.attacking = true;
-        }
+        // if (this.x > this.laneEnd) {
+        //     this.moving = false;
+        //     this.attacking = true;
+        // }
 
+        // this.attacking = false;
+        // this.moving = true;
     }
-    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 1, this.animation.frameHeight * .1);
+    // if (this.attacking) {
+    //     if (this.attackAnimation.currentFrame() === 4 && !this.projectileFire) {
+    //         this.projectileFire = true;
+    //         this.game.addEntity(new Lightning(this.game, AM.getAsset("./img/Mage/Lightning.png"), this.x, this.y));
+    //         if (PLAY_MUSIC) {
+    //             AM.getMusic("./img/music/lightning.ogg").play();
+    //         }
+    //         /*
+    //         var spellChosen = Math.floor(Math.random() * 2);
+    //         if (spellChosen === 1) {
+                
+
+    //         } else {
+    //             this.game.addEntity(new MageFireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), this.x, this.y));
+
+    //         }
+            
+    //         */ 
+
+            
+    //     }
+    //     if (this.attackAnimation.currentFrame() === 8) {
+    //         this.projectileFire = false;
+    //     }
+    //     if (entity.removeFromWorld && !this.projectileFire) {
+    //         this.attacking = false;
+    //         this.moving = true;
+    //         this.attackAnimation.elapsedTime = 0;
+    //         this.animation.elapsedTime = 0;
+    //     }
+    // }
+    // else if (this.moving) {
+    //     this.x += this.game.clockTick * this.speed;
+    //     if (this.x > this.laneEnd) {
+    //         this.moving = false;
+    //         this.attacking = true;
+    //     }
+
+    // }
+    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 3, this.animation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
 
     Entity.prototype.update.call(this);
