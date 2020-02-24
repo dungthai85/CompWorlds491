@@ -19,9 +19,10 @@ function Archer(game, spritesheet, X, Y) {
     this.y = Y;
     this.type = "hero";
     this.name = "archer";
+    this.enemytouching = false;
     this.arrowSound = AM.getMusic("./img/music/arrow1.mp3");
-    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 3, this.attackAnimation.frameHeight * .1);
-
+    // this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 300, this.attackAnimation.frameHeight * .1);
+    this.boundingbox = new BoundingBox(this.x -33, this.y + 2, 100, this.attackAnimation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 5);
     this.hp_current = Archer_attributes.HP;
     this.hp_scale = 35;
@@ -71,6 +72,10 @@ Archer.prototype.update = function () {
             if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
                 this.hp_current -= entity.attack_damage;
+                this.enemytouching = true;
+            } else{
+                console.log("not colliding");
+                this.enemytouching = false;
             }
             // this.moving = false;
             // if (this.hp_current > 0) {
@@ -121,10 +126,13 @@ Archer.prototype.update = function () {
     if (this.targeting !== null) {
         // console.log("TARGETING");
         // console.log("REMOVE FROM WORLD " + entity.removeFromWorld);
+        
+    
         if (this.attackAnimation.currentFrame() === 4 && !this.arrowFire) {
             this.arrowFire = true;
-            this.game.addEntity(new Arrow(this.game, AM.getAsset("./img/Archer/Arrow.png"), this.x, this.y ));
-
+            if(!this.enemytouching){
+                this.game.addEntity(new Arrow(this.game, AM.getAsset("./img/Archer/Arrow.png"), this.x, this.y ));
+            }
 
             if (PLAY_MUSIC) {
                 this.arrowSound.play();
@@ -167,8 +175,8 @@ Archer.prototype.update = function () {
     //     this.attackAnimation.elapsedTime = 0;
     //     this.animation.elapsedTime = 0;
     // }
-
-    this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 3, this.animation.frameHeight * .1);
+    // this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 300, this.animation.frameHeight * .1);
+    this.boundingbox = new BoundingBox(this.x - 33, this.y + 2, 100, this.animation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
 
     Entity.prototype.update.call(this);
@@ -219,13 +227,13 @@ Archer.prototype.draw = function () {
     //debugger;
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
-        // this.ctx.strokeStyle = "red";
-        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.ctx.strokeStyle = "red";
+        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
-        // this.ctx.strokeStyle = "red";
-        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.ctx.strokeStyle = "red";
+        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
         if (this.attackAnimation.animationComplete() && !this.finished) {
             // this.hp -= 10;

@@ -180,16 +180,17 @@ UnitsControl.prototype.update = function () {
             }
             
 
-        } else if (laneY && this.unitName === "Mage") {
-            this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
-            this.unitName = null;
-            this.lane = null;
-            if (this.x - this.oneElixir * 2 < 0) {
-                this.x = 0
-            } else {
-                this.x = this.x - this.oneElixir * 2;
-            }
         }
+        // else if (laneY && this.unitName === "Mage") {
+        //     this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
+        //     this.unitName = null;
+        //     this.lane = null;
+        //     if (this.x - this.oneElixir * 2 < 0) {
+        //         this.x = 0
+        //     } else {
+        //         this.x = this.x - this.oneElixir * 2;
+        //     }
+        // }
     }
     
     // if (is_enemy_spawn_1) {

@@ -17,6 +17,7 @@ function Mage(game, spritesheet, X, Y) {
     this.laneEnd = getLaneEnd(Y);
     this.x = X;
     this.y = Y;
+    this.enemytouching = false;
     this.type = "hero";
     this.name = "mage";
     this.boundingbox = new BoundingBox(this.x + 67, this.y + 2, 3, this.attackAnimation.frameHeight * .1);
@@ -68,6 +69,10 @@ Mage.prototype.update = function () {
             if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
                 this.hp_current -= entity.attack_damage;
+                this.enemytouching = true;
+            } else{
+                console.log("not colliding");
+                this.enemytouching = false;
             }
             break;
         }
@@ -108,8 +113,9 @@ Mage.prototype.update = function () {
         // console.log("REMOVE FROM WORLD " + entity.removeFromWorld);
       if (this.attackAnimation.currentFrame() === 4 && !this.projectileFire) {
             this.projectileFire = true;
+            if (!this.enemytouching){
             this.game.addEntity(new Lightning(this.game, AM.getAsset("./img/Mage/Lightning.png"), this.x, this.y));
-
+            }
             if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/lightning.ogg").play();
             }

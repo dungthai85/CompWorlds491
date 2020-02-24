@@ -378,7 +378,7 @@ SuperBar.prototype.update = function () {
             laneY = 551;
         }
         if (laneY && this.unitName === "Fireball") {
-            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 305, laneY));
+            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 180, laneY));
             if(this.timemeter > this.maxelixir - 2){
                 this.timemeter = 0;
             }
