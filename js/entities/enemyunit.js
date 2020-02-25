@@ -63,7 +63,7 @@ EnemyUnit.prototype.update = function () {
             } else {
                 this.attacking = false;
             }
-            if (this.attack_animation.animationComplete()) this.attack_sound.play();
+            // if (this.attack_animation.animationComplete()) this.attack_sound.play();
             if (entity.name === "redhp") {
 
             } else if (entity.name === "Fireball") {

@@ -47,26 +47,7 @@ Archer.prototype.update = function () {
             continue;
         }
 
-        if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox1, this.range)) {
-            // console.log('Colliding ' + entity.type);
-            this.moving = false;
-            this.attacking = true;
-            this.targeting = entity;
-            break;
-        }
-         else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox2, this.range)) {
-            // console.log('Colliding ' + entity.type);
-            this.moving = false;
-            this.attacking = true;
-            this.targeting = entity;
-            break;
-        } else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox3, this.range)) {
-            // console.log('Colliding ' + entity.type);
-            this.moving = false;
-            this.attacking = true;
-            this.targeting = entity;
-            break;
-        }
+    
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
@@ -76,7 +57,9 @@ Archer.prototype.update = function () {
             } else{
                 console.log("not colliding");
                 this.enemytouching = false;
+                break;
             }
+    
             // this.moving = false;
             // if (this.hp_current > 0) {
             //     this.attacking = true;
@@ -87,8 +70,29 @@ Archer.prototype.update = function () {
             break; 
         } 
 
+
         else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
             console.log('DETECT ENEMY IN RANGE');
+            this.moving = false;
+            this.attacking = true;
+            this.targeting = entity;
+            break;
+        }
+        else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox1, this.range - 25)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            this.targeting = entity;
+            break;
+        }
+         else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox2, this.range -25)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            this.targeting = entity;
+            break;
+        } else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox3, this.range -25)) {
+            // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
             this.targeting = entity;
