@@ -51,24 +51,14 @@ Mage.prototype.update = function () {
                 // debugger;
                 this.hp_current -= entity.attack_damage;
                 this.enemytouching = true;
-            } 
-            break;
-        } else{
-            console.log("not colliding");
-            this.enemytouching = false;
+            }  else{
+                console.log("not colliding");
+                this.enemytouching = false;
+                break;
+            }      
             break;
         }
-        //     this.moving = false;
-        //     if (this.hp_current > 0) {
-        //         this.attacking = true;
-        //     } else {
-        //         this.attacking = false;
-
-        //     }
-        //     break; 
-        // } 
-
-        if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
+        else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
             console.log('DETECT ENEMY IN RANGE');
             this.moving = false;
             this.attacking = true;
@@ -95,6 +85,17 @@ Mage.prototype.update = function () {
             this.targeting = entity;
             break;
         }
+        //     this.moving = false;
+        //     if (this.hp_current > 0) {
+        //         this.attacking = true;
+        //     } else {
+        //         this.attacking = false;
+
+        //     }
+        //     break; 
+        // } 
+
+
 
         // if (!entity.removeFromWorld) {
         //     this.moving = true;
