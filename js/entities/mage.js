@@ -58,7 +58,7 @@ Mage.prototype.update = function () {
             }      
             break;
         }
-        else if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
+        if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
             console.log('DETECT ENEMY IN RANGE');
             this.moving = false;
             this.attacking = true;
