@@ -85,6 +85,22 @@ EnemyUnit.prototype.update = function () {
             }
             // this.moving = false;
             break;
+        } else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox1)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
+         else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox2)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        } else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox3)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
         }
 
     }

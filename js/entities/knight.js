@@ -62,6 +62,22 @@ Knight.prototype.update = function () {
 
             }
             break;
+        } else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox1)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
+         else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox2)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        } else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox3)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
         }
         // console.log(this.hp);
 
