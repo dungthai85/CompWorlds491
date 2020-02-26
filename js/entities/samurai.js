@@ -17,7 +17,7 @@ function Samurai(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.type = "hero";
-    this.boundingbox = new BoundingBox(this.x + 73, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
+    this.boundingbox = new BoundingBox(this.x + 73, this.y + 2, 5, this.attackAnimation.frameHeight*.1);
 
     this.hp_bar = new EnemyHP(this.x + 35, this.y + 65.5, 35, 5);
     this.hp_current = Bandit_attributes.HP*MULTIPLY_HERO;
@@ -40,6 +40,9 @@ Samurai.prototype.update = function () {
         }
 
         if (entity.boundingbox == null) {
+            continue;
+        }
+        if (entity.name === "redhp"){
             continue;
         }
 
@@ -110,7 +113,7 @@ Samurai.prototype.update = function () {
         }
 
     }
-    this.boundingbox = new BoundingBox(this.x + 73, this.y + 2, 1, this.animation.frameHeight * .1);
+    this.boundingbox = new BoundingBox(this.x + 73, this.y + 2, 5, this.animation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + 35, this.y + 65.5, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
     Entity.prototype.update.call(this);
 }

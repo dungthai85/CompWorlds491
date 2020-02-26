@@ -261,7 +261,12 @@ function getSelectedLane(e, that){
 
 GameEngine.prototype.addEntity = function (entity) {
     //console.log('added entity');
-    this.entities.push(entity);
+    if(this.entities === []){
+        this.entities.push(entity);
+    }
+    else {
+        this.entities.splice(1, 0, entity);
+    }
 }
 
 GameEngine.prototype.removal = function () {
