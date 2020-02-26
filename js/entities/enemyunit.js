@@ -11,6 +11,7 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
     this.walk_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 0, 300, 300, 0.05, 24, true, false);
     this.attack_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 300, 300, 300, 0.05, 12, true, false);
     this.dead_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 600, 300, 300, 0.05, 12, false, false);
+    this.effect = new MyAnimation(AM.getAsset("./img/Others/effects.png"), 0, 0, 59.9, 90, 0.05, 14, true, false);
     
     this.moving = true;
     this.attacking = false;
@@ -62,6 +63,7 @@ EnemyUnit.prototype.update = function () {
                     this.attack_sound.pause();
                 }
                 this.attacking = true;
+                
                 this.target = entity;
             } else {
                 this.attacking = false;
@@ -145,6 +147,7 @@ EnemyUnit.prototype.draw = function () {
         // this.ctx.strokeStyle = "red";
         // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.30);
+        this.effect.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
         if (this.attack_animation.animationComplete() && !this.finished) {
             this.finished = true;
         }

@@ -516,6 +516,7 @@ AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
 
 AM.queueDownload("./img/Others/Firework.png");
+AM.queueDownload("./img/Others/effects.png");
 
 AM.queueDownload("./img/Background/Victory.png");
 AM.queueDownload("./img/Background/Victory1.png");
