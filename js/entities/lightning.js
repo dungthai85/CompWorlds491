@@ -2,8 +2,8 @@
 
 function Lightning(game, spritesheet, X, Y) {
 
-    this.animation = new MyAnimation(spritesheet, 0, 0, 209, 125, 0.05, 1, true, false);
-    this.speed = 300;
+    this.animation = new MyAnimation(spritesheet, 0, 0, 209, 125, 0.05, 9, true, false);
+    this.speed = 200;
     this.ctx = game.ctx;
     this.attackdamage = 150;
     this.orginalx = X;
@@ -48,12 +48,12 @@ Lightning.prototype.update = function () {
     //         break;
     //     }
     // }
-    if (this.x - this.orginalx > 250){
+    if (this.x - this.orginalx > 210){
         this.removeFromWorld = true;
     }
     if (this.x < 1135) {
         this.x += this.game.clockTick * this.speed;
-        this.boundingbox = new BoundingBox(this.x + 150, this.y + 8, 3, this.animation.frameHeight * .45);
+        this.boundingbox = new BoundingBox(this.x + 120, this.y + 8, 3, this.animation.frameHeight * .45);
         Entity.prototype.update.call(this);
     }
 }

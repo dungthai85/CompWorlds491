@@ -26,6 +26,9 @@ Fireball.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
+        if (entity.name === "redhp"){
+            continue;
+        }
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {

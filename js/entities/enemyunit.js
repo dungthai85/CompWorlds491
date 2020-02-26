@@ -16,12 +16,12 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
     this.attacking = false;
     this.finished = false;
     this.death = false;
-
     this.hp = ENEMY.HP * LEVEL; 
     this.attack_damage = ENEMY.DAMAGE;
     this.speed = ENEMY.SPEED * LEVEL;
-
+    // this.speed = -220;
     this.type = "enemy";
+    this.name = ENTITY_NAME;
 
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 3, this.attack_animation.frameHeight*.20);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
@@ -49,8 +49,10 @@ EnemyUnit.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-
-        if (entity.type !== this.type && this.boundingbox.collide(entity.boundingbox)) {
+        if (entity.name === "bluehp"){
+            continue;
+        }
+        if (entity.type !== this.type && entity.name !== "redhp" && this.boundingbox.collide(entity.boundingbox)) {
             // console.log('Colliding ' + entity.name);
             this.moving = false;
             if (this.hp_current > 0) {
@@ -60,13 +62,12 @@ EnemyUnit.prototype.update = function () {
                     this.attack_sound.pause();
                 }
                 this.attacking = true;
+                this.target = entity;
             } else {
                 this.attacking = false;
             }
             // if (this.attack_animation.animationComplete()) this.attack_sound.play();
-            if (entity.name === "redhp") {
-
-            } else if (entity.name === "Fireball") {
+            if (entity.name === "Fireball") {
 
             } else if (entity.name === "Arrow") {
                 this.hp_current -= entity.attackdamage;
@@ -84,6 +85,22 @@ EnemyUnit.prototype.update = function () {
                 this.hp_current -= entity.attackdamage;
             }
             // this.moving = false;
+            break;
+        } else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox1)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
+         else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox2)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        } else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox3)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
             break;
         }
 

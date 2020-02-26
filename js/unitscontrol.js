@@ -19,7 +19,7 @@ var Goblin_attributes = {
 };
 
 var Mage_attributes = {
-    HP: 130
+    HP: 140
 };
 
 var MULTIPLY_HERO = 3;

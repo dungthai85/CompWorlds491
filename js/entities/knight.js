@@ -17,7 +17,7 @@ function Knight(game, spritesheet, X, Y) {
     this.y = Y;
     this.game = game;
     this.type = "hero";
-    this.boundingbox = new BoundingBox(this.x + 100, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
+    this.boundingbox = new BoundingBox(this.x + 100, this.y + 2, 5, this.attackAnimation.frameHeight*.1);
     //console.log(this.boundingbox.y);
     // Entity.call(this, game, 248, 469);
 
@@ -45,7 +45,9 @@ Knight.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
-
+        if (entity.name === "redhp"){
+            continue;
+        }
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
            // console.log('Colliding ' + entity.type);
@@ -61,6 +63,22 @@ Knight.prototype.update = function () {
                 this.attacking = false;
 
             }
+            break;
+        } else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox1)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
+         else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox2)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        } else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox3)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
             break;
         }
         // console.log(this.hp);
@@ -95,7 +113,7 @@ Knight.prototype.update = function () {
         }
 
     }
-    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 1, this.animation.frameHeight * .1);
+    this.boundingbox = new BoundingBox(this.x + 50, this.y + 2, 5, this.animation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + 12.5, this.y + 65, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
 
     Entity.prototype.update.call(this);

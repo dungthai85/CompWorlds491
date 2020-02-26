@@ -251,11 +251,11 @@ BlueHP.prototype.update = function () {
                     this.hp_current -= entity.attackdamage;
                     entity.removeFromWorld = true;
                 } 
-                // else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
-                //     this.hp_current -= entity.attackdamage;
-                //     entity.attacking = true;
-                //     entity.moving = false;
-                // }
+                else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
+                    this.hp_current -= entity.attackdamage;
+                    entity.attacking = true;
+                    entity.moving = false;
+                }
                 break;
             }
         // this.boundingbox = this.boundingbox1;

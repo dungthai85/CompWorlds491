@@ -17,7 +17,7 @@ function Goblin(game, spritesheet, X, Y) {
     this.x = X;
     this.y = Y;
     this.type = "hero";
-    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.attackAnimation.frameHeight*.1);
+    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 5, this.attackAnimation.frameHeight*.1);
 
 
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 60, 35, 5);
@@ -42,6 +42,9 @@ Goblin.prototype.update = function () {
         if (entity.boundingbox == null) {
             continue;
         }
+        if (entity.name === "redhp"){
+            continue;
+        }
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
@@ -58,8 +61,23 @@ Goblin.prototype.update = function () {
 
             }
             break;
+        } else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox1)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
         }
-
+         else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox2)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        } else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox3)) {
+            // console.log('Colliding ' + entity.type);
+            this.moving = false;
+            this.attacking = true;
+            break;
+        }
         // if (!entity.removeFromWorld) {
         //     this.moving = true;
         //     this.attacking = false;
@@ -91,7 +109,7 @@ Goblin.prototype.update = function () {
 
     }
 
-    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 1, this.animation.frameHeight*.1);
+    this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 5, this.animation.frameHeight*.1);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 60, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
 
     Entity.prototype.update.call(this);
