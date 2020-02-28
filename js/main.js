@@ -458,6 +458,12 @@ AM.queueDownload("./img/Archer/Archer.png");
 AM.queueDownload("./img/enemy_team/orc/orc.png");
 AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper.png");
 AM.queueDownload("./img/enemy_team/fallen_angel/fallen_angel.png");
+AM.queueDownload("./img/enemy_team/boss/troll_warlord.png");
+AM.queueDownload("./img/enemy_team/death_knight/death_knight.png");
+AM.queueDownload("./img/Others/Firework.png");
+AM.queueDownload("./img/Others/effects.png");
+AM.queueDownload("./img/Others/hit_effect.png");
+
 
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
@@ -490,8 +496,6 @@ AM.queueDownload("./img/Background/PlayAgain1.png");
 
 AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
-
-AM.queueDownload("./img/Others/Firework.png");
 
 AM.queueDownload("./img/Background/Victory.png");
 AM.queueDownload("./img/Background/Victory1.png");
