@@ -39,6 +39,9 @@ RedHP.prototype.update = function () {
    // console.log(this.hp);
     var entity;
     var i;
+    var meatShield1 = false;
+    var meatShield2 = false;
+    var meatShield3 = false;
     for (i = 0; i < this.game.entities.length; i++) {
         entity = this.game.entities[i];
         if (entity === this) {
@@ -56,6 +59,21 @@ RedHP.prototype.update = function () {
         else if (this.boundingbox3.rangeCheck(entity.boundingbox, 200) && entity.type !== this.type) {
             this.game.defense = true;
         }
+        if (this.game.defense) { // 
+            if (entity.type === "hero") {
+                if (this.boundingbox1.collide(entity.boundingbox)) {
+                    meatShield1 = true;
+                } else if (this.boundingbox2.collide(entity.boundingbox)) {
+                    meatShield2 = true;
+                } else if (this.boundingbox3.collide(entity.boundingbox)) {
+                    meatShield3 = true;
+                }
+
+
+            }
+
+        }
+
 
     }
 
@@ -76,7 +94,9 @@ RedHP.prototype.update = function () {
             entity.attacking = true;
             entity.moving = false;
             if(entity.attack_animation.animationComplete()){
-                this.hp -= entity.attack_damage;
+                if (!meatShield1) {
+                    this.hp -= entity.attack_damage;
+                }
             }
             damageTaken = true;
             break;
@@ -86,7 +106,9 @@ RedHP.prototype.update = function () {
             entity.attacking = true;
             entity.moving = false;
             if(entity.attack_animation.animationComplete()){
-                this.hp -= entity.attack_damage;
+                if (!meatShield2) {
+                    this.hp -= entity.attack_damage;
+                }
             }
             damageTaken = true;
             break;
@@ -96,7 +118,9 @@ RedHP.prototype.update = function () {
             entity.attacking = true;
             entity.moving = false;
             if(entity.attack_animation.animationComplete()){
-                this.hp -= entity.attack_damage;
+                if (!meatShield3) {
+                    this.hp -= entity.attack_damage;
+                }
             }
             damageTaken = true;
             break;
