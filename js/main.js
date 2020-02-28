@@ -38,7 +38,29 @@ RedHP.prototype.constructor = RedHP;
 RedHP.prototype.update = function () {
    // console.log(this.hp);
     var entity;
-    for(var i = 0; i < this.game.entities.length; i ++){
+    var i;
+    for (i = 0; i < this.game.entities.length; i++) {
+        entity = this.game.entities[i];
+        if (entity === this) {
+            continue;
+        }
+        if (entity.boundingbox == null) {
+            continue;
+        }
+        if (this.boundingbox1.rangeCheck(entity.boundingbox, 200) && entity.type !== this.type) {
+            this.game.defense = true;
+        }
+        else if (this.boundingbox2.rangeCheck(entity.boundingbox, 200) && entity.type !== this.type) {
+            this.game.defense = true;
+        }
+        else if (this.boundingbox3.rangeCheck(entity.boundingbox, 200) && entity.type !== this.type) {
+            this.game.defense = true;
+        }
+
+    }
+
+    var damageTaken = false;
+    for(i = 0; i < this.game.entities.length; i++){
         entity = this.game.entities[i];
         if (entity === this) {
             continue;
@@ -48,15 +70,7 @@ RedHP.prototype.update = function () {
         }
         
    
-        if (this.boundingbox1.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
-            this.game.defense = true;
-        }
-        else if (this.boundingbox2.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
-            this.game.defense = true;
-        }
-        else if (this.boundingbox3.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
-            this.game.defense = true;
-        }
+        
         if (entity.boundingbox.collide(this.boundingbox1) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
             entity.attacking = true;
@@ -64,7 +78,7 @@ RedHP.prototype.update = function () {
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
-            this.game.defense = true;
+            damageTaken = true;
             break;
         }
         else if (entity.boundingbox.collide(this.boundingbox2) && entity.type !== this.type) {
@@ -74,7 +88,7 @@ RedHP.prototype.update = function () {
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
-            this.game.defense = true;
+            damageTaken = true;
             break;
         }
         else if (entity.boundingbox.collide(this.boundingbox3) && entity.type !== this.type) {
@@ -84,54 +98,16 @@ RedHP.prototype.update = function () {
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
-            this.game.defense = true;
+            damageTaken = true;
             break;
         }
-        this.game.defense = false;
-        // this.boundingbox = this.boundingbox1;
-        // if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
-        //     this.game.defense = true;
-        // }
-        // if (this.boundingbox.collide(entity.boundingbox) && entity.type === "enemy") {
-        //     //console.log('Colliding ' + entity.type);
-        //     if(entity.attack_animation.animationComplete()){
-        //         this.hp -= entity.attack_damage;
-        //     }
-        //     this.game.defense = true;
-        //     break;
-        // }
-        // this.boundingbox = this.boundingbox2;
-        // if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
-        //     this.game.defense = true;
-        // }
-        // if (this.boundingbox.collide(entity.boundingbox) && entity.type === "enemy") {
-        //     //console.log('Colliding ' + entity.type);
-        //     if(entity.attack_animation.animationComplete()){
-        //         this.hp -= entity.attack_damage;
-        //     }
-        //     this.game.defense = true;
-        //     break;
-        // }
-        // this.boundingbox = this.boundingbox3;
-        // if (this.boundingbox.rangeCheck(entity.boundingbox, 100) && entity.type !== this.type) {
-        //     this.game.defense = true;
-        // }
-        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== entity.type === "enemy") {
-        //     //console.log('Colliding ' + entity.type);
-        //     if(entity.attack_animation.animationComplete()){
-        //         this.hp -= entity.attack_damage;
-        //     }
-        //     this.game.defense = true;
-        //     break;
-        // }
-        // this.game.defense = false;
     }
 
 
 
-    if (this.game.defense && PLAY_MUSIC) {
+    if (damageTaken && PLAY_MUSIC) {
         this.alert.play();
-    } else if(this.game.defense && !PLAY_MUSIC) {
+    } else if(damageTaken && !PLAY_MUSIC) {
         this.alert.pause();
     }
     this.hpbar = 296 - (1 - (this.hp/1500))*296;
