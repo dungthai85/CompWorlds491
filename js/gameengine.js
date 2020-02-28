@@ -24,8 +24,6 @@ GameEngine.prototype.init = function (ctx) {
     this.ctx = ctx;
     this.surfaceWidth = this.ctx.canvas.width;
     this.surfaceHeight = this.ctx.canvas.height;
-    //this.startmusic =  AM.getMusic("./img/music/start.mp3");
-    //this.startmusic.play();
     this.timer = new Timer();
     this.startInput();
     console.log('game initialized');
@@ -61,28 +59,15 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("click", function (e) {
         that.click = getXandY(e);
-        //console.log(e);
-        console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
-        // debugger;
+        // console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         that.menu = getSelectedThing(e, that, true);
-        //console.log(that.menu.id);
         that.lane = getSelectedLane(e, that);
     }, false);
 
     this.ctx.canvas.addEventListener("mousemove", function (e) {
-        //that.mouse = {x : e.clientX, y : e.clientY};
         that.mouseXY = {x : e.clientX, y : e.clientY};
         that.menu = getSelectedThing(e, that, false);
-        //console.log("X,Y " + e.clientX, e.clientY);
     }, false);
-
-    // this.ctx.canvas.addEventListener("mouseover", function (e) {
-    //     //that.menu = getSelectedThing(e, that, false);
-    //     //console.log("mouse over " + that.mouseOver.id);
-    //     //console.log("X,Y " + e.clientX, e.clientY);
-    // }, false);
-
-
     console.log('Input started');
 }
 function getSelectedThing(e, that, click){
@@ -117,7 +102,6 @@ function getSelectedThing(e, that, click){
         }
     }  else if ((e.clientX >= 20 && e.clientX <= 182) && (e.clientY >= 12 && e.clientY <= 64)) {
         if (click){
-            //debugger;
             that.menu = { clicked: true, id: "back", mousemove: false };
             //MAIN_MENU = true;
         } else {
@@ -125,13 +109,11 @@ function getSelectedThing(e, that, click){
         }
     } else if((e.clientX >= 650 && e.clientX <= 790) && (e.clientY >= 685 && e.clientY <= 775) && SELECT_MENU){
         if (click){
-            //debugger;
             that.menu = { clicked: true, id: "ok", mousemove: false };
             console.log(UNIT_CONTROL_CHARACTER);
         }
     } else if((e.clientX >= 10 && e.clientX <= 155) && (e.clientY >= 100 && e.clientY <= 265) && SELECT_MENU){
         if (click){
-            //debugger;
             if (!UNIT_CONTROL_CHARACTER.includes("1Knight") && UNIT_CONTROL_CHARACTER.length < 4){
                 UNIT_CONTROL_CHARACTER.push("1Knight");
             } else {
@@ -143,7 +125,6 @@ function getSelectedThing(e, that, click){
         }
     } else if((e.clientX >= 810 && e.clientX <= 990) && (e.clientY >= 570 && e.clientY <= 740) && SELECT_MENU){
         if (click){
-            //debugger;
             if (!UNIT_CONTROL_CHARACTER.includes("2Mage") && UNIT_CONTROL_CHARACTER.length < 4){
                 UNIT_CONTROL_CHARACTER.push("2Mage");
             } else {
@@ -234,12 +215,10 @@ function getSelectedThing(e, that, click){
             that.menu = { clicked: true, id: "SoundOnOff", mousemove: false };
         } 
     } else if ((e.clientX >= 480 && e.clientX <= 890) && (e.clientY >= 510 && e.clientY <= 580) && (GAME_OVER || WIN_GAME)) {
-        //debugger;
         if (click){
             that.menu = { clicked: true, id: "PlayAgain", mousemove: false };
         }
     } else if ((e.clientX >= 490 && e.clientX <= 920) && (e.clientY >= 460 && e.clientY <= 530) && WIN_LEVEL) {
-        //debugger;
         if (click){
             that.menu = { clicked: true, id: "NextLevel", mousemove: false };
         }
@@ -260,7 +239,6 @@ function getSelectedLane(e, that){
 }
 
 GameEngine.prototype.addEntity = function (entity) {
-    //console.log('added entity');
     if(this.entities === []){
         this.entities.push(entity);
     }
@@ -283,7 +261,6 @@ GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.surfaceWidth, this.surfaceHeight);
     this.ctx.save();
     for (var i = 0; i < this.entities.length; i++) {
-        // console.log(this.entities[i]);
         this.entities[i].draw(this.ctx);
     }
     this.ctx.restore();
@@ -306,9 +283,6 @@ GameEngine.prototype.loop = function () {
     
     this.menu = {clicked: false, id: null};
     this.lane = 0;
-    //this.mouse = null;
-    // this.mouseOver = null;
-    //this.mouseXY;
 }
 
 function Timer() {

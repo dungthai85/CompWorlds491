@@ -32,9 +32,9 @@ Fireball.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            if (entity.name !== "bluehp"){
+            if (entity.name !== "bluehp" && entity.name !== "TrollWarlord"){
                 entity.removeFromWorld = true;
-            }
+            } 
             break;
         }
     }

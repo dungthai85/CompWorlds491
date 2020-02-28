@@ -36,6 +36,7 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
 
     this.boundingbox = new BoundingBox(this.x + 20, this.y + 20, 3, this.attack_animation.frameHeight*.20);
     this.hp_bar = new EnemyHP(this.x + 30, this.y + 80, 35, 10);
+    this.hpbarwidth = this.hp_bar.width;
     this.hp_current = ENEMY.HP * LEVEL;
     this.hp_scale = 35;
 
@@ -53,16 +54,16 @@ EnemyUnit.prototype.update = function () {
     var entity;
     for (var i = 0; i < this.game.entities.length; i++) {
         entity = this.game.entities[i];
-        if (entity === this) {
+        if (entity === this || entity.boundingbox == null || entity.name === "bluehp") {
             continue;
         }
 
-        if (entity.boundingbox == null) {
-            continue;
-        }
-        if (entity.name === "bluehp"){
-            continue;
-        }
+        // if (entity.boundingbox == null) {
+        //     continue;
+        // }
+        // if (entity.name === "bluehp"){
+        //     continue;
+        // }
         if (entity.type !== this.type && entity.name !== "redhp" && this.boundingbox.collide(entity.boundingbox)) {
             // console.log('Colliding ' + entity.name);
             this.moving = false;
@@ -80,41 +81,35 @@ EnemyUnit.prototype.update = function () {
             }
             // if (this.attack_animation.animationComplete()) this.attack_sound.play();
             if (entity.name === "Fireball") {
-
-            } else if (entity.name === "Arrow") {
+                if (this.name === "TrollWarlord") this.hp_current -= FIREBALL_DAMAGE;
+            } else if (entity.name === "Arrow" || entity.name === "Spell") {
                 this.hp_current -= entity.attackdamage;
                 this.moving = true;
                 this.attacking = false;
                 entity.removeFromWorld = true;
                 break;
-            } else if (entity.name === "Spell") {
-                this.hp_current -= entity.attackdamage;
-                this.moving = true;
-                this.attacking = false;
-                entity.removeFromWorld = true;
-                break;
-            } else if (entity.attackAnimation.animationComplete()) {
+            }  else if (entity.attackAnimation.animationComplete()) {
                 this.hp_current -= entity.attackdamage;
             }
             // this.moving = false;
             break;
-        } else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox1)) {
+        } else if (entity.name === "redhp" && (this.boundingbox.collide(entity.boundingbox1) || this.boundingbox.collide(entity.boundingbox2) || this.boundingbox.collide(entity.boundingbox3))) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
             break;
         }
-         else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox2)) {
-            // console.log('Colliding ' + entity.type);
-            this.moving = false;
-            this.attacking = true;
-            break;
-        } else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox3)) {
-            // console.log('Colliding ' + entity.type);
-            this.moving = false;
-            this.attacking = true;
-            break;
-        }
+        //  else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox2)) {
+        //     // console.log('Colliding ' + entity.type);
+        //     this.moving = false;
+        //     this.attacking = true;
+        //     break;
+        // } else if (entity.name === "redhp" && this.boundingbox.collide(entity.boundingbox3)) {
+        //     // console.log('Colliding ' + entity.type);
+        //     this.moving = false;
+        //     this.attacking = true;
+        //     break;
+        // }
 
     }
     // Update animation
@@ -190,7 +185,8 @@ EnemyUnit.prototype.draw = function () {
     }
     // Draw hp bar background
     this.ctx.fillStyle = "rgb(255,255,255)";
-    this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,35,this.hp_bar.height);
+    if (this.name === "TrollWarlord") this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,this.hpbarwidth,this.hp_bar.height);
+    else this.ctx.fillRect(this.hp_bar.x, this.hp_bar.y,35,this.hp_bar.height);
     // Draw hp bar
     if (!this.death) {
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
