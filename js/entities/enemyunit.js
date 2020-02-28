@@ -10,8 +10,8 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
     if (ENEMY.TYPE === "Boss") {
         this.walk_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 0, 400, 250, 0.05, 10, true, false);
         this.attack_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 400, 400, 250, 0.05, 10, true, false);
-        this.hurt_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 800, 400, 250, 0.05, 10, true, false);
-        this.dead_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 1200, 400, 250, 0.05, 10, false, false);
+        this.hurt_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 800, 400, 250, 0.1, 10, false, false);
+        this.dead_animation = new MyAnimation(ENEMY.sprite_sheet, 0, 1200, 400, 250, 0.1, 10, false, false);
         this.FORM_SCALE = 1.00;
         this.effect = new MyAnimation(AM.getAsset("./img/Others/hit_effect.png"), 0, 0, 1024, 1024, 0.03, 16, true, false);
     } else {
@@ -177,7 +177,11 @@ EnemyUnit.prototype.draw = function () {
             this.attacking = false;
         }
     } else if (this.hp_current <= 0) {
-        this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, this.FORM_SCALE);
+        if (this.name === "TrollWarlord")  {
+            this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, this.FORM_SCALE);
+            // if (this.hurt_animation.animationComplete()) this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, this.FORM_SCALE);
+        } else this.dead_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, this.FORM_SCALE);
+
         if (!this.death) {
             this.death = true;
         } else if (this.death && this.dead_animation.currentFrame() === 8) {
@@ -230,6 +234,14 @@ function Enemy_Generator(ENTITY_NAME) {
             DAMAGE : 15,
             SPEED : -50,
             TYPE : "Boss"
+        }
+    } else if (ENTITY_NAME === "DeathKnight") {
+        enemy = {
+            sprite_sheet : AM.getAsset("./img/enemy_team/death_knight/death_knight.png"),
+            HP : 100 * MULTIPLY,
+            DAMAGE : 15,
+            SPEED : -50,
+            TYPE : "Unit"
         }
     } 
 

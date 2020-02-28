@@ -35,6 +35,9 @@ EnemyControl.prototype.update = function () {
             }
             else if (whichentity ===3){
                 this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+            } 
+            else if (whichentity ===4){
+                this.game.addEntity(new EnemyUnit(this.game, "DeathKnight", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
             }
             this.enemy_count += 1;
             this.elapsed = curr_elapsed;
@@ -42,7 +45,7 @@ EnemyControl.prototype.update = function () {
     }
 
     if (this.difficulty === 2) {
-        if (this.enemy_count === 2)  {
+        if (this.enemy_count === 5)  {
             this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
             this.enemy_count += 1;
             this.boss_spawn = true;
