@@ -247,29 +247,29 @@ UnitsControl.prototype.draw = function () {
 
     }
     // hover lane 1
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  410 && this.game.mouseXY.y <= 482)){
+    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 150 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  410 && this.game.mouseXY.y <= 482)){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 410, 405, 72);
+        this.ctx.fillRect(150, 410, 500, 72);
         this.ctx.restore();
     }
 
     // hover lane 2
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  484 && this.game.mouseXY.y <= 556)){
+    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 150 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  484 && this.game.mouseXY.y <= 556)){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 484, 405, 72);
+        this.ctx.fillRect(150, 484, 500, 72);
         this.ctx.restore();
     }
 
     // hover lane 3
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  558 && this.game.mouseXY.y <= 630)){
+    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 150 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  558 && this.game.mouseXY.y <= 630)){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 558, 405, 72);
+        this.ctx.fillRect(150, 558, 500, 72);
         this.ctx.restore();
     }
     if(this.x < 67.6){

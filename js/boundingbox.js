@@ -20,7 +20,14 @@ BoundingBox.prototype.collide = function (oth) {
 }
 
 BoundingBox.prototype.rangeCheck = function (oth, range) {
-    if (this.right + range > oth.left && this.left + range < oth.right && this.top < oth.bottom && this.bottom > oth.top) return true;
+
+
+
+
+    if (this.right + range > oth.left &&
+        // this.left + range < oth.right &&
+        this.top < oth.bottom &&
+        this.bottom > oth.top) return true;
     return false;
 
 }
