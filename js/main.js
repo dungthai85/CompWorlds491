@@ -488,7 +488,6 @@ AM.queueDownload("./img/Others/Firework.png");
 AM.queueDownload("./img/Others/effects.png");
 AM.queueDownload("./img/Others/hit_effect.png");
 
-
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
 AM.queueDownload("./img/Background/Map 1/NoDamage.png");
