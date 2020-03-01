@@ -378,7 +378,7 @@ SuperBar.prototype.update = function () {
             laneY = 551;
         }
         if (laneY && this.unitName === "Fireball") {
-            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 160, laneY));
+            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 60, laneY));
             if(this.timemeter > this.maxelixir - 2){
                 this.timemeter = 0;
             }
@@ -417,7 +417,7 @@ SuperBar.prototype.draw = function () {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 410, 405, 72);
+        this.ctx.fillRect(150, 410, 500, 72);
         this.ctx.restore();
     }
 
@@ -426,7 +426,7 @@ SuperBar.prototype.draw = function () {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 484, 405, 72);
+        this.ctx.fillRect(150, 484, 500, 72);
         this.ctx.restore();
     }
 
@@ -435,7 +435,7 @@ SuperBar.prototype.draw = function () {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(315, 558, 405, 72);
+        this.ctx.fillRect(150, 558, 500, 72);
         this.ctx.restore();
     }
     Entity.prototype.draw.call(this);
