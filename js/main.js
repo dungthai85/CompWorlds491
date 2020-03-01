@@ -24,11 +24,11 @@ function RedHP(game){
     this.name ="redhp";
     this.hp = 1500;
     this.hpbar = 296;
-    this.boundingbox = new BoundingBox(290, 400, 1, 65);
-    this.boundingbox1 = new BoundingBox(290, 400, 1, 65);
-    this.boundingbox2 = new BoundingBox(290, 480, 1, 65);
-    this.boundingbox3 = new BoundingBox(260, 550, 1, 65);
-    this.x = 288;
+    this.boundingbox = new BoundingBox(230, 400, 3, 65);
+    this.boundingbox1 = new BoundingBox(230, 400, 3, 65);
+    this.boundingbox2 = new BoundingBox(200, 480, 3, 65);
+    this.boundingbox3 = new BoundingBox(130, 550, 3, 65);
+    // this.x = 288;
   
 }
 
@@ -59,8 +59,8 @@ RedHP.prototype.update = function () {
         }
         if (entity.boundingbox.collide(this.boundingbox1) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
-            entity.attacking = true;
-            entity.moving = false;
+            // entity.attacking = true;
+            // entity.moving = false;
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
@@ -69,8 +69,8 @@ RedHP.prototype.update = function () {
         }
         else if (entity.boundingbox.collide(this.boundingbox2) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
-            entity.attacking = true;
-            entity.moving = false;
+            // entity.attacking = true;
+            // entity.moving = false;
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
@@ -79,8 +79,8 @@ RedHP.prototype.update = function () {
         }
         else if (entity.boundingbox.collide(this.boundingbox3) && entity.type !== this.type) {
             //console.log('Colliding ' + entity.type);
-            entity.attacking = true;
-            entity.moving = false;
+            // entity.attacking = true;
+            // entity.moving = false;
             if(entity.attack_animation.animationComplete()){
                 this.hp -= entity.attack_damage;
             }
@@ -161,7 +161,7 @@ RedHP.prototype.draw = function () {
     //bounding box test
     this.ctx.fillRect(288, 137, this.hpbar, 34);
     // this.ctx.strokeStyle = "red";
-    // //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
     // this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
     // this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
     // this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
@@ -179,11 +179,11 @@ function BlueHP(game){
     this.hp = 2000;
     this.hp_current = this.hp;
     this.hpbar = 296;
-    this.boundingbox = new BoundingBox(1140, 403, 1, 65);
-    this.boundingbox1 = new BoundingBox(1140 , 403, 1, 65);
-    this.boundingbox2 = new BoundingBox(1160, 480, 1, 65);
-    this.boundingbox3 = new BoundingBox(1200, 550, 1, 65);
-    this.x = 865;
+    this.boundingbox = new BoundingBox(1205, 403, 1, 65);
+    this.boundingbox1 = new BoundingBox(1205 , 403, 3, 65);
+    this.boundingbox2 = new BoundingBox(1250, 480, 3, 65);
+    this.boundingbox3 = new BoundingBox(1310, 550, 3, 65);
+    // this.x = 865;
 
 }
 

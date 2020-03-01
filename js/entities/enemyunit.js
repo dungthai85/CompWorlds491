@@ -108,10 +108,10 @@ EnemyUnit.prototype.update = function () {
     // Update animation
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x < this.endLane) {
-            this.moving = false;
-            this.attacking = true;
-        }
+        // if (this.x < this.endLane) {
+        //     this.moving = false;
+        //     this.attacking = true;
+        // }
 
     } else if (this.attacking) {
         if (entity.removeFromWorld) {

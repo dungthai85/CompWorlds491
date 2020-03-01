@@ -102,10 +102,10 @@ Goblin.prototype.update = function () {
     }
     else if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x > this.laneEnd) {
-            this.moving = false;
-            this.attacking = true;
-        }
+        // if (this.x > this.laneEnd) {
+        //     this.moving = false;
+        //     this.attacking = true;
+        // }
 
     }
 

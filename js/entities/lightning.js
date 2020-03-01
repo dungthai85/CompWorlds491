@@ -51,7 +51,7 @@ Lightning.prototype.update = function () {
     if (this.x - this.orginalx > 210){
         this.removeFromWorld = true;
     }
-    if (this.x < 1135) {
+    if (this.x < 1315) {
         this.x += this.game.clockTick * this.speed;
         this.boundingbox = new BoundingBox(this.x + 120, this.y + 8, 3, this.animation.frameHeight * .45);
         Entity.prototype.update.call(this);
