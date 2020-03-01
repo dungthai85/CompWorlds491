@@ -1,6 +1,4 @@
 var AM = new AssetManager();
-var is_enemy_spawn_1 = false;
-var is_enemy_spawn_2 = false;
 
 function getLaneEnd(yValue) {
     if (yValue === 385) { // lane 1
@@ -36,7 +34,6 @@ RedHP.prototype = new Entity();
 RedHP.prototype.constructor = RedHP;
 
 RedHP.prototype.update = function () {
-   // console.log(this.hp);
     var entity;
     var i;
     var meatShield1 = false;
@@ -44,19 +41,11 @@ RedHP.prototype.update = function () {
     var meatShield3 = false;
     for (i = 0; i < this.game.entities.length; i++) {
         entity = this.game.entities[i];
-        if (entity === this) {
+        if (entity === this || entity.boundingbox == null) {
             continue;
         }
-        if (entity.boundingbox == null) {
-            continue;
-        }
-        if (this.boundingbox1.rangeCheck(entity.boundingbox, 200) && entity.type !== this.type) {
-            this.game.defense = true;
-        }
-        else if (this.boundingbox2.rangeCheck(entity.boundingbox, 200) && entity.type !== this.type) {
-            this.game.defense = true;
-        }
-        else if (this.boundingbox3.rangeCheck(entity.boundingbox, 200) && entity.type !== this.type) {
+
+        if (entity.type !== this.type && (this.boundingbox1.rangeCheck(entity.boundingbox, 200) || this.boundingbox2.rangeCheck(entity.boundingbox, 200) || this.boundingbox3.rangeCheck(entity.boundingbox, 200))){
             this.game.defense = true;
         }
         if (this.game.defense) { // 
@@ -80,43 +69,13 @@ RedHP.prototype.update = function () {
     var damageTaken = false;
     for(i = 0; i < this.game.entities.length; i++){
         entity = this.game.entities[i];
-        if (entity === this) {
+        if (entity === this || entity.boundingbox == null) {
             continue;
         }
-        if (entity.boundingbox == null) {
-            continue;
-        }
-        
-   
-        
-        if (entity.boundingbox.collide(this.boundingbox1) && entity.type !== this.type) {
-            //console.log('Colliding ' + entity.type);
-            // entity.attacking = true;
-            // entity.moving = false;
-            if(entity.attack_animation.animationComplete()){
-                if (!meatShield1) {
-                    this.hp -= entity.attack_damage;
-                }
-            }
-            damageTaken = true;
-            break;
-        }
-        else if (entity.boundingbox.collide(this.boundingbox2) && entity.type !== this.type) {
-            //console.log('Colliding ' + entity.type);
-            // entity.attacking = true;
-            // entity.moving = false;
-            if(entity.attack_animation.animationComplete()){
-                if (!meatShield2) {
-                    this.hp -= entity.attack_damage;
-                }
-            }
-            damageTaken = true;
-            break;
-        }
-        else if (entity.boundingbox.collide(this.boundingbox3) && entity.type !== this.type) {
-            //console.log('Colliding ' + entity.type);
-            // entity.attacking = true;
-            // entity.moving = false;
+
+        if (entity.type !== this.type && ( entity.boundingbox.collide(this.boundingbox1) || entity.boundingbox.collide(this.boundingbox2) || entity.boundingbox.collide(this.boundingbox3))){
+            entity.attacking = true;
+            entity.moving = false;
             if(entity.attack_animation.animationComplete()){
                 if (!meatShield3) {
                     this.hp -= entity.attack_damage;
@@ -195,16 +154,12 @@ BlueHP.prototype.update = function () {
     var entity;
     for(var i = 0; i < this.game.entities.length; i ++){
         entity = this.game.entities[i];
-        if (entity === this) {
+        if (entity === this || entity.boundingbox == null) {
             continue;
-        }
-
-        if (entity.boundingbox == null) {
-            continue;
-        }   
+        } 
         // this.hp_prev = this.hp_current;
-        if (entity.boundingbox.collide(this.boundingbox1) && entity.type !== this.type) {
-                //console.log('Colliding ' + entity.type);
+        if ((entity.boundingbox.collide(this.boundingbox1 || entity.boundingbox.collide(this.boundingbox2) || entity.boundingbox.collide(this.boundingbox3))) && entity.type !== this.type) {
+                // console.log('Colliding ' + entity.type);
                 if (entity.name === "Fireball"){
                     this.hp_current -= FIREBALL_DAMAGE;
                     entity.removeFromWorld = true;
@@ -221,89 +176,6 @@ BlueHP.prototype.update = function () {
                 }
                 break;
             }
-            else if (entity.boundingbox.collide(this.boundingbox2) && entity.type !== this.type) {
-                //console.log('Colliding ' + entity.type);
-                if (entity.name === "Fireball"){
-                    this.hp_current -= FIREBALL_DAMAGE;
-                    entity.removeFromWorld = true;
-                } else if (entity.name === "Arrow") {
-                    this.hp_current -= entity.attackdamage;
-                    entity.removeFromWorld = true;
-                } else if (entity.name === "Spell"){
-                    this.hp_current -= entity.attackdamage;
-                    entity.removeFromWorld = true;
-                } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
-                    this.hp_current -= entity.attackdamage;
-                    entity.attacking = true;
-                    entity.moving = false;
-                }
-                break;
-            }
-            else if (entity.boundingbox.collide(this.boundingbox3) && entity.type !== this.type) {
-                //console.log('Colliding ' + entity.type);
-                if (entity.name === "Fireball"){
-                    this.hp_current -= FIREBALL_DAMAGE;
-                    entity.removeFromWorld = true;
-                } else if (entity.name === "Arrow") {
-                    this.hp_current -= entity.attackdamage;
-                    entity.removeFromWorld = true;
-                } else if (entity.name === "Spell"){
-                    this.hp_current -= entity.attackdamage;
-                    entity.removeFromWorld = true;
-                } 
-                else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
-                    this.hp_current -= entity.attackdamage;
-                    entity.attacking = true;
-                    entity.moving = false;
-                }
-                break;
-            }
-        // this.boundingbox = this.boundingbox1;
-        // //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
-        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-        //     //console.log('Colliding ' + entity.type);
-        //     if (entity.name === "Fireball"){
-        //         this.hp_current -= FIREBALL_DAMAGE;
-        //         entity.removeFromWorld = true;
-        //     } else if (entity.name === "Arrow" || entity.name === "Spell") {
-        //         this.hp_current -= entity.attackdamage;
-        //         entity.removeFromWorld = true;
-        //     } else if (entity.name !== "Fireball" && entity.attackAnimation.animationComplete()) {
-        //         this.hp_current -= entity.attackdamage;
-        //     }
-        //     break;
-        // }
-        // this.boundingbox = this.boundingbox2;
-        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-        //     if (entity.name === "Fireball"){
-        //         //debugger
-        //         this.hp_current -= FIREBALL_DAMAGE;
-        //         entity.removeFromWorld = true;
-        //     } else if (entity.name === "Arrow" || entity.name === "Spell") {
-        //         this.hp_current -= entity.attackdamage;
-        //         entity.removeFromWorld = true;
-        //     } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-        //         this.hp_current -= entity.attackdamage;
-        //         // is_castle_under_attack = true;
-        //     }
-        //     break;
-        // }
-        // this.boundingbox = this.boundingbox3;
-        // if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-        //     if (entity.name === "Fireball"){
-        //         //debugger
-        //         this.hp_current -= FIREBALL_DAMAGE;
-        //         entity.removeFromWorld = true;
-        //     } else if (entity.name === "Arrow" || entity.name === "Spell") {
-        //         this.hp_current -= entity.attackdamage;
-        //         entity.removeFromWorld = true;
-        //         // this.hp_current -= ARROW_DAMAGE;
-        //     } else if(entity.name !== "Fireball" && entity.attackAnimation.animationComplete()){
-        //         this.hp_current -= entity.attackdamage;
-        //         // is_castle_under_attack = true;
-        //     }
-        //     break;
-        // }
     }
     if (this.hp_current < this.hp) is_castle_under_attack = true;
     // else is_castle_under_attack = false;
@@ -336,7 +208,7 @@ BlueHP.prototype.draw = function () {
     }
     //console.log("draw" + this.hpbar);
     this.ctx.fillRect(856, 137, this.hpbar, 34);
-    // this.ctx.strokeStyle = "red";
+    //this.ctx.strokeStyle = "red";
     // //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
     // this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
     // this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
@@ -413,7 +285,7 @@ SuperBar.prototype.draw = function () {
     this.ctx.fillRect(1052, 687, this.timemeter, 34);
 
     // hover lane 1
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  410 && this.game.mouseXY.y <= 482)){
+    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 150 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  410 && this.game.mouseXY.y <= 482)){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
@@ -422,7 +294,7 @@ SuperBar.prototype.draw = function () {
     }
 
     // hover lane 2
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  484 && this.game.mouseXY.y <= 556)){
+    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 150 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  484 && this.game.mouseXY.y <= 556)){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
@@ -431,7 +303,7 @@ SuperBar.prototype.draw = function () {
     }
 
     // hover lane 3
-    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 305 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  558 && this.game.mouseXY.y <= 630)){
+    if (this.unitName != null && this.shadow && this.game.mouseXY != null && (this.game.mouseXY.x >= 150 && this.game.mouseXY.x <= 1135) && (this.game.mouseXY.y >=  558 && this.game.mouseXY.y <= 630)){
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
@@ -482,6 +354,12 @@ AM.queueDownload("./img/Archer/Archer.png");
 AM.queueDownload("./img/enemy_team/orc/orc.png");
 AM.queueDownload("./img/enemy_team/reaper_chibbi/reaper.png");
 AM.queueDownload("./img/enemy_team/fallen_angel/fallen_angel.png");
+AM.queueDownload("./img/enemy_team/boss/troll_warlord.png");
+AM.queueDownload("./img/enemy_team/death_knight/death_knight.png");
+AM.queueDownload("./img/Others/Firework.png");
+AM.queueDownload("./img/Others/effects.png");
+AM.queueDownload("./img/Others/hit_effect.png");
+
 
 AM.queueDownload("./img/Background/Start.png");
 AM.queueDownload("./img/Background/Tutorial.png");
@@ -514,8 +392,6 @@ AM.queueDownload("./img/Background/PlayAgain1.png");
 
 AM.queueDownload("./img/Background/Flag1.png");
 AM.queueDownload("./img/Background/Flag2.png");
-
-AM.queueDownload("./img/Others/Firework.png");
 
 AM.queueDownload("./img/Background/Victory.png");
 AM.queueDownload("./img/Background/Victory1.png");

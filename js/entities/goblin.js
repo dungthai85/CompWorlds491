@@ -62,7 +62,7 @@ Goblin.prototype.update = function () {
             }
             break;
         } else if (entity.name === "bluehp" && this.boundingbox.collide(entity.boundingbox1)) {
-            // console.log('Colliding ' + entity.type);
+            console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
             break;
@@ -102,11 +102,6 @@ Goblin.prototype.update = function () {
     }
     else if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        // if (this.x > this.laneEnd) {
-        //     this.moving = false;
-        //     this.attacking = true;
-        // }
-
     }
 
     this.boundingbox = new BoundingBox(this.x + 52, this.y + 2, 5, this.animation.frameHeight*.1);
@@ -137,13 +132,13 @@ Goblin.prototype.draw = function () {
 
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
-        // this.ctx.strokeStyle = "red";
-        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.ctx.strokeStyle = "red";
+        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y , 0.40);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
-        // this.ctx.strokeStyle = "red";
-        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.ctx.strokeStyle = "red";
+        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y , 0.40);
         // if (this.attackAnimation.animationComplete() && !this.finished) {
         //     this.hp_current -= 10;

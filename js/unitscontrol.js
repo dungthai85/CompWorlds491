@@ -40,10 +40,10 @@ function UnitsControl (game){
     this.speed = 35;
     this.oneElixir = 338/10;
     this.x = 0;
-    this.knight = false;
-    this.bandit = false;
-    this.samurai = false;
-    this.goblin = false;
+    // this.knight = false;
+    // this.bandit = false;
+    // this.samurai = false;
+    // this.goblin = false;
     Entity.call(this, game, 0, 687);
 }
 
@@ -64,6 +64,56 @@ function defenseAdjustment(game, lane) {
     return result;
 }
 
+function UnitGenerate(HERO_NAME) {
+    var heroes;
+
+    if (HERO_NAME === "1Knight") {
+        heroes = {
+            spritesheet: AM.getAsset("./img/Knight/Knight.png"),
+            music: AM.getMusic("./img/music/KnightDeploy.wav"),
+            cost : 4
+
+        }
+    }  else if (HERO_NAME === "2Mage") {
+        heroes = {
+            spritesheet: AM.getAsset("./img/Mage/Mage.png"),
+            music: NULL,
+            cost : 3
+
+        }
+    }   else if (HERO_NAME === "3Bandit") {
+        heroes = {
+            spritesheet: AM.getAsset("./img/Bandit/Bandit.png"),
+            music: AM.getMusic("./img/music/BanditDeploy.wav"),
+            cost : 3
+
+        }
+    }    else if (HERO_NAME === "4Samurai") {
+        heroes = {
+            spritesheet: AM.getAsset("./img/Samurai/Samurai.png"),
+            music: AM.getMusic("./img/music/SamuraiDeploy.wav"),
+            cost : 3
+
+        }
+    }   else if (HERO_NAME === "6Archer") {
+        heroes = {
+            spritesheet: AM.getAsset("./img/Archer/Archer.png"),
+            music: AM.getMusic("./img/music/ArcherDeploy.wav"),
+            cost : 2
+
+        }
+    }    else if (HERO_NAME === "5Goblin") {
+        heroes = {
+            spritesheet: AM.getAsset("./img/Goblin/Goblin.png"),
+            music: NULL,
+            cost : 2
+
+        }
+    }
+
+    return heroes
+}
+
 UnitsControl.prototype.update = function () {
     if (this.x < this.maxelixir){
         this.x += this.game.clockTick * this.speed;
@@ -80,8 +130,6 @@ UnitsControl.prototype.update = function () {
         this.shadow = true;
     } else if (this.game.menu.clicked && this.game.menu.id === UNIT_CONTROL_CHARACTER[3]&& this.x > 67.6) {
         this.unitName = UNIT_CONTROL_CHARACTER[3];
-        // this.unitName = "Goblin";
-        // this.unitName = "Mage";
         this.shadow = true;
     }
     if (this.game.lane !== 0 && this.unitName != null){
@@ -98,13 +146,14 @@ UnitsControl.prototype.update = function () {
         }
 
         var laneX = defenseAdjustment(this.game, this.lane);
-        if (laneY && this.unitName === "1Knight") {
+
+
+        if (this.unitName === "1Knight") {
             //debugger;
             this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
-            is_enemy_spawn_1 = true;
-            if (this.x - this.oneElixir * 4 < 96) {
+            if (this.x - this.oneElixir * 4 < 0) {
                 this.x = 0
             } else {
                 this.x = this.x - this.oneElixir * 4;
@@ -115,11 +164,10 @@ UnitsControl.prototype.update = function () {
                 AM.getMusic("./img/music/KnightDeploy.wav").play();
 
             }
-        }  else if (laneY && this.unitName === "2Mage") {
+        }  else if (this.unitName === "2Mage") {
             this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
-            is_enemy_spawn_2 = true;
             if (this.x - this.oneElixir * 3 < 0) {
                 this.x = 0
             } else {
@@ -127,11 +175,10 @@ UnitsControl.prototype.update = function () {
             }
 
         }
-        else if (laneY && this.unitName === "3Bandit") {
+        else if (this.unitName === "3Bandit") {
             this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
-            is_enemy_spawn_2 = true;
             if (this.x - this.oneElixir * 3 < 0) {
                 this.x = 0
             } else {
@@ -142,11 +189,10 @@ UnitsControl.prototype.update = function () {
                 AM.getMusic("./img/music/BanditDeploy.wav").play();
             }
 
-        } else if (laneY && this.unitName === "4Samurai") {
+        } else if (this.unitName === "4Samurai") {
             this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
-            is_enemy_spawn_1 = true;
             if (this.x - this.oneElixir * 3 < 0) {
                 this.x = 0
             } else {
@@ -155,7 +201,7 @@ UnitsControl.prototype.update = function () {
             if (PLAY_MUSIC) {
                 AM.getMusic("./img/music/SamuraiDeploy.wav").play();
             }
-        } else if (laneY && this.unitName === "6Archer") {
+        } else if (this.unitName === "6Archer") {
             this.game.addEntity(new Archer(this.game, AM.getAsset("./img/Archer/Archer.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -169,7 +215,7 @@ UnitsControl.prototype.update = function () {
                 AM.getMusic("./img/music/ArcherDeploy.wav").play();
 
             }
-        } else if (laneY && this.unitName === "5Goblin") {
+        } else if (this.unitName === "5Goblin") {
             this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
@@ -181,30 +227,7 @@ UnitsControl.prototype.update = function () {
             
 
         }
-        // else if (laneY && this.unitName === "Mage") {
-        //     this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
-        //     this.unitName = null;
-        //     this.lane = null;
-        //     if (this.x - this.oneElixir * 2 < 0) {
-        //         this.x = 0
-        //     } else {
-        //         this.x = this.x - this.oneElixir * 2;
-        //     }
-        // }
     }
-    
-    // if (is_enemy_spawn_1) {
-    //     this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
-    //     this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
-    //     this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
-    //     is_enemy_spawn_1 = false;
-    // }
-    // else if (is_enemy_spawn_2) {
-    //     this.game.addEntity(new Orc(this.game,AM.getAsset("./img/enemy_team/orc/orc.png"), 1000, 370));
-    //     this.game.addEntity(new ReaperMan(this.game,AM.getAsset("./img/enemy_team/reaper_chibbi/reaper.png"), 1000, 455));
-    //     this.game.addEntity(new FallenAngel(this.game,AM.getAsset("./img/enemy_team/fallen_angel/fallen_angel.png"), 1000, 535));
-    //     is_enemy_spawn_2 = false;
-    // }
     Entity.prototype.update.call(this);
 }
 
