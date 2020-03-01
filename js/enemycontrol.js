@@ -10,7 +10,7 @@ function EnemyControl (game, difficulty){
     this.start_time = new Date();
     this.elapsed = 0;
     this.difficulty = difficulty;
-    this.spawn_lane_position = [[1100, 370], [1120, 455], [1130, 535]];
+    this.spawn_lane_position = [[1170, 370], [1215, 455], [1275, 535]];
 }
 
 EnemyControl.prototype = new Entity();
