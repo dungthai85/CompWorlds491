@@ -249,11 +249,11 @@ function getSelectedThing(e, that, click){
 }
 
 function getSelectedLane(e, that){
-    if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 385 && e.clientY <= 483)){
+    if ((e.clientX >= 150 && e.clientX <= 1135) && (e.clientY >= 385 && e.clientY <= 483)){
         that.lane = 1;
-    } else if((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 484 && e.clientY <= 560)){
+    } else if((e.clientX >= 150 && e.clientX <= 1135) && (e.clientY >= 484 && e.clientY <= 560)){
         that.lane = 2;
-    } else if ((e.clientX >= 305 && e.clientX <= 1135) && (e.clientY >= 561 && e.clientY <= 630)){
+    } else if ((e.clientX >= 150 && e.clientX <= 1135) && (e.clientY >= 561 && e.clientY <= 630)){
         that.lane = 3;
     }
     return that.lane;
