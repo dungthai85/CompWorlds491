@@ -49,7 +49,7 @@ Arrow.prototype.update = function () {
     if (this.x - this.orginalx > 320){
         this.removeFromWorld = true;
     }
-    if (this.x < 1310) {
+    if (this.x < 1400) {
         this.x += this.game.clockTick * this.speed;
         // this.boundingbox = new BoundingBox(this.x + 46, this.y +2, 3, this.animation.frameHeight * .35);
         this.boundingbox = new BoundingBox(this.x + 65, this.y +2, 3, this.animation.frameHeight * .35);

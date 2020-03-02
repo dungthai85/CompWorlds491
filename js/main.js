@@ -158,7 +158,7 @@ BlueHP.prototype.update = function () {
             continue;
         } 
         // this.hp_prev = this.hp_current;
-        if ((entity.boundingbox.collide(this.boundingbox1 || entity.boundingbox.collide(this.boundingbox2) || entity.boundingbox.collide(this.boundingbox3))) && entity.type !== this.type) {
+        if ((entity.boundingbox.collide(this.boundingbox1) || entity.boundingbox.collide(this.boundingbox2) || entity.boundingbox.collide(this.boundingbox3)) && entity.type !== this.type) {
                 // console.log('Colliding ' + entity.type);
                 if (entity.name === "Fireball"){
                     this.hp_current -= FIREBALL_DAMAGE;

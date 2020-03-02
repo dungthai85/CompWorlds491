@@ -48,10 +48,10 @@ Lightning.prototype.update = function () {
     //         break;
     //     }
     // }
-    if (this.x - this.orginalx > 210){
+    if (this.x - this.orginalx > 220){
         this.removeFromWorld = true;
     }
-    if (this.x < 1315) {
+    if (this.x < 1440) {
         this.x += this.game.clockTick * this.speed;
         this.boundingbox = new BoundingBox(this.x + 120, this.y + 8, 3, this.animation.frameHeight * .45);
         Entity.prototype.update.call(this);
