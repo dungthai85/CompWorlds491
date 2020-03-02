@@ -191,6 +191,7 @@ BlueHP.prototype.update = function () {
     else if(this.hp_current <= 500){
         this.half = false;
         this.quarter = true;
+        is_boss_spawn = true;
     }
     Entity.prototype.update.call(this);   
 }
