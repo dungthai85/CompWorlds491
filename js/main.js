@@ -178,8 +178,6 @@ BlueHP.prototype.update = function () {
             }
     }
     if (this.hp_current < this.hp) is_castle_under_attack = true;
-    // else is_castle_under_attack = false;
-    // console.log(is_castle_under_attack);
     this.hpbar = 296 - (1 - (this.hp_current/2000))*296;
     if(this.hpbar < 0){
         this.hpbar = 0;

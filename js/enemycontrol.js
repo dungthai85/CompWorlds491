@@ -49,11 +49,6 @@ EnemyControl.prototype.update = function () {
     }
 
     if (this.difficulty === 2) {
-        // if (this.enemy_count === 5)  {
-        //     this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
-        //     this.enemy_count += 1;
-        //     this.boss_spawn = true;
-        // }
         if ((this.elapsed < curr_elapsed - 2.25) && (!is_boss_spawn)) {
             if(whichentity === 1){
                 this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty+.5));
@@ -86,8 +81,6 @@ EnemyControl.prototype.update = function () {
             this.elapsed = curr_elapsed;
         }
     }
-
-
 }
 EnemyControl.prototype.draw = function () {
 }
