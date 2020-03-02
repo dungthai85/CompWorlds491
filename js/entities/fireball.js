@@ -32,13 +32,13 @@ Fireball.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            if (entity.name !== "bluehp"){
+            if (entity.name !== "bluehp" && entity.name !== "TrollWarlord"){
                 entity.removeFromWorld = true;
-            }
+            } 
             break;
         }
     }
-    if (this.x < 1135){
+    if (this.x < 1310){
         this.x += this.game.clockTick * this.speed;
         this.boundingbox = new BoundingBox(this.x + 67, this.y + 8, 1, this.animation.frameHeight*.35);
         Entity.prototype.update.call(this);
@@ -46,7 +46,7 @@ Fireball.prototype.update = function () {
 }
 
 Fireball.prototype.draw = function () {
-    if (this.x < 1135){
+    if (this.x < 1310){
         //bounding box test
         // this.ctx.strokeStyle = "red";
         // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);

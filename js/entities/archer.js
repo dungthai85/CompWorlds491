@@ -4,7 +4,7 @@ function Archer(game, spritesheet, X, Y) {
     this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.1, 9, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.hp = 100;
-    this.attackdamage = 0;
+    this.attackdamage = 25;
     this.range = 300;
     this.moving = true;
     this.attacking = false;
@@ -56,6 +56,7 @@ Archer.prototype.update = function () {
                 // debugger;
                 this.hp_current -= entity.attack_damage;
                 this.enemytouching = true;
+                break;
             } else{
                 console.log("not colliding");
                 this.enemytouching = false;

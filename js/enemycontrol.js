@@ -7,8 +7,9 @@ function EnemyControl (game, difficulty){
     this.start_time = new Date();
     this.elapsed = 0;
     this.difficulty = difficulty;
+    this.spawn_lane_position = [[1170, 370], [1215, 455], [1275, 535]];
     this.boss_spawn = false;
-    this.spawn_lane_position = [[1100, 370], [1120, 455], [1130, 535]];
+    // this.spawn_lane_position = [[1100, 370], [1120, 455], [1130, 535]];
     this.enemy_count = 0;
 }
 
@@ -21,23 +22,23 @@ EnemyControl.prototype.update = function () {
     // Calculate time difference, strip the ms, and round it to the second.
     var curr_elapsed = (checkpoint_time - this.start_time)/1000;
 
-    var whichentity = Math.floor(Math.random() * 5 + 1);
+    var whichentity = Math.floor(Math.random() * 4 + 1);
     //Prevent update too many times
     if (this.difficulty === 1) {
-        if ((this.elapsed < curr_elapsed - 1.5) && (this.boss_spawn === false)) {
+        if ((this.elapsed < curr_elapsed - 2.5) && (this.boss_spawn === false)) {
             if(whichentity === 1){
-                this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty +.5));
 
             } 
             else if (whichentity === 2){
-                this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty +.5));
 
             }
             else if (whichentity ===3){
-                this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty +.5));
             } 
             else if (whichentity ===4){
-                this.game.addEntity(new EnemyUnit(this.game, "DeathKnight", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "DeathKnight", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty +.5));
             }
             this.enemy_count += 1;
             this.elapsed = curr_elapsed;
@@ -45,22 +46,22 @@ EnemyControl.prototype.update = function () {
     }
 
     if (this.difficulty === 2) {
-        if (this.enemy_count === 5)  {
-            this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
-            this.enemy_count += 1;
-            this.boss_spawn = true;
-        }
-        if ((this.elapsed < curr_elapsed - 2) && (!this.boss_spawn)) {
+        // if (this.enemy_count === 5)  {
+        //     this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
+        //     this.enemy_count += 1;
+        //     this.boss_spawn = true;
+        // }
+        if ((this.elapsed < curr_elapsed - 2.25) && (!this.boss_spawn)) {
             if(whichentity === 1){
-                this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty+.5));
 
             } 
             else if (whichentity === 2){
-                this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty+.5));
 
             }
             else if (whichentity ===3){
-                this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty+.5));
             }
             this.elapsed = curr_elapsed;
             this.enemy_count += 1
@@ -68,17 +69,17 @@ EnemyControl.prototype.update = function () {
     }
 
     if (this.difficulty === 3) {
-        if ((this.elapsed < curr_elapsed - 1.5) && (this.boss_spawn === false)) {
+        if ((this.elapsed < curr_elapsed - 2) && (this.boss_spawn === false)) {
             if(whichentity === 1){
-                this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty-.5));
 
             } 
             else if (whichentity === 2){
-                this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty-.5));
 
             }
             else if (whichentity ===3){
-                this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+                this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty-.5));
             }
             this.elapsed = curr_elapsed;
             this.enemy_count += 1

@@ -4,7 +4,7 @@ function Mage(game, spritesheet, X, Y) {
     this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.1,12, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.hp = 120;
-    this.attackdamage = 0;
+    this.attackdamage = 50;
     this.range = 200;
     this.targeting = null;
     this.moving = true;
@@ -54,10 +54,10 @@ Mage.prototype.update = function () {
                 // debugger;
                 this.hp_current -= entity.attack_damage;
                 this.enemytouching = true;
+                
             }  else{
                 console.log("not colliding");
                 this.enemytouching = false;
-                break;
             }      
             break;
         }
@@ -68,20 +68,20 @@ Mage.prototype.update = function () {
             this.targeting = entity;
             break;
         }
-        else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox1, this.range - 25)) {
+        else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox1, this.range - 50)) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
             this.targeting = entity;
             break;
         }
-         else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox2, this.range - 25)) {
+         else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox2, this.range - 50)) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
             this.targeting = entity;
             break;
-        } else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox3, this.range - 25)) {
+        } else if (entity.name === "bluehp" && this.boundingbox.rangeCheck(entity.boundingbox3, this.range - 50)) {
             // console.log('Colliding ' + entity.type);
             this.moving = false;
             this.attacking = true;
@@ -248,7 +248,7 @@ Mage.prototype.draw = function () {
         // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
     } else if (this.hp_current > 0 && this.attacking) {
-        //bounding box test
+        // //bounding box test
         // this.ctx.strokeStyle = "red";
         // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y + offset, 0.3);
