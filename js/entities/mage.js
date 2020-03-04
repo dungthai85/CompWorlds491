@@ -4,7 +4,7 @@ function Mage(game, spritesheet, X, Y) {
     this.attackAnimation = new MyAnimation(spritesheet, 0, 300, 300, 300, 0.1,12, true, false);
     this.deathAnimation = new MyAnimation(spritesheet, 0, 900, 300, 300, 0.2, 15, false, false);
     this.hp = 120;
-    this.attackdamage = 50;
+    this.attackdamage = 25;
     this.range = 200;
     this.targeting = null;
     this.moving = true;
@@ -56,13 +56,13 @@ Mage.prototype.update = function () {
                 this.enemytouching = true;
                 
             }  else{
-                console.log("not colliding");
+                // console.log("not colliding");
                 this.enemytouching = false;
             }      
             break;
         }
         if (this.boundingbox.rangeCheck(entity.boundingbox, this.range) && entity.type !== this.type){
-            console.log('DETECT ENEMY IN RANGE');
+            // console.log('DETECT ENEMY IN RANGE');
             this.moving = false;
             this.attacking = true;
             this.targeting = entity;

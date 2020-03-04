@@ -5,7 +5,7 @@ function Lightning(game, spritesheet, X, Y) {
     this.animation = new MyAnimation(spritesheet, 0, 0, 209, 125, 0.05, 9, true, false);
     this.speed = 200;
     this.ctx = game.ctx;
-    this.attackdamage = 150;
+    this.attackdamage = 100;
     this.orginalx = X;
     this.x = X;
     this.y = Y;

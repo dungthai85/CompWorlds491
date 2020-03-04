@@ -44,7 +44,7 @@ function UnitsControl (game){
     // this.bandit = false;
     // this.samurai = false;
     // this.goblin = false;
-    Entity.call(this, game, 0, 687);
+    Entity.call(this, game, 338, 687);
 }
 
 UnitsControl.prototype = new Entity();
