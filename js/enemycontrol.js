@@ -13,7 +13,7 @@ function EnemyControl(game, difficulty) {
     [1215, 455],
     [1275, 535]
   ];
-  this.boss_spawn = false;
+  this.boss_spawn = true;
   this.speedincrease = 3;
   // this.spawn_lane_position = [[1100, 370], [1120, 455], [1130, 535]];
   this.enemy_count = 0;

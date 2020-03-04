@@ -273,13 +273,13 @@ EnemyUnit.prototype.draw = function() {
   // Draw animation and boundingbow
   if (this.moving && this.hp_current > 0) {
     //bounding box test
-    this.ctx.strokeStyle = "red";
-    this.ctx.strokeRect(
-      this.boundingbox.x,
-      this.boundingbox.y,
-      this.boundingbox.width,
-      this.boundingbox.height
-    );
+    // this.ctx.strokeStyle = "red";
+    // this.ctx.strokeRect(
+    //   this.boundingbox.x,
+    //   this.boundingbox.y,
+    //   this.boundingbox.width,
+    //   this.boundingbox.height
+    // );
     this.walk_animation.drawFrame(
       this.game.clockTick,
       this.ctx,
@@ -289,13 +289,13 @@ EnemyUnit.prototype.draw = function() {
     );
   } else if (this.attacking && this.hp_current > 0) {
     //bounding box test
-    this.ctx.strokeStyle = "red";
-    this.ctx.strokeRect(
-      this.boundingbox.x,
-      this.boundingbox.y,
-      this.boundingbox.width,
-      this.boundingbox.height
-    );
+    // this.ctx.strokeStyle = "red";
+    // this.ctx.strokeRect(
+    //   this.boundingbox.x,
+    //   this.boundingbox.y,
+    //   this.boundingbox.width,
+    //   this.boundingbox.height
+    // );
     this.attack_animation.drawFrame(
       this.game.clockTick,
       this.ctx,
