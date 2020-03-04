@@ -2,8 +2,8 @@ function EnemyUnit(game, ENTITY_NAME, POSITION, LEVEL) {
     var ENEMY = Enemy_Generator(ENTITY_NAME);
 
     if (is_castle_under_attack) {
-        if (POSITION[1] === 535) this.x = POSITION[0] + 150;
-        else this.x = POSITION[0] + 55;
+        if (POSITION[1] === 535) this.x = POSITION[0] + 50;
+        else this.x = POSITION[0] + 20;
     } else this.x = POSITION[0];
     this.y = POSITION[1];
     
@@ -115,10 +115,10 @@ EnemyUnit.prototype.update = function () {
     // Update animation
     if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x < this.endLane) {
-            this.moving = false;
-            this.attacking = true;
-        }
+        // if (this.x < this.endLane) {
+        //     this.moving = false;
+        //     this.attacking = true;
+        // }
 
     } else if (this.attacking) {
         if (entity.removeFromWorld) {
@@ -148,13 +148,13 @@ EnemyUnit.prototype.draw = function () {
     // Draw animation and boundingbow
     if (this.moving && this.hp_current > 0 ) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.walk_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, this.FORM_SCALE);
     } else if (this.attacking && this.hp_current > 0 ) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attack_animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, this.FORM_SCALE);
 
         if (this.name === "TrollWarlord") this.effect.drawFrame(this.game.clockTick, this.ctx, this.x - 30, this.y, 0.3);

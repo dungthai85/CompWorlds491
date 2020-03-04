@@ -104,13 +104,13 @@ Samurai.prototype.update = function () {
     }
     else if (this.moving) {
         this.x += this.game.clockTick * this.speed;
-        if (this.x > this.laneEnd) {
-            this.moving = false;
-            this.attacking = true;
-            console.log(this.removeFromWorld);
-            // this.removeFromWorld = true;
-            console.log(this.removeFromWorld);
-        }
+        // if (this.x > this.laneEnd) {
+        //     this.moving = false;
+        //     this.attacking = true;
+        //     console.log(this.removeFromWorld);
+        //     // this.removeFromWorld = true;
+        //     console.log(this.removeFromWorld);
+        // }
 
     }
     this.boundingbox = new BoundingBox(this.x + 73, this.y + 2, 5, this.animation.frameHeight * .1);

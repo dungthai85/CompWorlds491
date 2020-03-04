@@ -22,11 +22,12 @@ function RedHP(game){
     this.name ="redhp";
     this.hp = 1500;
     this.hpbar = 296;
-    this.boundingbox = new BoundingBox(290, 400, 1, 65);
-    this.boundingbox1 = new BoundingBox(290, 400, 1, 65);
-    this.boundingbox2 = new BoundingBox(290, 480, 1, 65);
-    this.boundingbox3 = new BoundingBox(260, 550, 1, 65);
-    this.x = 288;
+    this.boundingbox = new BoundingBox(230, 400, 3, 65);
+    this.boundingbox1 = new BoundingBox(230, 400, 3, 65);
+    this.boundingbox2 = new BoundingBox(200, 480, 3, 65);
+    this.boundingbox3 = new BoundingBox(130, 550, 3, 65);
+    // this.x = 288;
+  
 }
 
 RedHP.prototype = new Entity();
@@ -119,7 +120,7 @@ RedHP.prototype.draw = function () {
     //bounding box test
     this.ctx.fillRect(288, 137, this.hpbar, 34);
     // this.ctx.strokeStyle = "red";
-    // //this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
     // this.ctx.strokeRect(this.boundingbox1.x, this.boundingbox1.y, this.boundingbox1.width, this.boundingbox1.height);
     // this.ctx.strokeRect(this.boundingbox2.x, this.boundingbox2.y, this.boundingbox2.width, this.boundingbox2.height);
     // this.ctx.strokeRect(this.boundingbox3.x, this.boundingbox3.y, this.boundingbox3.width, this.boundingbox3.height);
@@ -137,11 +138,11 @@ function BlueHP(game){
     this.hp = 2000;
     this.hp_current = this.hp;
     this.hpbar = 296;
-    this.boundingbox = new BoundingBox(1140, 403, 1, 65);
-    this.boundingbox1 = new BoundingBox(1140 , 403, 1, 65);
-    this.boundingbox2 = new BoundingBox(1160, 480, 1, 65);
-    this.boundingbox3 = new BoundingBox(1200, 550, 1, 65);
-    this.x = 865;
+    this.boundingbox = new BoundingBox(1205, 403, 1, 65);
+    this.boundingbox1 = new BoundingBox(1205 , 403, 3, 65);
+    this.boundingbox2 = new BoundingBox(1250, 480, 3, 65);
+    this.boundingbox3 = new BoundingBox(1310, 550, 3, 65);
+    // this.x = 865;
 
 }
 
@@ -157,7 +158,7 @@ BlueHP.prototype.update = function () {
             continue;
         } 
         // this.hp_prev = this.hp_current;
-        if ((entity.boundingbox.collide(this.boundingbox1 || entity.boundingbox.collide(this.boundingbox2) || entity.boundingbox.collide(this.boundingbox3))) && entity.type !== this.type) {
+        if ((entity.boundingbox.collide(this.boundingbox1) || entity.boundingbox.collide(this.boundingbox2) || entity.boundingbox.collide(this.boundingbox3)) && entity.type !== this.type) {
                 // console.log('Colliding ' + entity.type);
                 if (entity.name === "Fireball"){
                     this.hp_current -= FIREBALL_DAMAGE;
@@ -249,7 +250,7 @@ SuperBar.prototype.update = function () {
             laneY = 551;
         }
         if (laneY && this.unitName === "Fireball") {
-            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 180, laneY));
+            this.game.addEntity(new Fireball(this.game, AM.getAsset("./img/Fireball/Fireball.png"), 60, laneY));
             if(this.timemeter > this.maxelixir - 2){
                 this.timemeter = 0;
             }
@@ -288,7 +289,7 @@ SuperBar.prototype.draw = function () {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(150, 410, 405, 72);
+        this.ctx.fillRect(150, 410, 500, 72);
         this.ctx.restore();
     }
 
@@ -297,7 +298,7 @@ SuperBar.prototype.draw = function () {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(150, 484, 405, 72);
+        this.ctx.fillRect(150, 484, 500, 72);
         this.ctx.restore();
     }
 
@@ -306,7 +307,7 @@ SuperBar.prototype.draw = function () {
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = "rgba(240, 52, 52, 1)";
-        this.ctx.fillRect(150, 558, 405, 72);
+        this.ctx.fillRect(150, 558, 500, 72);
         this.ctx.restore();
     }
     Entity.prototype.draw.call(this);

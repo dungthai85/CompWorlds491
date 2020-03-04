@@ -44,21 +44,21 @@ function UnitsControl (game){
     // this.bandit = false;
     // this.samurai = false;
     // this.goblin = false;
-    Entity.call(this, game, 0, 687);
+    Entity.call(this, game, 338, 687);
 }
 
 UnitsControl.prototype = new Entity();
 UnitsControl.prototype.constructor = UnitsControl;
 
 function defenseAdjustment(game, lane) {
-    var result = 305;
+    var result = 235;
     if (game.defense === true) {
         if (lane === 1) {
-            result -= 90;
+            result -= 80;
         } else if (lane === 2) {
             result -= 99.5;
         } else {
-            result -= 160;
+            result -= 190;
         }
     }
     return result;
