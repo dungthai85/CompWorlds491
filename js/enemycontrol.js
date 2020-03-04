@@ -23,19 +23,20 @@ function EnemyControl(game, difficulty) {
 EnemyControl.prototype = new Entity();
 EnemyControl.prototype.constructor = EnemyControl;
 
-EnemyControl.prototype.update = function() {
-  // Get current time
-  var checkpoint_time = new Date();
-  // Calculate time difference, strip the ms, and round it to the second.
-  var curr_elapsed = (checkpoint_time - this.start_time) / 1000;
-
-  // test to change the speed of the spawn
-  if (Math.floor(curr_elapsed) % 6 === 0) {
-    this.timecount++;
-    if (this.speedincrease > 0 && this.timecount === 40) {
-      this.speedincrease -= 0.1;
-      console.log(this.speedincrease);
-      this.timecount = 0;
+EnemyControl.prototype.update = function () {
+    // Get current time
+    var checkpoint_time = new Date();
+    // Calculate time difference, strip the ms, and round it to the second.
+    var curr_elapsed = (checkpoint_time - this.start_time)/1000;
+   
+    // test to change the speed of the spawn
+    if(Math.floor(curr_elapsed) % 6 === 0 ){
+        this.timecount++;
+        if(this.speedincrease > 1.5 && this.timecount === 40){
+            this.speedincrease -= .1;
+            console.log(this.speedincrease);
+            this.timecount = 0;
+        }
     }
   }
 
