@@ -27,7 +27,7 @@ EnemyControl.prototype.update = function () {
     // test to change the speed of the spawn
     if(Math.floor(curr_elapsed) % 6 === 0 ){
         this.timecount++;
-        if(this.speedincrease > 0 && this.timecount === 40){
+        if(this.speedincrease > 1 && this.timecount === 40){
             this.speedincrease -= .1;
             console.log(this.speedincrease);
             this.timecount = 0;
