@@ -35,6 +35,9 @@ RedHP.prototype.constructor = RedHP;
 RedHP.prototype.update = function () {
     var entity;
     var i;
+    var meatShield1 = false;
+    var meatShield2 = false;
+    var meatShield3 = false;
     for (i = 0; i < this.game.entities.length; i++) {
         entity = this.game.entities[i];
         if (entity === this || entity.boundingbox == null) {
@@ -44,6 +47,22 @@ RedHP.prototype.update = function () {
         if (entity.type !== this.type && (this.boundingbox1.rangeCheck(entity.boundingbox, 200) || this.boundingbox2.rangeCheck(entity.boundingbox, 200) || this.boundingbox3.rangeCheck(entity.boundingbox, 200))){
             this.game.defense = true;
         }
+        if (this.game.defense) { // 
+            if (entity.type === "hero") {
+                if (this.boundingbox1.collide(entity.boundingbox)) {
+                    meatShield1 = true;
+                } else if (this.boundingbox2.collide(entity.boundingbox)) {
+                    meatShield2 = true;
+                } else if (this.boundingbox3.collide(entity.boundingbox)) {
+                    meatShield3 = true;
+                }
+
+
+            }
+
+        }
+
+
     }
 
     var damageTaken = false;
@@ -57,7 +76,9 @@ RedHP.prototype.update = function () {
             entity.attacking = true;
             entity.moving = false;
             if(entity.attack_animation.animationComplete()){
-                this.hp -= entity.attack_damage;
+                if (!meatShield3) {
+                    this.hp -= entity.attack_damage;
+                }
             }
             damageTaken = true;
             break;
