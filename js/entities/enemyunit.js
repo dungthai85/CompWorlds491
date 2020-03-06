@@ -187,8 +187,8 @@ EnemyUnit.prototype.update = function() {
         if (this.name === "TrollWarlord") this.hp_current -= FIREBALL_DAMAGE;
       } else if (entity.name === "Arrow" || entity.name === "Spell") {
         this.hp_current -= entity.attackdamage;
-        this.moving = true;
-        this.attacking = false;
+        // this.moving = true;
+        // this.attacking = false;
         entity.removeFromWorld = true;
         break;
       } else if (entity.attackAnimation.animationComplete()) {
@@ -227,7 +227,7 @@ EnemyUnit.prototype.update = function() {
     //     this.attacking = true;
     // }
   } else if (this.attacking) {
-    if (entity.removeFromWorld) {
+    if (entity.removeFromWorld || entity.hp < 1) {
       this.attacking = false;
       this.moving = true;
       this.attack_animation.elapsedTime = 0;

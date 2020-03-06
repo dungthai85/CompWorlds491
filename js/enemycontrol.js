@@ -1,5 +1,3 @@
-// TODO:
-// 1. Add Big boss
 var is_castle_under_attack = false;
 var is_boss_spawn = false;
 function EnemyControl(game, difficulty) {
@@ -32,10 +30,12 @@ EnemyControl.prototype.update = function() {
   // test to change the speed of the spawn
   if (Math.floor(curr_elapsed) % 6 === 0) {
     this.timecount++;
-    if (this.speedincrease > 1.5 && this.timecount === 40) {
+    if ((this.speedincrease > 1.5 && this.timecount === 40) || is_boss_spawn) {
       this.speedincrease -= 0.1;
       console.log(this.speedincrease);
       this.timecount = 0;
+    } else {
+      this.speedincrease = 2.5;
     }
   }
 
