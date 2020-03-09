@@ -21,7 +21,7 @@ function MeleeHero(game, unit, X, Y) {
     this.name = unit;
     this.deathSound = HERO.deathsound;
     // this.boundingbox = new BoundingBox(this.x + 63, this.y + 2, 5, this.attackAnimation.frameHeight * .1);
-    this.boundingbox = new BoundingBox(this.x + HERO.boundingbox_xoffset, this.y + HERO.boundingbox_yoffset,
+    this.boundingbox = new BoundingBox(this.x + HERO.boundingbox_xoffset + 10, this.y + HERO.boundingbox_yoffset,
         HERO.boundingbox_width, this.attackAnimation.frameHeight * .1);
 
     this.hp_bar = new EnemyHP(this.x + HERO.hp_xoffset, this.y + HERO.hp_yoffset, 35, 5);
@@ -117,7 +117,7 @@ MeleeHero.prototype.update = function () {
     }
     // this.boundingbox = new BoundingBox(this.x + 63, this.y + 2, 5, this.animation.frameHeight * .1);
     var HERO = MeleeUnitSelect(this.name);
-    this.boundingbox = new BoundingBox(this.x + HERO.boundingbox_xoffset, this.y + HERO.boundingbox_yoffset,
+    this.boundingbox = new BoundingBox(this.x + HERO.boundingbox_xoffset + 10, this.y + HERO.boundingbox_yoffset,
         HERO.boundingbox_width, this.attackAnimation.frameHeight * .1);
     this.hp_bar = new EnemyHP(this.x + HERO.hp_xoffset, this.y + HERO.hp_yoffset, this.hp_scale - ((this.hp - this.hp_current) * (this.hp_scale / this.hp)), 10);
     Entity.prototype.update.call(this);
@@ -145,13 +145,13 @@ MeleeHero.prototype.draw = function () {
 
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
-        // this.ctx.strokeStyle = "red";
-        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.ctx.strokeStyle = "red";
+        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 4, 0.45);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
-        // this.ctx.strokeStyle = "red";
-        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        this.ctx.strokeStyle = "red";
+        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 4, 0.45);
         if (this.attackAnimation.animationComplete() && !this.finished) {
             this.finished = true;
