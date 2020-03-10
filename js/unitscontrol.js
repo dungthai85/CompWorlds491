@@ -150,7 +150,8 @@ UnitsControl.prototype.update = function () {
 
         if (this.unitName === "1Knight") {
             //debugger;
-            this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), laneX, laneY));
+            this.game.addEntity(new MeleeHero(this.game, "Knight", laneX, laneY));
+            // this.game.addEntity(new Knight(this.game, AM.getAsset("./img/Knight/Knight.png"), laneX, laneY));
             this.unitName = null;
             this.lane = null;
             if (this.x - this.oneElixir * 4 < 0) {
@@ -165,7 +166,7 @@ UnitsControl.prototype.update = function () {
 
             }
         }  else if (this.unitName === "2Mage") {
-            this.game.addEntity(new Mage(this.game, AM.getAsset("./img/Mage/Mage.png"), laneX, laneY));
+            this.game.addEntity(new RangeHero(this.game, "Mage", laneX, laneY));
             this.unitName = null;
             this.lane = null;
             if (this.x - this.oneElixir * 3 < 0) {
@@ -176,7 +177,7 @@ UnitsControl.prototype.update = function () {
 
         }
         else if (this.unitName === "3Bandit") {
-            this.game.addEntity(new Bandit(this.game, AM.getAsset("./img/Bandit/Bandit.png"), laneX, laneY));
+            this.game.addEntity(new MeleeHero(this.game, "Bandit", laneX, laneY));
             this.unitName = null;
             this.lane = null;
             if (this.x - this.oneElixir * 3 < 0) {
@@ -190,7 +191,7 @@ UnitsControl.prototype.update = function () {
             }
 
         } else if (this.unitName === "4Samurai") {
-            this.game.addEntity(new Samurai(this.game, AM.getAsset("./img/Samurai/Samurai.png"), laneX, laneY));
+            this.game.addEntity(new MeleeHero(this.game, "Samurai", laneX, laneY));
             this.unitName = null;
             this.lane = null;
             if (this.x - this.oneElixir * 3 < 0) {
@@ -202,7 +203,7 @@ UnitsControl.prototype.update = function () {
                 AM.getMusic("./img/music/SamuraiDeploy.wav").play();
             }
         } else if (this.unitName === "6Archer") {
-            this.game.addEntity(new Archer(this.game, AM.getAsset("./img/Archer/Archer.png"), laneX, laneY));
+            this.game.addEntity(new RangeHero(this.game, "Archer", laneX, laneY));
             this.unitName = null;
             this.lane = null;
             if (this.x - this.oneElixir * 2 < 0) {
@@ -216,7 +217,7 @@ UnitsControl.prototype.update = function () {
 
             }
         } else if (this.unitName === "5Goblin") {
-            this.game.addEntity(new Goblin(this.game, AM.getAsset("./img/Goblin/Goblin.png"), laneX, laneY));
+            this.game.addEntity(new MeleeHero(this.game, "Goblin", laneX, laneY));
             this.unitName = null;
             this.lane = null;
             if (this.x - this.oneElixir * 2 < 0) {
