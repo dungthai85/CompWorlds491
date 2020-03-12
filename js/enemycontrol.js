@@ -44,12 +44,38 @@ EnemyControl.prototype.update = function() {
 	// console.log(lane_under_attack_indicator);
 	//Prevent update too many times
 	if (this.difficulty === 1) {
-		// if (is_boss_spawn && this.boss_spawn) {
-		// 	this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
-		// 	this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
-		// 	this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
-		// 	this.boss_spawn = false;
-		// }
+		if (is_boss_spawn && this.boss_spawn) {
+			this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
+			this.boss_spawn = false;
+		}
+		if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
+			// TODO:
+			// for (var i = 0; i < lane_under_attack_indicator.length; i++) {
+			// 	if (lane_under_attack_indicator[i]) {
+			// 		this.game.addEntity(new EnemyUnit(this.game, "DeathKnight", this.spawn_lane_position[i], this.difficulty));
+			// 		lane_under_attack_indicator[i] = false;
+			// 	}
+			// }
+			if (whichentity === 1) {
+				this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+			} else if (whichentity === 2) {
+				this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+			} else if (whichentity === 3) {
+				this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
+			}
+			this.elapsed = curr_elapsed;
+		}
+	}
+
+	if (this.difficulty === 2) {
+		if (is_boss_spawn && this.boss_spawn) {
+			this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
+			this.boss_spawn = false;
+		}
 		if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
 			for (var i = 0; i < lane_under_attack_indicator.length; i++) {
 				if (lane_under_attack_indicator[i]) {
@@ -68,35 +94,26 @@ EnemyControl.prototype.update = function() {
 		}
 	}
 
-	if (this.difficulty === 2) {
+	if (this.difficulty === 3) {
 		if (is_boss_spawn && this.boss_spawn) {
 			this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
 			this.boss_spawn = false;
 		}
 		if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
+			for (var i = 0; i < lane_under_attack_indicator.length; i++) {
+				if (lane_under_attack_indicator[i]) {
+					this.game.addEntity(new EnemyUnit(this.game, "DeathKnight", this.spawn_lane_position[i], this.difficulty));
+					lane_under_attack_indicator[i] = false;
+				}
+			}
 			if (whichentity === 1) {
 				this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
 			} else if (whichentity === 2) {
 				this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
 			} else if (whichentity === 3) {
 				this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
-			}
-			this.elapsed = curr_elapsed;
-		}
-	}
-
-	if (this.difficulty === 3) {
-		if (is_boss_spawn && this.boss_spawn) {
-			this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
-			this.boss_spawn = false;
-		}
-		if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
-			if (whichentity === 1) {
-				this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty - 0.25));
-			} else if (whichentity === 2) {
-				this.game.addEntity(new EnemyUnit(this.game, "FallenAngel", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty - 0.25));
-			} else if (whichentity === 3) {
-				this.game.addEntity(new EnemyUnit(this.game, "ReaperMan", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty - 0.25));
 			}
 			this.elapsed = curr_elapsed;
 		}
