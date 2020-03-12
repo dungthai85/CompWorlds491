@@ -52,12 +52,12 @@ EnemyControl.prototype.update = function() {
 		}
 		if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
 			// TODO:
-			// for (var i = 0; i < lane_under_attack_indicator.length; i++) {
-			// 	if (lane_under_attack_indicator[i]) {
-			// 		this.game.addEntity(new EnemyUnit(this.game, "DeathKnight", this.spawn_lane_position[i], this.difficulty));
-			// 		lane_under_attack_indicator[i] = false;
-			// 	}
-			// }
+			for (var i = 0; i < lane_under_attack_indicator.length; i++) {
+				if (lane_under_attack_indicator[i]) {
+					this.game.addEntity(new EnemyUnit(this.game, "DeathKnight", this.spawn_lane_position[i], this.difficulty));
+					lane_under_attack_indicator[i] = false;
+				}
+			}
 			if (whichentity === 1) {
 				this.game.addEntity(new EnemyUnit(this.game, "Orc", this.spawn_lane_position[Math.floor(Math.random() * 3)], this.difficulty));
 			} else if (whichentity === 2) {
