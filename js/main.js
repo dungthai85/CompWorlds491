@@ -221,16 +221,16 @@ BlueHP.prototype.update = function() {
 	this.hpbar = 296 - (1 - this.hp_current / 9000) * 296;
 	if (this.hpbar < 0) {
 		this.hpbar = 0;
-	} else if (this.hp_current < 9000 && this.hp_current > 5000) {
+	} else if (this.hp_current < 6000 && this.hp_current > 4000) {
 		this.full = false;
 		this.half = true;
 		// is_boss_spawn = true;
-	} else if (this.hp_current <= 5000) {
+	} else if (this.hp_current <= 4000) {
 		this.half = false;
 		this.quarter = true;
 		//is_boss_spawn = true;
 	}
-	if (this.hp_current < 2000){
+	if (this.hp_current < 3000){
 		is_boss_spawn = true;
 	}
 	Entity.prototype.update.call(this);
