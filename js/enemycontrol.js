@@ -29,7 +29,7 @@ EnemyControl.prototype.update = function() {
 	var curr_elapsed = (checkpoint_time - this.start_time) / 1000;
 
 	// test to change the speed of the spawn
-	if (Math.floor(curr_elapsed) % 6 === 0) {
+	if (Math.floor(curr_elapsed) % 7 === 0) {
 		this.timecount++;
 		if ((this.speedincrease > 1.5 && this.timecount === 40) || is_boss_spawn) {
 			this.speedincrease -= 0.1;

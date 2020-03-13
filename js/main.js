@@ -136,7 +136,7 @@ function BlueHP(game) {
 	this.quarter = false;
 	this.type = "enemy";
 	this.name = "bluehp";
-	this.hp = 2000;
+	this.hp = 9000;
 	this.hp_current = this.hp;
 	this.hpbar = 296;
 	this.boundingbox = new BoundingBox(1205, 403, 1, 65);
@@ -218,16 +218,19 @@ BlueHP.prototype.update = function() {
 		}
 	}
 	if (this.hp_current < this.hp) is_castle_under_attack = true;
-	this.hpbar = 296 - (1 - this.hp_current / 2000) * 296;
+	this.hpbar = 296 - (1 - this.hp_current / 9000) * 296;
 	if (this.hpbar < 0) {
 		this.hpbar = 0;
-	} else if (this.hp_current < 2000 && this.hp_current > 500) {
+	} else if (this.hp_current < 9000 && this.hp_current > 5000) {
 		this.full = false;
 		this.half = true;
 		// is_boss_spawn = true;
-	} else if (this.hp_current <= 500) {
+	} else if (this.hp_current <= 5000) {
 		this.half = false;
 		this.quarter = true;
+		//is_boss_spawn = true;
+	}
+	if (this.hp_current < 2000){
 		is_boss_spawn = true;
 	}
 	Entity.prototype.update.call(this);
