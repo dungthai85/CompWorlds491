@@ -12,7 +12,7 @@ function EnemyControl(game, difficulty) {
     [1275, 535]
   ];
   this.boss_spawn = true;
-  this.speedincrease = 3;
+  this.speedincrease = 2.7;
   // this.spawn_lane_position = [[1100, 370], [1120, 455], [1130, 535]];
   this.enemy_count = 0;
   this.timecount = 0;
@@ -31,11 +31,11 @@ EnemyControl.prototype.update = function() {
   if (Math.floor(curr_elapsed) % 6 === 0) {
     this.timecount++;
     if ((this.speedincrease > 1.5 && this.timecount === 40) || is_boss_spawn) {
-      this.speedincrease -= 0.1;
+      this.speedincrease -= 0.15;
       console.log(this.speedincrease);
       this.timecount = 0;
     } else {
-      this.speedincrease = 2.5;
+      // this.speedincrease = 2.5;
     }
   }
 
@@ -46,6 +46,31 @@ EnemyControl.prototype.update = function() {
       this.game.addEntity(
         new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty)
       );
+      var entity = new Fireball(
+        this.game,
+        AM.getAsset("./img/Fireball/Fireball.png"),
+        60,
+        385
+      )
+      entity.x = 1190;
+      entity.speed = -200;
+      entity.type = "enemy";
+      var entity1 = new Fireball(
+        this.game,
+        AM.getAsset("./img/Fireball/Fireball.png"),
+        60,
+        551
+      )
+      entity1.x = 1295;
+      entity1.speed= -200;
+      entity1.type = "enemy";
+      this.game.addEntity(
+      entity
+      );
+      this.game.addEntity(
+        entity1
+        );
+
       this.boss_spawn = false;
     }
     if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
@@ -55,7 +80,7 @@ EnemyControl.prototype.update = function() {
             this.game,
             "Orc",
             this.spawn_lane_position[Math.floor(Math.random() * 3)],
-            this.difficulty
+            this.difficulty + .5
           )
         );
       } else if (whichentity === 2) {
@@ -64,7 +89,7 @@ EnemyControl.prototype.update = function() {
             this.game,
             "FallenAngel",
             this.spawn_lane_position[Math.floor(Math.random() * 3)],
-            this.difficulty
+            this.difficulty + .5
           )
         );
       } else if (whichentity === 3) {
@@ -73,7 +98,7 @@ EnemyControl.prototype.update = function() {
             this.game,
             "ReaperMan",
             this.spawn_lane_position[Math.floor(Math.random() * 3)],
-            this.difficulty
+            this.difficulty + .5
           )
         );
       } else if (whichentity === 4) {
@@ -82,7 +107,7 @@ EnemyControl.prototype.update = function() {
             this.game,
             "DeathKnight",
             this.spawn_lane_position[Math.floor(Math.random() * 3)],
-            this.difficulty
+            this.difficulty + .5
           )
         );
       }
@@ -95,6 +120,30 @@ EnemyControl.prototype.update = function() {
       this.game.addEntity(
         new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty)
       );
+      var entity = new Fireball(
+        this.game,
+        AM.getAsset("./img/Fireball/Fireball.png"),
+        60,
+        385
+      )
+      entity.x = 1190;
+      entity.speed = -200;
+      entity.type = "enemy";
+      var entity1 = new Fireball(
+        this.game,
+        AM.getAsset("./img/Fireball/Fireball.png"),
+        60,
+        551
+      )
+      entity1.x = 1295;
+      entity1.speed= -200;
+      entity1.type = "enemy";
+      this.game.addEntity(
+      entity
+      );
+      this.game.addEntity(
+        entity1
+        );
       this.boss_spawn = false;
     }
     if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
@@ -135,6 +184,30 @@ EnemyControl.prototype.update = function() {
       this.game.addEntity(
         new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty)
       );
+      var entity = new Fireball(
+        this.game,
+        AM.getAsset("./img/Fireball/Fireball.png"),
+        60,
+        385
+      )
+      entity.x = 1190;
+      entity.speed = -200;
+      entity.type = "enemy";
+      var entity1 = new Fireball(
+        this.game,
+        AM.getAsset("./img/Fireball/Fireball.png"),
+        60,
+        551
+      )
+      entity1.x = 1295;
+      entity1.speed= -200;
+      entity1.type = "enemy";
+      this.game.addEntity(
+      entity
+      );
+      this.game.addEntity(
+        entity1
+        );
       this.boss_spawn = false;
     }
     if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {

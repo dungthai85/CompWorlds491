@@ -409,8 +409,8 @@ function Enemy_Generator(ENTITY_NAME) {
   } else if (ENTITY_NAME === "TrollWarlord") {
     enemy = {
       sprite_sheet: AM.getAsset("./img/enemy_team/boss/troll_warlord.png"),
-      HP: 850 * MULTIPLY,
-      DAMAGE: 15,
+      HP: 875 * MULTIPLY,
+      DAMAGE: 35,
       SPEED: -50,
       TYPE: "Boss"
     };

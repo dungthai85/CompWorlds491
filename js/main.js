@@ -75,7 +75,7 @@ RedHP.prototype.update = function() {
     if (entity === this || entity.boundingbox == null) {
       continue;
     }
-
+    
     if (
       entity.type !== this.type &&
       (entity.boundingbox.collide(this.boundingbox1) ||
@@ -84,7 +84,11 @@ RedHP.prototype.update = function() {
     ) {
       entity.attacking = true;
       entity.moving = false;
-      if (entity.attack_animation.animationComplete()) {
+      if(entity.type === "enemy" && entity.name === "Fireball"){
+        this.hp -= FIREBALL_DAMAGE;
+        entity.removeFromWorld = true;
+    }
+      if (entity.name !== "Fireball" && entity.attack_animation.animationComplete()) {
         if (!meatShield3) {
           this.hp -= entity.attack_damage;
         }
@@ -138,7 +142,7 @@ function BlueHP(game) {
   this.quarter = false;
   this.type = "enemy";
   this.name = "bluehp";
-  this.hp = 2000;
+  this.hp = 3000;
   this.hp_current = this.hp;
   this.hpbar = 296;
   this.boundingbox = new BoundingBox(1205, 403, 1, 65);
@@ -171,19 +175,46 @@ BlueHP.prototype.update = function() {
     ) {
       // console.log('Colliding ' + entity.type);
       if (entity.name === "Fireball") {
-        this.hp_current -= FIREBALL_DAMAGE;
+        // this.hp_current -= FIREBALL_DAMAGE;
+        if (!is_boss_spawn){
+          this.hp_current -= FIREBALL_DAMAGE;
+        } else if (is_boss_spawn) {
+            if(entity.boundingbox.collide(this.boundingbox2)){
+              this.hp_current -= FIREBALL_DAMAGE;
+            }
+          }
         entity.removeFromWorld = true;
       } else if (entity.name === "Arrow") {
-        this.hp_current -= entity.attackdamage;
+        // this.hp_current -= entity.attackdamage;
+        if (!is_boss_spawn){
+          this.hp_current -= entity.attackdamage;
+        } else if (is_boss_spawn) {
+            if(entity.boundingbox.collide(this.boundingbox2)){
+              this.hp_current -= entity.attackdamage;
+            }
+          }
         entity.removeFromWorld = true;
       } else if (entity.name === "Spell") {
-        this.hp_current -= entity.attackdamage;
+        // this.hp_current -= entity.attackdamage;
+        if (!is_boss_spawn){
+          this.hp_current -= entity.attackdamage;
+        } else if (is_boss_spawn) {
+            if(entity.boundingbox.collide(this.boundingbox2)){
+              this.hp_current -= entity.attackdamage;
+            }
+          }
         entity.removeFromWorld = true;
       } else if (
         entity.name !== "Fireball" &&
         entity.attackAnimation.animationComplete()
       ) {
+        if (!is_boss_spawn){
         this.hp_current -= entity.attackdamage;
+        } else if (is_boss_spawn) {
+          if(entity.boundingbox.collide(this.boundingbox2)){
+            this.hp_current -= entity.attackdamage;
+          }
+        }
         entity.attacking = true;
         entity.moving = false;
       }
@@ -191,13 +222,13 @@ BlueHP.prototype.update = function() {
     }
   }
   if (this.hp_current < this.hp) is_castle_under_attack = true;
-  this.hpbar = 296 - (1 - this.hp_current / 2000) * 296;
+  this.hpbar = 296 - (1 - this.hp_current / 3000) * 296;
   if (this.hpbar < 0) {
     this.hpbar = 0;
-  } else if (this.hp_current < 1000 && this.hp_current > 500) {
+  } else if (this.hp_current < 1500 && this.hp_current > 750) {
     this.full = false;
     this.half = true;
-  } else if (this.hp_current <= 500) {
+  } else if (this.hp_current <= 750) {
     this.half = false;
     this.quarter = true;
     is_boss_spawn = true;

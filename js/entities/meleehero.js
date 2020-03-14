@@ -55,7 +55,10 @@ MeleeHero.prototype.update = function () {
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
             // console.log('Colliding ' + entity.type);
-            if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
+            if(entity.type === "enemy" && entity.name === "Fireball"){
+                this.removeFromWorld = true;
+            }
+            if (entity.name !== "Fireball" && entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 this.hp_current -= entity.attack_damage;
             }
             this.moving = false;
@@ -145,13 +148,13 @@ MeleeHero.prototype.draw = function () {
 
     if (this.hp_current > 0 && this.moving) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 4, 0.45);
     } else if (this.hp_current > 0 && this.attacking) {
         //bounding box test
-        this.ctx.strokeStyle = "red";
-        this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+        // this.ctx.strokeStyle = "red";
+        // this.ctx.strokeRect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
         this.attackAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y - 4, 0.45);
         if (this.attackAnimation.animationComplete() && !this.finished) {
             this.finished = true;
@@ -189,7 +192,7 @@ MeleeHero.prototype.draw = function () {
 
 function MeleeUnitSelect(name) {
     var unit;
-    debugger;
+    // debugger;
     if (name === "Bandit") {
         var spritesheet = AM.getAsset("./img/Bandit/Bandit.png");
         var animation = new MyAnimation(spritesheet, 0, 0, 207, 190, 0.1, 8, true, false);

@@ -55,7 +55,10 @@ RangeHero.prototype.update = function () {
 
         //console.log('HERE ' + (this.boundingbox.collide(entity.boundingbox)) + " & "  + entity.type + " - " + this.type );
         if (this.boundingbox.collide(entity.boundingbox) && entity.type !== this.type) {
-            if (entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
+            if(entity.type === "enemy" && entity.name === "Fireball"){
+                this.removeFromWorld = true;
+            }
+            if (entity.name !== "Fireball" && entity.name !== "bluehp" && entity.attack_animation.animationComplete()) {
                 // debugger;
                 this.hp_current -= entity.attack_damage;
                 this.enemytouching = true;
