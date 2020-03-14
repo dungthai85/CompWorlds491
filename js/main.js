@@ -23,7 +23,7 @@ function RedHP(game) {
 	this.quarter = false;
 	this.type = "hero";
 	this.name = "redhp";
-	this.hp = 1500;
+	this.hp = 9000;
 	this.hpbar = 296;
 	this.boundingbox = new BoundingBox(230, 400, 3, 65);
 	this.boundingbox1 = new BoundingBox(230, 400, 3, 65);
@@ -97,14 +97,14 @@ RedHP.prototype.update = function() {
 	} else if (damageTaken && !PLAY_MUSIC) {
 		this.alert.pause();
 	}
-	this.hpbar = 296 - (1 - this.hp / 1500) * 296;
+	this.hpbar = 296 - (1 - this.hp / 9000) * 296;
 	if (this.hpbar < 0) {
 		this.hpbar = 0;
 	}
-	if (this.hp < 750 && this.hp > 375) {
+	if (this.hp < 6000 && this.hp > 4000) {
 		this.full = false;
 		this.half = true;
-	} else if (this.hp <= 375) {
+	} else if (this.hp <= 4000) {
 		this.half = false;
 		this.quarter = true;
 	}

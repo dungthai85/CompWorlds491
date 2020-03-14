@@ -46,8 +46,8 @@ EnemyControl.prototype.update = function() {
 	if (this.difficulty === 1) {
 		if (is_boss_spawn && this.boss_spawn) {
 			this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
-			//this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
-			//this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
 			this.boss_spawn = false;
 		}
 		if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
@@ -72,8 +72,8 @@ EnemyControl.prototype.update = function() {
 	if (this.difficulty === 2) {
 		if (is_boss_spawn && this.boss_spawn) {
 			this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
-			//this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
-			//this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
 			this.boss_spawn = false;
 		}
 		if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
@@ -97,8 +97,8 @@ EnemyControl.prototype.update = function() {
 	if (this.difficulty === 3) {
 		if (is_boss_spawn && this.boss_spawn) {
 			this.game.addEntity(new EnemyUnit(this.game, "TrollWarlord", [1120, 330], this.difficulty));
-			//this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
-			//this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1050, 310], this.difficulty));
+			this.game.addEntity(new EnemyUnit(this.game, "TrollGuard", [1100, 470], this.difficulty));
 			this.boss_spawn = false;
 		}
 		if (this.elapsed < curr_elapsed - this.speedincrease && !is_boss_spawn) {
